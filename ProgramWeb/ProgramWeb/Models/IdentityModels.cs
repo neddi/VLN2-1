@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Models
 {
@@ -20,7 +21,14 @@ namespace ProgramWeb.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+		public DbSet<Files> Files { get; set; }
+		public DbSet<ProjectFiles> ProjectFiles { get; set; }
+		public DbSet<ProjectTypes> ProjectTypes { get; set; }
+		public DbSet<Projects> Projects { get; set; }
+		public DbSet<UserProjects> UserProjects { get; set; }
+		public DbSet<Users> Users { get; set; }
+
+		public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
