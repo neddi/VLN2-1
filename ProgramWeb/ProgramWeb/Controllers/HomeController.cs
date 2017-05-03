@@ -26,5 +26,12 @@ namespace ProgramWeb.Controllers
 
 			return View();
 		}
+
+		public ActionResult TableTesting()
+		{
+			ViewBag.Message = "Your table testing page.";
+
+			return View();
+		}
 	}
 }
