@@ -7,5 +7,6 @@ namespace ProgramWeb.Services
 {
 	public class UserService
 	{
+
 	}
 }
