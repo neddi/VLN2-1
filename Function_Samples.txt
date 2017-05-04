@@ -1,0 +1,98 @@
+-- UserService
+		// Read one row from one table
+		public TableTestingViewModel ReadDummy(int dummyId)
+		{
+			var TableTesting = _db.Dummy.SingleOrDefault(x => x.id == dummyId);
+
+			var viewModel = new TableTestingViewModel
+			{
+				id = TableTesting.id,
+				Name = TableTesting.Name,
+				Text = TableTesting.Text
+			};
+
+			return viewModel;
+		}
+
+		// Read all rows from one table
+		public IEnumerable<TableTestingViewModel> ListAllDummy()
+		{
+			List<Dummy> allData = _db.Dummy.ToList();
+
+			var viewModel = AutoMapper.Mapper.Map<IEnumerable<Dummy>, IEnumerable<TableTestingViewModel>>(allData);
+
+
+
+			return viewModel;
+		}
+
+		// Read data from multiple tables
+		public List<TableTestingViewModel> WhyDummy()
+		{
+			List<TableTestingViewModel> viewModel = new List<TableTestingViewModel>();
+			var dummyList = (from Dum in _db.Dummy
+							 join foo in _db.Fool on Dum.id equals foo.DummyID
+							 select new { Dum.Name, Dum.Text, foo.Why }).ToList();
+
+			foreach(var item in dummyList)
+			{
+				TableTestingViewModel temp = new TableTestingViewModel();
+				temp.Name = item.Name;
+				temp.Text = item.Text;
+				temp.Why = item.Why;
+				viewModel.Add(temp);
+			}
+
+			return viewModel;
+		}
+		
+-- ViewModel
+	// ViewModel for Single table
+	public class TableTestingViewModel
+	{
+		/// <summary>
+		/// Reading from Dummy Table
+		/// </summary>
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string Text { get; set; }
+	}
+	// ViewModel for Multiple tables
+	public class TableTestingViewModel
+	{
+		/// <summary>
+		/// Reading from Dummy Table
+		/// </summary>
+		public string Name { get; set; }
+		public string Text { get; set; }
+		public string Why { get; set; }
+	}
+	
+-- Controller
+		// Action for Viewing one row of table
+		public ActionResult TableTesting()
+		{
+			UserService service = new UserService();
+			ViewBag.Message = "Your table testing page.";
+			TableTestingViewModel testing = service.ReadDummy(1);
+
+			return View(testing);
+		}
+
+		// Action for Viewing multiple rows of table
+		public ActionResult TableTesting()
+		{
+			UserService service = new UserService();
+			IEnumerable<TableTestingViewModel> testing = service.ListAllDummy();
+
+			return View(testing);
+		}
+
+		// Action for Viewing Multiple tables
+		public ActionResult TableTesting()
+		{
+			UserService service = new UserService();
+			List<TableTestingViewModel> testing = service.WhyDummy();
+
+			return View(testing);
+		}
