@@ -203,6 +203,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entities\Dummy.cs" />
     <Compile Include="Models\Entities\Projects.cs" />
     <Compile Include="Models\Entities\ProjectTypes.cs" />
     <Compile Include="Models\Entities\Files.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Models\Entities\Users.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModel\TableTestingViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -278,7 +280,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModel\" />
     <Folder Include="Views\Project\" />
   </ItemGroup>
   <ItemGroup>

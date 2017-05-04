@@ -27,6 +27,7 @@ namespace ProgramWeb.Models
 		public DbSet<Projects> Projects { get; set; }
 		public DbSet<UserProjects> UserProjects { get; set; }
 		public DbSet<Users> Users { get; set; }
+		public DbSet<Dummy> Dummy { get; set; }
 
 		public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
