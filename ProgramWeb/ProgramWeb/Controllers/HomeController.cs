@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using ProgramWeb.Models.ViewModel;
 using ProgramWeb.Services;
 
+
+
 namespace ProgramWeb.Controllers
 {
 	public class HomeController : Controller
@@ -35,6 +37,18 @@ namespace ProgramWeb.Controllers
 
 			return View();
 		}
+        public ActionResult Editor()
+        {
+            List<TestData> projects = new List<TestData>();
+            {
+                new TestData { ID = '1', Name = "First Project", Files = { "First File", "Second File" } };
+                new TestData { ID = '2', Name = "Second Project", Files = { "First File", "Second File" } };
+                new TestData { ID = '3', Name = "Third Project", Files = { "First File", "Second File" } };
+                new TestData { ID = '4', Name = "Fourth Project", Files = { "First File", "Second File" } };
+                new TestData { ID = '5', Name = "Fifth Project", Files = { "First File", "Second File" } };
+            };
+            return View(projects);
+        }
 	}
 }
 
