@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ProgramWeb.Models.ViewModel;
-using ProgramWeb.Services;
 
 namespace ProgramWeb.Controllers
 {
@@ -29,15 +27,22 @@ namespace ProgramWeb.Controllers
 			return View();
 		}
 
-		//Temporary Action for testing of tables
 		public ActionResult TableTesting()
 		{
+			ViewBag.Message = "Your table testing page.";
 
 			return View();
 		}
-	}
-}
 
-//string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-//IEnumerable<Movie> model = MovieAppRepository.Instance.GetAllMovies(username);
-//return View(model);
+        public ActionResult Editor()
+        {
+            ViewBag.Message = "Editor";
+
+            return View();
+        }
+        public ActionResult EditorOnPage()
+        {
+            return View();
+        }
+    }
+}
