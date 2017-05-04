@@ -15,13 +15,9 @@
 		}
 
 		// Read all rows from one table
-		public IEnumerable<TableTestingViewModel> ListAllDummy()
+		public List<TableTestingViewModel> ListAllDummy()
 		{
 			List<Dummy> allData = _db.Dummy.ToList();
-
-			var viewModel = AutoMapper.Mapper.Map<IEnumerable<Dummy>, IEnumerable<TableTestingViewModel>>(allData);
-
-
 
 			return viewModel;
 		}
@@ -83,7 +79,7 @@
 		public ActionResult TableTesting()
 		{
 			UserService service = new UserService();
-			IEnumerable<TableTestingViewModel> testing = service.ListAllDummy();
+			List<TableTestingViewModel> testing = service.ListAllDummy();
 
 			return View(testing);
 		}
