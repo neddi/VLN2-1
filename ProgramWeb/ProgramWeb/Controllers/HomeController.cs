@@ -32,11 +32,8 @@ namespace ProgramWeb.Controllers
 		//Temporary Action for testing of tables
 		public ActionResult TableTesting()
 		{
-			UserService service = new UserService();
-			ViewBag.Message = "Your table testing page.";
-			TableTestingViewModel testing = service.ReadDummy(1);
 
-			return View(testing);
+			return View();
 		}
 	}
 }

@@ -16,19 +16,7 @@ namespace ProgramWeb.Services
 			_db = new ApplicationDbContext();
 		}
 
-		public TableTestingViewModel ReadDummy(int dummyId)
-		{
-			var TableTesting = _db.Dummy.SingleOrDefault(x => x.id == dummyId);
 
-			var viewModel = new TableTestingViewModel
-			{
-				id = TableTesting.id,
-				Name = TableTesting.Name,
-				Text = TableTesting.Text
-			};
-
-			return viewModel;
-		}
 	}
 
 }
