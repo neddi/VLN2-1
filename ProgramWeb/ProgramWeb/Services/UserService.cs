@@ -20,24 +20,13 @@ namespace ProgramWeb.Services
 		}
 
 		//public List<Users> ListAllUsers()
-		public	List<TableTestingViewModel> ListAllUsers()
+		public	List<IdentityUser> ListAllUsers()
 		{
-			//var allUsers = new List<Users>();
-			List<TableTestingViewModel> allUsers = new List<TableTestingViewModel>();
 
-			var temp = (from us in _db.
-							 select new { us.Id, us.Email, us.UserName }).ToList();
+			var context = new IdentityDbContext();
+			var users = context.Users.ToList();
 
-			foreach(var item in temp)
-			{
-				TableTestingViewModel tmp = new TableTestingViewModel();
-				tmp.id = item.Id;
-				tmp.Email = item.Email;
-				tmp.UserName = item.Email;
-				allUsers.Add(tmp);
-			}
-
-			return allUsers;
+			return users;
 		}
 	}
 

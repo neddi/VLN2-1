@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace ProgramWeb.Controllers
+{
+	public class HomeController : Controller
+	{
+		public ActionResult Index()
+		{
+			return View();
+		}
+
+		public ActionResult About()
+		{
+			ViewBag.Message = "Your application description page.";
+
+			return View();
+		}
+
+		public ActionResult Contact()
+		{
+			ViewBag.Message = "Your contact page.";
+
+			return View();
+		}
+
+		public ActionResult TableTesting()
+		{
+<<<<<<< HEAD
+			UserService service = new UserService();
+=======
+			ViewBag.Message = "Your table testing page.";
+>>>>>>> ec97120f950b5b40c58a5a7d74da57ccb7792e7a
+
+			List<TableTestingViewModel> data = service.ListAllUsers();
+
+			return View(data);
+		}
+
+        public ActionResult Editor()
+        {
+            ViewBag.Message = "Editor";
+
+            return View();
+        }
+        public ActionResult EditorOnPage()
+        {
+            return View();
+        }
+    }
+}

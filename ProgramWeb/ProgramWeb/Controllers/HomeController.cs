@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProgramWeb.Models.ViewModel;
 using ProgramWeb.Services;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ProgramWeb.Controllers
 {
@@ -33,12 +34,24 @@ namespace ProgramWeb.Controllers
 		public ActionResult TableTesting()
 		{
 			UserService service = new UserService();
+			ViewBag.Message = "Your table testing page.";
 
-			List<TableTestingViewModel> data = service.ListAllUsers();
+			List<IdentityUser> data = service.ListAllUsers();
 
 			return View(data);
 		}
-	}
+
+        public ActionResult Editor()
+        {
+            ViewBag.Message = "Editor";
+
+            return View();
+        }
+        public ActionResult EditorOnPage()
+        {
+            return View();
+        }
+    }
 }
 
 //string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
