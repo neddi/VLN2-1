@@ -3,8 +3,31 @@
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Info</th>
+            <th>User</th>
+        </tr>
+    </thead>
+    <tr>
+    <td>Username</td>
+    <td><p>@ViewBag.Name</p></td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td><p>@ViewBag.FullName</p></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td><p>@ViewBag.Email</p></td>
+    </tr>
+    <tr>
+    
+        <td>About me:</td>
+    <td>
+        <p>@ViewBag.Info</p>
+    </td>
+    </tr>
 
-<p>@ViewBag.Name</p>
-<p>@ViewBag.FullName</p>
-<p>@ViewBag.Email</p>
-
+</table>
