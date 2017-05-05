@@ -40,15 +40,21 @@ namespace ProgramWeb.Controllers
         public ActionResult Editor()
         {
             List<TestData> projects = new List<TestData>();
+            
+            for (int i = 0; i < 5; i++)
             {
-                new TestData { ID = '1', Name = "First Project", Files = { "First File", "Second File" } };
-                new TestData { ID = '2', Name = "Second Project", Files = { "First File", "Second File" } };
-                new TestData { ID = '3', Name = "Third Project", Files = { "First File", "Second File" } };
-                new TestData { ID = '4', Name = "Fourth Project", Files = { "First File", "Second File" } };
-                new TestData { ID = '5', Name = "Fifth Project", Files = { "First File", "Second File" } };
-            };
+                TestData newUser = new TestData();
+                newUser.Files = new List<string>();
+                newUser.ID = i;
+                newUser.Name = "Project " + i;
+                newUser.Files.Add("File 1");
+                newUser.Files.Add("File 2");
+
+                projects.Add(newUser);
+            }
             return View(projects);
         }
+        
 	}
 }
 

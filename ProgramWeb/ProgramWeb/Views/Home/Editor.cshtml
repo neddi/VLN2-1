@@ -1,10 +1,25 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+﻿@model IEnumerable<ProgramWeb.Models.ViewModel.TestData>
 
 @{
     ViewBag.Title = "Editorediting";
 }
 <section id="entiresite">
-<nav>Navigation</nav>
+<nav>
+    @foreach (var project in Model)
+    {
+        <h3>@project.Name</h3>
+        <div>
+            <ul>
+                @foreach (var files in project.Files)
+                {
+                    <li>
+                        @files
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</nav>
     <section id="editor">
 
     </section>
