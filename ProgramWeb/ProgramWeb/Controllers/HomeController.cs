@@ -48,7 +48,7 @@ namespace ProgramWeb.Controllers
 			UserService service = new UserService();
 			ViewBag.Message = "Your table testing page.";
 
-			List<IdentityUser> data = service.ListAllUsers();
+			List<UserInfoViewModel> data = service.ListAllUsers();
 
 			return View(data);
 		}

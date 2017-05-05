@@ -20,13 +20,20 @@ namespace ProgramWeb.Services
 			_db = new ApplicationDbContext();
 		}
 
-		//public List<Users> ListAllUsers()
-		public	List<IdentityUser> ListAllUsers()
+		public	List<UserInfoViewModel> ListAllUsers()
 		{
 			var context = new IdentityDbContext();
 			var users = context.Users.ToList();
+			List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
 
-			return users;
+			foreach (var item in users)
+			{
+				UserInfoViewModel temp = new UserInfoViewModel();
+				temp.FullName = item.
+				viewModel.Add(temp);
+			}
+
+			return viewModel;
 		}
 	}
 
