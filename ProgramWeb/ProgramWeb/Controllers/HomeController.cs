@@ -45,5 +45,16 @@ namespace ProgramWeb.Controllers
 
 			return View();
 		}
-	}
+
+        public ActionResult Editor()
+        {
+            ViewBag.Message = "Editor";
+
+            return View();
+        }
+        public ActionResult EditorOnPage()
+        {
+            return View();
+        }
+    }
 }

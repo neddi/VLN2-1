@@ -1,7 +1,12 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿@model ProgramWeb.Models.ViewModel.TableTestingViewModel
+<!-- Temporary page for testing of tables -->
+@{
+    ViewBag.Title = "Table testing (temp)";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+<p>@Model.id</p>
+<p>@Model.Name</p>
+<p>@Model.Text</p>
