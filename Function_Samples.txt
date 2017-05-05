@@ -17,7 +17,17 @@
 		// Read all rows from one table
 		public List<TableTestingViewModel> ListAllDummy()
 		{
+			List<TableTestingViewModle> viewModel = new List<TableTestingViewModel>();
 			List<Dummy> allData = _db.Dummy.ToList();
+			
+			foreach(var item in alldata)
+			{
+				TableTestingViewModel temp = new TableTestingViewModel();
+				temp.id = item.id,
+				temp.Name = item.Name,
+				temp.Text = item.Text
+				viewModel.Add(temp);
+			}
 
 			return viewModel;
 		}
