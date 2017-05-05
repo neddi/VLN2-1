@@ -28,6 +28,7 @@ namespace ProgramWeb.Controllers
             ViewBag.Name = currentUser.UserName;
             ViewBag.FullName = currentUser.FullName;
             ViewBag.Email = currentUser.Email;
+            ViewBag.Info = currentUser.Info;
 
             return View();
 		}

@@ -134,7 +134,13 @@ namespace ProgramWeb.Controllers
         // GET: /Manage/AddFullName
         public ActionResult AddName()
         {
-            return View();
+            var currentUser = UserManager.FindById(User.Identity.GetUserId());
+            //ViewBag.FullName = currentUser.FullName;
+            //ViewBag.Info = currentUser.FullName;
+            var Model = new AddNameViewModel();
+            Model.FullName = currentUser.FullName;
+            Model.Info = currentUser.Info;
+            return View(Model);
         }
 
         //
