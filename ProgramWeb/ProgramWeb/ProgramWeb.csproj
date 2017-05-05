@@ -288,6 +288,7 @@
     <Content Include="Views\Home\TableTesting.cshtml" />
     <Content Include="Views\Home\Editor.cshtml" />
     <Content Include="Views\Home\EditorOnPage.cshtml" />
+    <Content Include="Views\Manage\AddName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

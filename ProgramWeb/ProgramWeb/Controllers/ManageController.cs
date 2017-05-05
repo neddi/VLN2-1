@@ -131,6 +131,31 @@ namespace ProgramWeb.Controllers
         }
 
         //
+        // GET: /Manage/AddFullName
+        public ActionResult AddName()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/AddFullName
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddName(AddNameViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUser = UserManager.FindById(User.Identity.GetUserId());
+                currentUser.FullName = model.FullName;
+                currentUser.Info = model.Info;
+                UserManager.Update(currentUser);
+                return RedirectToAction("Index", new { Message = "Name Updated succesfully" });
+            }
+            
+            return View(model);
+        }
+
+        //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]

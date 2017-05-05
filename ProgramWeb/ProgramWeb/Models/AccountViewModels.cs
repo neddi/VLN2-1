@@ -76,12 +76,6 @@ namespace ProgramWeb.Models
         public string UserName { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "Full Name")]
-        public string FullName { get; set; }
-
-
-        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
