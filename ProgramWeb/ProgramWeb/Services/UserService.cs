@@ -1,12 +1,4 @@
 ﻿using ProgramWeb.Models;
-using ProgramWeb.Models.Entities;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using ProgramWeb.Models.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ProgramWeb.Services
 {
@@ -14,27 +6,27 @@ namespace ProgramWeb.Services
 	{
 
 		private ApplicationDbContext _db;
-
 		public UserService()
 		{
 			_db = new ApplicationDbContext();
 		}
 
-		public	List<UserInfoViewModel> ListAllUsers()
-		{
-			var context = new IdentityDbContext();
-			var users = context.Users.ToList();
-			List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
+		//public	List<UserInfoViewModel> ListAllUsers()
+		//{
+		//	var context = new IdentityDbContext();
+		//	var users = context.Users.ToList();
+		//	List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
 
-			foreach (var item in users)
-			{
-				UserInfoViewModel temp = new UserInfoViewModel();
-				temp.FullName = item.
-				viewModel.Add(temp);
-			}
+		//	foreach (var item in users)
+		//	{
+		//		var currentUser = ManageController.UserManager.FindById(item.Id);
+		//		UserInfoViewModel temp = new UserInfoViewModel();
+		//		temp.FullName = currentUser.FullName;
+		//		viewModel.Add(temp);
+		//	}
 
-			return viewModel;
-		}
+		//	return viewModel;
+		//}
 	}
 
 }

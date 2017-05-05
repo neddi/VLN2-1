@@ -1,14 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ProgramWeb.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using ProgramWeb.Models.ViewModel;
-using ProgramWeb.Services;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ProgramWeb.Controllers
 {
@@ -42,16 +35,8 @@ namespace ProgramWeb.Controllers
 			return View();
 		}
 
-		//Temporary Action for testing of tables
-		public ActionResult TableTesting()
-		{
-			UserService service = new UserService();
-			ViewBag.Message = "Your table testing page.";
 
-			List<UserInfoViewModel> data = service.ListAllUsers();
-
-			return View(data);
-		}
+	
 
         public ActionResult Editor()
         {
@@ -59,6 +44,7 @@ namespace ProgramWeb.Controllers
 
             return View();
         }
+
         public ActionResult EditorOnPage()
         {
             return View();

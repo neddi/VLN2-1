@@ -68,6 +68,15 @@ namespace ProgramWeb.Models
         [Display(Name = "Info")]
         public string Info { get; set; }
     }
+
+	public class GetNameViewModel
+	{
+		public string FullName { get; set; }
+		public string UserName { get; set; }
+		public string Email { get; set; }
+		public string Info { get; set; }
+	}
+
     public class AddPhoneNumberViewModel
     {
         [Required]

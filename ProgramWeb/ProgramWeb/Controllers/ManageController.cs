@@ -4,9 +4,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProgramWeb.Models;
+using System.Collections.Generic;
+using ProgramWeb.Models.ViewModel;
 
 namespace ProgramWeb.Controllers
 {
@@ -155,9 +158,30 @@ namespace ProgramWeb.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Manage/EnableTwoFactorAuthentication
-        [HttpPost]
+		//Temporary Action for testing of tables
+		public ActionResult TableTesting()
+		{
+			var context = new IdentityDbContext();
+			var users = context.Users.ToList();
+			List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
+
+			foreach (var item in users)
+			{
+				var currentUser = UserManager.FindById(item.Id);
+				UserInfoViewModel temp = new UserInfoViewModel();
+				temp.FullName = currentUser.FullName;
+				temp.Email = currentUser.Email;
+				temp.UserName = currentUser.UserName;
+				temp.Info = currentUser.Info;
+				viewModel.Add(temp);
+			}
+
+			return View(viewModel);
+		}
+
+		//
+		// POST: /Manage/EnableTwoFactorAuthentication
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
