@@ -6,6 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProgramWeb.Models.ViewModel;
+using ProgramWeb.Services;
+
+
 
 namespace ProgramWeb.Controllers
 {
@@ -39,22 +43,33 @@ namespace ProgramWeb.Controllers
 			return View();
 		}
 
+		//Temporary Action for testing of tables
 		public ActionResult TableTesting()
 		{
-			ViewBag.Message = "Your table testing page.";
 
 			return View();
 		}
-
         public ActionResult Editor()
         {
-            ViewBag.Message = "Editor";
+            List<TestData> projects = new List<TestData>();
+            
+            for (int i = 0; i < 5; i++)
+            {
+                TestData newUser = new TestData();
+                newUser.Files = new List<string>();
+                newUser.ID = i;
+                newUser.Name = "Project " + i;
+                newUser.Files.Add("File 1");
+                newUser.Files.Add("File 2");
 
-            return View();
+                projects.Add(newUser);
+            }
+            return View(projects);
         }
-        public ActionResult EditorOnPage()
-        {
-            return View();
-        }
-    }
+        
+	}
 }
+
+//string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+//IEnumerable<Movie> model = MovieAppRepository.Instance.GetAllMovies(username);
+//return View(model);
