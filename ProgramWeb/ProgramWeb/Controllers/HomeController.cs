@@ -32,8 +32,11 @@ namespace ProgramWeb.Controllers
 		//Temporary Action for testing of tables
 		public ActionResult TableTesting()
 		{
+			UserService service = new UserService();
 
-			return View();
+			List<TableTestingViewModel> data = service.ListAllUsers();
+
+			return View(data);
 		}
 	}
 }

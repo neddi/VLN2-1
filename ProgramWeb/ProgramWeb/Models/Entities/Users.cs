@@ -11,8 +11,7 @@ namespace ProgramWeb.Models.Entities
 	{
         [Key]
 		public string Id { get; set; }
-		public string FullName { get; set; }
-		public DateTime CreateDate { get; set; }
-		public string Info { get; set; }
+		public string Email { get; set; }
+		public string UserName { get; set; }
 	}
 }
