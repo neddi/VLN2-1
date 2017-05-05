@@ -1,4 +1,4 @@
-﻿@model List<ProgramWeb.Models.ViewModel.UserInfoViewModel>
+﻿@model ProgramWeb.Models.ViewModel.UserInfoViewModel
 <!-- Temporary page for testing of tables -->
 @{
     ViewBag.Title = "Table testing (temp)";
@@ -7,25 +7,30 @@
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+<p><b>@Model.FullName</b></p>
+<p>@Model.UserName</p>
+<p>@Model.Email</p>
+<p>@Model.Info</p>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Full Name</th>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Info</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var item in Model)
-        {
+@*
+    <table class="table table-hover">
+        <thead>
             <tr>
-                <td>@item.FullName</td>
-                <td>@item.UserName</td>
-                <td>@item.Email</td>
-                <td>@item.Info</td>
+                <th>Full Name</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Info</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Info</td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
