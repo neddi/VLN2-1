@@ -3,33 +3,64 @@
 @{
     ViewBag.Title = "Editorediting";
 }
-<section id="entiresite">
-<nav>
-    @foreach (var project in Model)
-    {
-        <h3>@project.Name</h3>
-        <div>
-            <ul>
-                @foreach (var files in project.Files)
-                {
-                    <li>
-                        @files
-                    </li>
-                }
-            </ul>
-        </div>
-    }
-</nav>
-    <section id="editor">
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    </section>
+<section id="entiresite">
+    <nav>
+        @foreach (var project in Model)
+        {
+            <h3>@project.Name</h3>
+            <div>
+                <ul>
+                    @foreach (var files in project.Files)
+                {
+                        <li>
+                            <h3 onclick="test('@files.Content',this)">@files.Name</h3>
+                            <script>
+                                var test =function(value,object){
+							    editor.getSession().setValue(value)
+							};
+                            </script>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </nav>
+    <section id="editor"></section>
     <aside>aside</aside>
 </section>
-
-
+<button href="#" id="save-button">Console write!</button>
+<button href="#" id="populate">Populate Editor</button>
+<button href="#" id="undo-button">Undo</button>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/chrome");
+    editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/html");
+</script>
+
+<script type="text/javascript">
+    var myCode;
+    $(function () {
+        $("#save-button").on('click', function () {
+            console.log(editor.getValue());
+            myCode = editor.getSession().getValue();
+        })
+    })
+
+    $(function () {
+        $("#populate").on('click', function () {
+               editor.getSession().setValue(myCode)
+        })
+        $(function () {
+            $("#undo-button").on('click', function () {
+                editor.getSession().setUndoManager(new ace.UndoManager());
+                editor.getSession().UndoManager();
+                var asdf = editor.document;
+                asdf.UndoManager().undo();
+            })
+        })
+    })
+ 
 </script>

@@ -44,11 +44,19 @@ namespace ProgramWeb.Controllers
             for (int i = 0; i < 5; i++)
             {
                 TestData newUser = new TestData();
-                newUser.Files = new List<string>();
+                testFiles newFiles = new testFiles();
+                
                 newUser.ID = i;
                 newUser.Name = "Project " + i;
-                newUser.Files.Add("File 1");
-                newUser.Files.Add("File 2");
+
+                newUser.Files = new List<testFiles>();
+                newFiles.Name = "File 1";
+                newFiles.Content = "Funi er frábær!";
+                newUser.Files.Add(newFiles);
+                
+                //newUser.Files = new List<string>();
+                // newUser.Files.Add("File 1");
+                // newUser.Files.Add("File 2");
 
                 projects.Add(newUser);
             }

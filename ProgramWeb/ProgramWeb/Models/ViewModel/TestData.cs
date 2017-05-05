@@ -10,12 +10,14 @@ namespace ProgramWeb.Models.ViewModel
     { 
         public int ID { get; set; }
         public string Name { get; set; }
-        public List<string> Files { get; set; }
+        public List<testFiles> Files { get; set; }
 
        
     }
     public class testFiles
     {
-        public string Files;
+        public string Name { get; set; }
+        public string Content { get; set; }
+
     }
 }
