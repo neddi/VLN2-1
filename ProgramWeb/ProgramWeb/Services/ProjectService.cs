@@ -31,7 +31,10 @@ namespace ProgramWeb.Services
 			viewModel.CreateDate = project.CreateDate;
 			viewModel.Description = project.Description;
 
-			var allProjectUsers = _db.ProjectUsers.Where(x => x.ProjectId == projectid).ToList();
+			//var allProjectUsers = _db.ProjectUsers.Where(x => x.ProjectId == projectid).ToList();
+			var allProjectUsers = (from u in _db.ProjectUsers
+								   where u.ProjectId == projectid
+									select new { u.FullName, u.IsAdmin }).ToList();
 			List<string> ProjectUsers = new List<string>();
 			List<string> ProjectOwners = new List<string>();
 			foreach (var item in allProjectUsers)
