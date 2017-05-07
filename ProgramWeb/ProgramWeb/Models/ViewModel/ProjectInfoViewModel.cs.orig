@@ -8,6 +8,14 @@ namespace ProgramWeb.Models.ViewModel
 {
 	public class ProjectInfoViewModel
 	{
+<<<<<<< HEAD
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public List<string> ProjectOwners { get; set; }
+		public DateTime CreateDate { get; set; }
+		public string Description { get; set; }
+		public List<string> Users { get; set; }
+=======
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Project Name")]
@@ -25,5 +33,6 @@ namespace ProgramWeb.Models.ViewModel
         public string Description { get; set; }
 
         public List<string> Users { get; set; }
+>>>>>>> a8357e289727eb58c3679221c1cd64959cb3749c
 	}
 }

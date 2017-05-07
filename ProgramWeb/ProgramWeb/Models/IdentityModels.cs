@@ -13,7 +13,7 @@ namespace ProgramWeb.Models
     {
         public string FullName { get; set; }
         public string Info { get; set; }
-
+        public System.DateTime CreateDate { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {   
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

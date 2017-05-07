@@ -138,8 +138,6 @@ namespace ProgramWeb.Controllers
         public ActionResult AddName()
         {
             var currentUser = UserManager.FindById(User.Identity.GetUserId());
-            //ViewBag.FullName = currentUser.FullName;
-            //ViewBag.Info = currentUser.FullName;
             var Model = new AddNameViewModel();
             Model.FullName = currentUser.FullName;
             Model.Info = currentUser.Info;
