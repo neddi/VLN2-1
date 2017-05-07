@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Data.Entity;
 
 namespace ProgramWeb.Services
 {
@@ -22,16 +23,21 @@ namespace ProgramWeb.Services
 			_db = new ApplicationDbContext();
 		}
 
+		/// <summary>
+		/// Get information about the active project
+		/// </summary>
+		/// <param name="projectid"></param>
+		/// <returns></returns>
 		public ProjectInfoViewModel GetProjectInfo(int projectid)
 		{
 			ProjectInfoViewModel viewModel = new ProjectInfoViewModel();
 
 			var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
+			viewModel.Id = project.Id;
 			viewModel.Name = project.Name;
 			viewModel.CreateDate = project.CreateDate;
 			viewModel.Description = project.Description;
 
-			//var allProjectUsers = _db.ProjectUsers.Where(x => x.ProjectId == projectid).ToList();
 			var allProjectUsers = (from u in _db.ProjectUsers
 								   where u.ProjectId == projectid
 									select new { u.FullName, u.IsAdmin }).ToList();
@@ -51,6 +57,24 @@ namespace ProgramWeb.Services
 
 
 			return viewModel;
+		}
+
+		/// <summary>
+		/// Updating project information
+		/// </summary>
+		/// <param name="info"></param>
+		public void UpdateProjectInfo(ProjectInfoViewModel info)
+		{
+			var dbProject = _db.Projects.Find(info.Id);
+			Projects project = new Projects();
+			project.Id = info.Id;
+			project.Name = info.Name;
+			project.Description = info.Description;
+			project.CreateDate = info.CreateDate;
+			project.ProjectTypeId = dbProject.ProjectTypeId;
+			_db.Entry(dbProject).CurrentValues.SetValues(project);
+			_db.Entry(dbProject).State = EntityState.Modified;
+			_db.SaveChanges();
 		}
 	}
 }

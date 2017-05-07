@@ -12,11 +12,38 @@ namespace ProgramWeb.Controllers
 	{
 		private ProjectService service = new ProjectService();
 		// Action for Viewing Multiple tables
-		public ActionResult ProjectInfo()
+		public ActionResult ProjectInfo(int id)
 		{
-			ProjectInfoViewModel viewModel = service.GetProjectInfo(2);
+			ProjectInfoViewModel viewModel = service.GetProjectInfo(id);
 
 			return View(viewModel);
+		}
+
+		[HttpGet]
+		public ActionResult UpdateProjectInfo(int id)
+		{
+			ProjectInfoViewModel data = service.GetProjectInfo(id);
+			var viewModel = new UpdateProjectInfoViewModel();
+			viewModel.Id = data.Id;
+			viewModel.Name = data.Name;
+			viewModel.Description = data.Description;
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult UpdateProjectInfo(UpdateProjectInfoViewModel model)
+		{
+			if(ModelState.IsValid)
+			{
+				ProjectInfoViewModel data = service.GetProjectInfo(model.Id);
+				data.Name = model.Name;
+				data.Description = model.Description;
+				service.UpdateProjectInfo(data);
+				return RedirectToAction("ProjectInfo", new { Message = "Project Updated succesfully" });
+			}
+
+			return View(model);
 		}
 	}
 }
