@@ -167,32 +167,33 @@ namespace ProgramWeb.Controllers
 		//Temporary Action for testing of tables
 		public ActionResult TableTesting()
 		{
+			ViewBag.Message = "Your contact page.";
 			// For single user
-			var currentUser = UserManager.FindById(User.Identity.GetUserId());
-			UserInfoViewModel viewModel = new UserInfoViewModel
-			{
-				FullName = currentUser.FullName,
-				UserName = currentUser.UserName,
-				Email = currentUser.Email,
-				Info = currentUser.Info
-			};
+			//var currentUser = UserManager.FindById(User.Identity.GetUserId());
+			//UserInfoViewModel viewModel = new UserInfoViewModel
+			//{
+			//	FullName = currentUser.FullName,
+			//	UserName = currentUser.UserName,
+			//	Email = currentUser.Email,
+			//	Info = currentUser.Info
+			//};
 
 			// For user list
-			//
-			//var context = new IdentityDbContext();
-			//var users = context.Users.ToList();
-			//List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
 
-			//foreach (var item in users)
-			//{
-			//	var currentUser = UserManager.FindById(item.Id);
-			//	UserInfoViewModel temp = new UserInfoViewModel();
-			//	temp.FullName = currentUser.FullName;
-			//	temp.Email = currentUser.Email;
-			//	temp.UserName = currentUser.UserName;
-			//	temp.Info = currentUser.Info;
-			//	viewModel.Add(temp);
-			//}
+			var context = new IdentityDbContext();
+			var users = context.Users.ToList();
+			List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
+
+			foreach (var item in users)
+			{
+				var currentUser = UserManager.FindById(item.Id);
+				UserInfoViewModel temp = new UserInfoViewModel();
+				temp.FullName = currentUser.FullName;
+				temp.Email = currentUser.Email;
+				temp.UserName = currentUser.UserName;
+				temp.Info = currentUser.Info;
+				viewModel.Add(temp);
+			}
 
 			return View(viewModel);
 		}

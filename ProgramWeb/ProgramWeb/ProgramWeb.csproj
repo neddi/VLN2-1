@@ -207,10 +207,11 @@
     <Compile Include="Models\Entities\ProjectTypes.cs" />
     <Compile Include="Models\Entities\Files.cs" />
     <Compile Include="Models\Entities\ProjectFiles.cs" />
+    <Compile Include="Models\Entities\ProjectUsers.cs" />
     <Compile Include="Models\Entities\UserProjects.cs" />
-    <Compile Include="Models\Entities\Users.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModel\ProjectInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\TableTestingViewModel.cs" />
     <Compile Include="Models\ViewModel\UserInfoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -290,6 +291,7 @@
     <Content Include="Views\Home\Editor.cshtml" />
     <Content Include="Views\Home\EditorOnPage.cshtml" />
     <Content Include="Views\Manage\AddName.cshtml" />
+    <Content Include="Views\Project\ProjectInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -299,7 +301,6 @@
     <Folder Include="CustomData\Ace\src-noconflict\" />
     <Folder Include="CustomData\Ace\src\" />
     <Folder Include="CustomData\Ace\textarea\" />
-    <Folder Include="Views\Project\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

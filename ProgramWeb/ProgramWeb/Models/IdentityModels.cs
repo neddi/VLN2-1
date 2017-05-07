@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ProgramWeb.Models.Entities;
-using System;
+using System.Collections.Generic;
 
 namespace ProgramWeb.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
+	// You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+	public class ApplicationUser : IdentityUser
     {
         public string FullName { get; set; }
         public string Info { get; set; }
@@ -30,6 +30,7 @@ namespace ProgramWeb.Models
 		public DbSet<ProjectTypes> ProjectTypes { get; set; }
 		public DbSet<Projects> Projects { get; set; }
 		public DbSet<UserProjects> UserProjects { get; set; }
+		public DbSet<ProjectUsers> ProjectUsers { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
