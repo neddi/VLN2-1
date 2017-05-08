@@ -230,6 +230,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EditorSite.css" />
+    <Content Include="Content\Navigation.css" />
     <Content Include="CustomData\Ace\ChangeLog.txt" />
     <Content Include="CustomData\Ace\editor.html" />
     <Content Include="CustomData\Ace\kitchen-sink.html" />

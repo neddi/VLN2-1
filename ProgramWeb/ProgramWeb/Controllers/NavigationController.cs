@@ -12,8 +12,29 @@ namespace ProgramWeb.Controllers
         // GET: Navigation
         public ActionResult Menu()
         {
+            List<TestData2> projects = new List<TestData2>();
 
-            return PartialView("_SideBarNavigation");
+            for (int i = 0; i < 5; i++)
+            {
+                TestData2 newUser = new TestData2();
+                testFiles newFiles = new testFiles();
+
+                newUser.ID = i;
+                newUser.Name = "Project " + i;
+
+                newUser.Files = new List<testFiles>();
+                newFiles.Name = "File 1";
+                newFiles.Content = "Funi er frábær!" + i;
+                newUser.Files.Add(newFiles);
+
+                //newUser.Files = new List<string>();
+                // newUser.Files.Add("File 1");
+                // newUser.Files.Add("File 2");
+
+                projects.Add(newUser);
+            }
+
+            return PartialView("_SideBarNavigation", projects);
         }
     }
 }

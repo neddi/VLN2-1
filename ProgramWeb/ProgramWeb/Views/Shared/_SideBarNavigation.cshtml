@@ -1,19 +1,61 @@
-﻿<!--- Sidemenu -->
-<div id="sidebar-menu">
-    <ul>
-        <li>
-            <a href="#">Dashboard</a>
-        </li>
+﻿@model IEnumerable<ProgramWeb.Models.ViewModel.TestData2>
 
-        <li class="has_sub">
-            <a href="#">Application Setup</a>
-            <ul class="list-unstyled">
-                <li><a href="#">User Manager</a></li>
-                <li><a href="#">Manage User</a></li>
-                <li><a href="#">Change Password</a></li>
-                <li><a href="#">Logoff</a></li>
-            </ul>
-        </li>
-    </ul>
+<!--- Sidemenu -->
+<div id="sidebar-menu">
+    <h3> @Html.ActionLink("Hello " + (ViewData["FullName"]) + "TO BE IMPLEMENTED!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</h3>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        @foreach (var project in Model)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @project.Name
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        @foreach (var files in project.Files)
+                        {
+                            <p><a href="#" onclick="setEditorContent('@files.Content', this)">@files.Name</a></p>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
 </div>
+
+
+
+<script>
+    var setEditorContent = function (value, object) {
+        editor.getSession().setValue(value)
+    };
+
+
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function () {
+            /* Toggle between adding and removing the "active" class,
+            to highlight the button that controls the panel */
+            this.classList.toggle("active");
+
+            /* Toggle between hiding and showing the active panel */
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        }
+    };
+
+
+</script>
 <!-- Sidebar -->

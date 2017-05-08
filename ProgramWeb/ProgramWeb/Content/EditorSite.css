@@ -6,7 +6,7 @@ nav {
 	background: #C9BFBF;
 	/* Shorthand property specifying flex-grow, flex-shrink, and flex-basis. */
 	flex: 1 1 15%;
-	min-width: 150px;
+	min-width: 250px;
 	margin: 3px;
 	padding: 3px;
 }
