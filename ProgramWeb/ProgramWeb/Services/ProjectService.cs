@@ -8,7 +8,6 @@ using ProgramWeb.Models;
 using ProgramWeb.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Data.Entity;
@@ -18,6 +17,7 @@ namespace ProgramWeb.Services
 	public class ProjectService
 	{
 		private ApplicationDbContext _db;
+		private ManageController userService = new ManageController();
 		public ProjectService()
 		{
 			_db = new ApplicationDbContext();
@@ -144,6 +144,29 @@ namespace ProgramWeb.Services
 			viewModel.ProjectFiles = files;
 
 			return viewModel;
+		}
+
+		public UserProjectsViewModel GetUserProject(string userId)
+		{
+			//UserProjectsViewModel projectList = new UserProjectsViewModel();
+
+			//var projectUser = (from u in _db.ProjectUsers
+			//					   where u.userId == userId
+			//					   select new { u.FullName }).ToList();
+
+			//List<string> users = new List<string>();
+			//foreach (var item in projectUser)
+			//{
+			//	string tmpName = item.FullName;
+
+			//	users.Add(tmpName);
+			//}
+
+			//viewModel.ProjectUsers = users;
+
+
+			//return viewModel;
+			return null;
 		}
 	}
 }

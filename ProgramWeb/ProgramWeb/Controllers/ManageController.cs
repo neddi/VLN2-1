@@ -196,7 +196,13 @@ namespace ProgramWeb.Controllers
 			//	viewModel.Add(temp);
 			//}
 
-			ProjectViewModel viewModel = service.GetProject(2);
+			// Display for Project and file/user list
+			//ProjectViewModel viewModel = service.GetProject(2);
+
+			var currentUser = UserManager.FindById(User.Identity.GetUserId());
+			var currentuserId = currentUser.Id;
+
+			UserProjectsViewModel viewModel = service.GetUserProject(currentuserId);
 
 			return View(viewModel);
 		}
