@@ -9,7 +9,7 @@ namespace ProgramWeb.Models.ViewModel
 	public class UserProjectsViewModel
 	{
 		[Required]
-		public int Id { get; set; }
+		public string Id { get; set; }
 
 		[Required]
 		[DataType(DataType.Text)]

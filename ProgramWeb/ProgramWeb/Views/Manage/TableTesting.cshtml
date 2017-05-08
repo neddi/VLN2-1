@@ -1,4 +1,4 @@
-﻿@model ProgramWeb.Models.ViewModel.ProjectViewModel
+﻿@model ProgramWeb.Models.ViewModel.UserProjectsViewModel
 <!-- Temporary page for testing of tables -->
 @{
     ViewBag.Title = "Table testing (temp)";
@@ -7,31 +7,28 @@
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
-<p><b>@Model.Name</b></p>
+<p><b>@Model.FullName</b></p>
 
-    <table class="table table-hover">
+@foreach (var project in Model.ProjectList)
+{
+    <p>@project.Name</p>
+    <table>
         <thead>
             <tr>
-                <th>File Name</th>
-                <th>File Type</th>
+                <th>Name</th>
+                <th>Type</th>
                 <th>Content</th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var item in Model.ProjectFiles)
+            @foreach(var file in project.ProjectFiles)
             {
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.FileType</td>
-                    <td>@item.Content</td>
+                    <td>@file.Name</td>
+                    <td>@file.FileType</td>
+                    <td>@file.Content</td>
                 </tr>
             }
         </tbody>
     </table>
-
-<ul>
-    @foreach(var item in Model.ProjectUsers)
-    {
-        <li>@item</li>
-    }
-</ul>
+}
