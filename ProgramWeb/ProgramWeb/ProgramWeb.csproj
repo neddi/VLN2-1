@@ -215,6 +215,7 @@
     <Compile Include="Models\ViewModel\ProjectInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectViewModel.cs" />
     <Compile Include="Models\ViewModel\TableTestingViewModel.cs" />
+    <Compile Include="Models\ViewModel\TestDataNew.cs" />
     <Compile Include="Models\ViewModel\UpdateProjectInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\UserInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\UserProjectsViewModel.cs" />
@@ -297,6 +298,7 @@
     <Content Include="Views\Manage\AddName.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
+    <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -307,6 +309,7 @@
     <Folder Include="CustomData\Ace\src\" />
     <Folder Include="CustomData\Ace\textarea\" />
     <Folder Include="Views\Navigation\" />
+    <Folder Include="Views\TestDataNew\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

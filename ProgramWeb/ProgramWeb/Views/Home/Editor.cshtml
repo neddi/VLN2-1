@@ -4,7 +4,12 @@
     ViewBag.Title = "Editorediting";
 }
 <section id="entiresite">
-<nav>Navigation</nav>
+<nav>
+    <section id="navigation">
+        @Html.Action("Menu", "Navigation")
+
+    </section>
+</nav>
     <section id="editor">
 
     </section>
