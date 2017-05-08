@@ -17,7 +17,6 @@ namespace ProgramWeb.Services
 	public class ProjectService
 	{
 		private ApplicationDbContext _db;
-		private ManageController userService = new ManageController();
 		public ProjectService()
 		{
 			_db = new ApplicationDbContext();
