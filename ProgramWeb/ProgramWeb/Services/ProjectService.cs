@@ -76,5 +76,47 @@ namespace ProgramWeb.Services
 			_db.Entry(dbProject).State = EntityState.Modified;
 			_db.SaveChanges();
 		}
+
+		public ProjectViewModel GetProject(int projectid)
+		{
+			ProjectViewModel viewModel = new ProjectViewModel();
+
+			var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
+			viewModel.Id = project.Id;
+			viewModel.Name = project.Name;
+
+			var allProjectUsers = (from u in _db.ProjectUsers
+								   where u.ProjectId == projectid
+								   select new { u.FullName }).ToList();
+
+			List<string> users = new List<string>();
+			foreach(var item in allProjectUsers)
+			{
+				string tmpName = item.FullName;
+
+				users.Add(tmpName);
+			}
+
+			viewModel.ProjectUsers = users;
+
+			var fileList = (from f in _db.Files
+							 join p in _db.ProjectFiles on f.ID equals p.FileId
+							 where p.ProjectId == projectid
+							 select new { f.ID, f.Name, f.FileType, f.Content }).ToList();
+
+			List<Files> files = new List<Files>();
+			foreach(var fileItem in fileList)
+			{
+				Files tmpFile = new Files();
+				tmpFile.ID = fileItem.ID;
+				tmpFile.Name = fileItem.Name;
+				tmpFile.FileType = fileItem.FileType;
+				tmpFile.Content = fileItem.Content;
+				files.Add(tmpFile);
+			}
+			viewModel.ProjectFiles = files;
+
+			return viewModel;
+		}
 	}
 }

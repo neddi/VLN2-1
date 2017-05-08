@@ -8,7 +8,10 @@ namespace ProgramWeb.Models.ViewModel
 {
 	public class ProjectInfoViewModel
 	{
-        [Required]
+		[Required]
+		public int Id { get; set; }
+
+		[Required]
         [DataType(DataType.Text)]
         [Display(Name = "Project Name")]
         public string Name { get; set; }
