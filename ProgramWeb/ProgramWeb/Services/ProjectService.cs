@@ -89,18 +89,23 @@ namespace ProgramWeb.Services
 		/// Updating project information
 		/// </summary>
 		/// <param name="info"></param>
-		public void UpdateProjectInfo(ProjectInfoViewModel info)
+		public bool UpdateProjectInfo(ProjectInfoViewModel info)
 		{
-			var dbProject = _db.Projects.Find(info.Id);
-			Projects project = new Projects();
-			project.Id = info.Id;
-			project.Name = info.Name;
-			project.Description = info.Description;
-			project.CreateDate = info.CreateDate;
-			project.ProjectTypeId = dbProject.ProjectTypeId;
-			_db.Entry(dbProject).CurrentValues.SetValues(project);
-			_db.Entry(dbProject).State = EntityState.Modified;
-			_db.SaveChanges();
+			if(info != null)
+			{
+				var dbProject = _db.Projects.Find(info.Id);
+				Projects project = new Projects();
+				project.Id = info.Id;
+				project.Name = info.Name;
+				project.Description = info.Description;
+				project.CreateDate = info.CreateDate;
+				project.ProjectTypeId = dbProject.ProjectTypeId;
+				_db.Entry(dbProject).CurrentValues.SetValues(project);
+				_db.Entry(dbProject).State = EntityState.Modified;
+				_db.SaveChanges();
+				return true;
+			}
+			return false;
 		}
 
 
@@ -198,6 +203,38 @@ namespace ProgramWeb.Services
 				newProject.FileId = file.ID;
 				_db.ProjectFiles.Add(newProject);
 				_db.SaveChanges();
+				return true;
+			}
+			return false;
+		}
+
+		public FileViewModel GetFile(int fileId)
+		{
+			Files fileData = _db.Files.SingleOrDefault(x => x.ID == fileId);
+			FileViewModel viewModel = new FileViewModel();
+
+			viewModel.Id = fileData.ID;
+			viewModel.Name = fileData.Name;
+			viewModel.FileType = fileData.FileType;
+			viewModel.Content = fileData.Content;
+
+			return viewModel;
+		}
+
+		public bool UpdateFile(FileViewModel data)
+		{
+			if(data != null)
+			{
+				var dbFile = _db.Files.Find(data.Id);
+				Files file = new Files();
+				file.ID = data.Id;
+				file.Name = data.Name;
+				file.FileType = data.FileType;
+				file.Content = data.Content;
+				_db.Entry(dbFile).CurrentValues.SetValues(file);
+				_db.Entry(dbFile).State = EntityState.Modified;
+				_db.SaveChanges();
+
 				return true;
 			}
 			return false;

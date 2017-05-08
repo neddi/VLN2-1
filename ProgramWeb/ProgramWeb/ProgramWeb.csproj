@@ -212,6 +212,7 @@
     <Compile Include="Models\Entities\Users.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModel\FileViewModel.cs" />
     <Compile Include="Models\ViewModel\NewFileViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectInfoViewModel.cs" />
     <Compile Include="Models\ViewModel\ProjectViewModel.cs" />
@@ -300,6 +301,7 @@
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
+    <Content Include="Views\Project\UpdateFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
