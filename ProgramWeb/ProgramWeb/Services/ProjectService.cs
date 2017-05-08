@@ -23,11 +23,11 @@ namespace ProgramWeb.Services
 		}
 
         ///Create new Project
-        public bool NewProject(ProgramWeb.Models.Entities.Projects entity)
+        public bool NewProject(Projects entity)
         {
             if (entity != null)
             {
-                var project = new ProgramWeb.Models.Entities.Projects();
+                var project = new Projects();
                 project.Name = entity.Name;
                 project.Description = entity.Description;
                 //Hardcoded as a HTML project, to be changed (knock on wood)
@@ -103,6 +103,12 @@ namespace ProgramWeb.Services
 			_db.SaveChanges();
 		}
 
+
+		/// <summary>
+		/// List all information about project, including file list and user list
+		/// </summary>
+		/// <param name="projectid"></param>
+		/// <returns></returns>
 		public ProjectViewModel GetProject(int projectid)
 		{
 			ProjectViewModel viewModel = new ProjectViewModel();
@@ -145,6 +151,11 @@ namespace ProgramWeb.Services
 			return viewModel;
 		}
 
+		/// <summary>
+		/// Lists all projects belongin to the logged in user
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		public UserProjectsViewModel GetUserProject(string userId)
 		{
 			UserProjectsViewModel viewModel = new UserProjectsViewModel();
@@ -173,6 +184,23 @@ namespace ProgramWeb.Services
 			viewModel.ProjectList = projects;
 
 			return viewModel;
+		}
+
+		public bool NewFile(NewFileViewModel entity)
+		{
+			if (entity != null)
+			{
+				var file = entity.File;
+				_db.Files.Add(file);
+				_db.SaveChanges();
+				ProjectFiles newProject = new ProjectFiles();
+				newProject.ProjectId = entity.ProjectId;
+				newProject.FileId = file.ID;
+				_db.ProjectFiles.Add(newProject);
+				_db.SaveChanges();
+				return true;
+			}
+			return false;
 		}
 	}
 }

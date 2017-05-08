@@ -10,8 +10,19 @@ namespace ProgramWeb.Models.Entities
 	{
         [Key]
         public int ID { get; set; }
+
+		[Required]
+		[DataType(DataType.Text)]
+		[Display(Name = "File Name")]
 		public string Name { get; set; }
+
+		[Required]
+		[DataType(DataType.Text)]
+		[Display(Name = "File Type")]
 		public string FileType { get; set; }
+
+		[DataType(DataType.Text)]
+		[Display(Name = "Content")]
 		public string Content { get; set; }
 	}
 }

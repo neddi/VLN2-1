@@ -4,6 +4,7 @@ using ProgramWeb.Models;
 using ProgramWeb.Models.ViewModel;
 using System.Web.Mvc;
 using ProgramWeb.Services;
+using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Controllers
 {
@@ -64,17 +65,40 @@ namespace ProgramWeb.Controllers
         [HttpPost]
         public ActionResult CreateProject(ProjectViewModel model)
         {
-            ProgramWeb.Models.Entities.Projects entity = new Models.Entities.Projects();
+			Projects entity = new Projects();
             entity.Name = model.Name;
             entity.Description = model.Description;
-            projectService = new ProgramWeb.Services.ProjectService();
+            projectService = new ProjectService();
              if ( projectService.NewProject(entity) )
             {
                 return RedirectToAction("Index");
             }
             return View(model);
         }
-    }
+
+		[HttpGet]
+		public ActionResult CreateFile()
+		{
+			NewFileViewModel model = new NewFileViewModel();
+			return View(model);
+		}
+		[HttpPost]
+		public ActionResult CreateFile(NewFileViewModel model)
+		{
+			NewFileViewModel entity = new NewFileViewModel();
+			//entity.ProjectId = model.ProjectId;
+			entity.ProjectId = 2;
+			Files newFile = model.File;
+			entity.File = newFile;
+
+			projectService = new ProjectService();
+			if (projectService.NewFile(entity))
+			{
+				return RedirectToAction("Index");
+			}
+			return View(model);
+		}
+	}
 
 
 }
