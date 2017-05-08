@@ -23,6 +23,33 @@ namespace ProgramWeb.Services
 			_db = new ApplicationDbContext();
 		}
 
+        ///Create new Project
+        public bool NewProject(ProgramWeb.Models.Entities.Projects entity)
+        {
+            if (entity != null)
+            {
+                var project = new ProgramWeb.Models.Entities.Projects();
+                project.Name = entity.Name;
+                project.Description = entity.Description;
+                //Hardcoded as a HTML project, to be changed (knock on wood)
+                project.ProjectTypeId = 1;
+                project.CreateDate = DateTime.Now;
+                Files index = new Files();
+                //also hardcoded for now
+                index.Name = "index";
+                index.FileType = "HTML";
+                _db.Projects.Add(project);
+                _db.Files.Add(index);
+                _db.SaveChanges();
+                ProjectFiles newProject = new ProjectFiles();
+                newProject.ProjectId = project.Id;
+                newProject.FileId = index.ID;
+                _db.ProjectFiles.Add(newProject);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
 		/// <summary>
 		/// Get information about the active project
 		/// </summary>

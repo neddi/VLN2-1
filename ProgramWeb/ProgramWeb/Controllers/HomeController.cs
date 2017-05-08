@@ -1,13 +1,17 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ProgramWeb.Models;
+using ProgramWeb.Models.ViewModel;
 using System.Web.Mvc;
+using ProgramWeb.Services;
 
 namespace ProgramWeb.Controllers
 {
 	public class HomeController : Controller
 	{
-		public ActionResult Index()
+        private ProjectService projectService;
+
+        public ActionResult Index()
 		{
 			return View();
 		}
@@ -50,7 +54,29 @@ namespace ProgramWeb.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult CreateProject()
+        {
+            ProjectViewModel model = new ProjectViewModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CreateProject(ProjectViewModel model)
+        {
+            ProgramWeb.Models.Entities.Projects entity = new Models.Entities.Projects();
+            entity.Name = model.Name;
+            entity.Description = model.Description;
+            projectService = new ProgramWeb.Services.ProjectService();
+             if ( projectService.NewProject(entity) )
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
     }
+
+
 }
 
 //string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
