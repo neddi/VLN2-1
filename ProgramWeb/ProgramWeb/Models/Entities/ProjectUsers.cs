@@ -12,5 +12,6 @@ namespace ProgramWeb.Models.Entities
 		[Key]
 		public int ProjectId { get; set; }
 		public bool IsAdmin { get; set; }
+		public string userId { get; set; }
 	}
 }

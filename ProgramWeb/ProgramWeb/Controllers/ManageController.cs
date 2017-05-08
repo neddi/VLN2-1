@@ -10,13 +10,17 @@ using Microsoft.Owin.Security;
 using ProgramWeb.Models;
 using System.Collections.Generic;
 using ProgramWeb.Models.ViewModel;
+using ProgramWeb.Services; // to be deleted
 
 namespace ProgramWeb.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationSignInManager _signInManager;
+		// ProjectService must be deleted before turn in
+		// For testing purposes only
+		private ProjectService service = new ProjectService();
+		private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public ManageController()
@@ -166,7 +170,7 @@ namespace ProgramWeb.Controllers
 		public ActionResult TableTesting()
 		{
 			ViewBag.Message = "Your contact page.";
-			// For single user
+			// Display for single user
 			//var currentUser = UserManager.FindById(User.Identity.GetUserId());
 			//UserInfoViewModel viewModel = new UserInfoViewModel
 			//{
@@ -176,22 +180,29 @@ namespace ProgramWeb.Controllers
 			//	Info = currentUser.Info
 			//};
 
-			// For user list
+			// Display for user list
+			//var context = new IdentityDbContext();
+			//var users = context.Users.ToList();
+			//List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
 
-			var context = new IdentityDbContext();
-			var users = context.Users.ToList();
-			List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
+			//foreach (var item in users)
+			//{
+			//	var currentUser = UserManager.FindById(item.Id);
+			//	UserInfoViewModel temp = new UserInfoViewModel();
+			//	temp.FullName = currentUser.FullName;
+			//	temp.Email = currentUser.Email;
+			//	temp.UserName = currentUser.UserName;
+			//	temp.Info = currentUser.Info;
+			//	viewModel.Add(temp);
+			//}
 
-			foreach (var item in users)
-			{
-				var currentUser = UserManager.FindById(item.Id);
-				UserInfoViewModel temp = new UserInfoViewModel();
-				temp.FullName = currentUser.FullName;
-				temp.Email = currentUser.Email;
-				temp.UserName = currentUser.UserName;
-				temp.Info = currentUser.Info;
-				viewModel.Add(temp);
-			}
+			// Display for Project and file/user list
+			//ProjectViewModel viewModel = service.GetProject(2);
+
+			var currentUser = UserManager.FindById(User.Identity.GetUserId());
+			var currentuserId = currentUser.Id;
+
+			UserProjectsViewModel viewModel = service.GetUserProject(currentuserId);
 
 			return View(viewModel);
 		}
