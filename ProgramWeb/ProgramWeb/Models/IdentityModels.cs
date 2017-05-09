@@ -23,15 +23,27 @@ namespace ProgramWeb.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-		public DbSet<Files> Files { get; set; }
-		public DbSet<ProjectFiles> ProjectFiles { get; set; }
-		public DbSet<ProjectTypes> ProjectTypes { get; set; }
-		public DbSet<Projects> Projects { get; set; }
-		public DbSet<UserProjects> UserProjects { get; set; }
-		public DbSet<ProjectUsers> ProjectUsers { get; set; }
-		public DbSet<Users> Users { get; set; }
+	public interface IAppDataContext
+	{
+		IDbSet<Files> Files { get; set; }
+		IDbSet<ProjectFiles> ProjectFiles { get; set; }
+		IDbSet<ProjectTypes> ProjectTypes { get; set; }
+		IDbSet<Projects> Projects { get; set; }
+		IDbSet<UserProjects> UserProjects { get; set; }
+		IDbSet<ProjectUsers> ProjectUsers { get; set; }
+		IDbSet<Users> Users { get; set; }
+		int SaveChanges();
+	}
+
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IAppDataContext
+	{
+		public IDbSet<Files> Files { get; set; }
+		public IDbSet<ProjectFiles> ProjectFiles { get; set; }
+		public IDbSet<ProjectTypes> ProjectTypes { get; set; }
+		public IDbSet<Projects> Projects { get; set; }
+		public IDbSet<UserProjects> UserProjects { get; set; }
+		public IDbSet<ProjectUsers> ProjectUsers { get; set; }
+		public IDbSet<Users> Users { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

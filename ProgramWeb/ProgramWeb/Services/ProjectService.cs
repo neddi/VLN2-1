@@ -16,10 +16,10 @@ namespace ProgramWeb.Services
 {
 	public class ProjectService
 	{
-		private ApplicationDbContext _db;
-		public ProjectService()
+		private readonly IAppDataContext _db;
+		public ProjectService(IAppDataContext context)
 		{
-			_db = new ApplicationDbContext();
+			_db = context ?? new ApplicationDbContext();
 		}
 
         ///Create new Project
