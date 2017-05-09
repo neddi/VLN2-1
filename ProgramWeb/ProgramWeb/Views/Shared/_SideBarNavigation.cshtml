@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<ProgramWeb.Models.ViewModel.TestData2>
-
+@using Microsoft.AspNet.Identity
 <!--- Sidemenu -->
 <div id="sidebar-menu">
-    <h3> @Html.ActionLink("Hello " + (ViewData["FullName"]) + "TO BE IMPLEMENTED!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</h3>
+   <!-- <h3> *at*Html.ActionLink("Hello " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</h3> -->
+    <h3>@User.Identity.GetUserName()</h3>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         @foreach (var project in Model)
         {
@@ -19,7 +20,6 @@
                         @foreach (var files in project.Files)
                         {
                             <p><a href="#" onclick="setEditorContent('@files.Content', this)">@files.Name</a></p>
-
                         }
                     </div>
                 </div>

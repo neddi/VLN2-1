@@ -232,7 +232,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EditorSite.css" />
-    <Content Include="Content\Navigation.css" />
     <Content Include="CustomData\Ace\ChangeLog.txt" />
     <Content Include="CustomData\Ace\editor.html" />
     <Content Include="CustomData\Ace\kitchen-sink.html" />
@@ -301,14 +300,11 @@
     <Content Include="Views\Manage\AddName.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
-    <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
     <Content Include="Views\Project\CreateProject.cshtml" />
     <Content Include="Views\Home\Invite.cshtml" />
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
-    <Content Include="Views\Shared\_UserInformation.cshtml" />
-    <Content Include="Views\Shared\_GetUserInformation.cshtml" />
-    <Content Include="Views\Shared\GetGameListing.cshtml" />
+    <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,8 +314,6 @@
     <Folder Include="CustomData\Ace\src-noconflict\" />
     <Folder Include="CustomData\Ace\src\" />
     <Folder Include="CustomData\Ace\textarea\" />
-    <Folder Include="Views\Navigation\" />
-    <Folder Include="Views\TestDataNew\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
