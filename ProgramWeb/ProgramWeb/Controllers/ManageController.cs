@@ -147,16 +147,6 @@ namespace ProgramWeb.Controllers
             Model.Info = currentUser.Info;
             return View(Model);
         }
-        //
-        // 
-        public ActionResult GetFullName()
-        { 
-            var currentUser = UserManager.FindById(User.Identity.GetUserId());
-            var Model = new AddNameViewModel();
-            Model.FullName = currentUser.FullName;
-            Model.Info = currentUser.Info;
-            return View(Model);
-        }
 
         //
         // POST: /Manage/AddFullName
