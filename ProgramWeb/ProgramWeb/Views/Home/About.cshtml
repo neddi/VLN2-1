@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  System.Collections.Generic.IEnumerable<ProgramWeb.Models.ViewModel.ProjectViewModel>
+@{
     ViewBag.Title = "About";
 }
 <h2>@ViewBag.Title.</h2>
@@ -6,28 +7,18 @@
 <table>
     <thead>
         <tr>
-            <th>Info</th>
-            <th>User</th>
+            <th></th>
+            <th>Projects</th>
         </tr>
     </thead>
-    <tr>
-    <td>Username</td>
-    <td><p>@ViewBag.Name</p></td>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td><p>@ViewBag.FullName</p></td>
-    </tr>
-    <tr>
-        <td>Email</td>
-        <td><p>@ViewBag.Email</p></td>
-    </tr>
-    <tr>
-    
-        <td>About me:</td>
-    <td>
-        <p>@ViewBag.Info</p>
-    </td>
-    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.ProjectTypeId</td>
+            <td>@item.CreateDate</td>
+        </tr>
+    }
 
 </table>
