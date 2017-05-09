@@ -17,14 +17,33 @@
     <aside>aside</aside>
 </section>
 
+<div id='gameModal' class='modal hide fade in' data-url='@Url.Action("GetGameListing")'>
+    <div id='gameContainer'>
+    </div>
+</div>
+
+<button id='showGame'>Show Game Listing</button>
 
 
 
+@section scripts
+{
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/html");
 
+    $(document).ready(function () {
+        $('#showGame').click(function () {
+            var url = $('#gameModal').data('url');
 
+            $.get(url, function (data) {
+                $('#gameContainer').html(data);
+
+                $('#gameModal').modal('show');
+            });
+        });
+    });
 </script>
+}

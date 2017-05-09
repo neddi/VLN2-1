@@ -8,18 +8,18 @@ using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Controllers
 {
-	public class HomeController : Controller
-	{
+    public class HomeController : Controller
+    {
         private ProjectService projectService;
 
         public ActionResult Index()
-		{
-			return View();
-		}
+        {
+            return View();
+        }
         [Authorize]
-		public ActionResult About()
-		{
-			ViewBag.Message = "Your application description page.";
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             // Get the current logged in User and look up the user in ASP.NET Identity
@@ -32,17 +32,17 @@ namespace ProgramWeb.Controllers
             ViewBag.Info = currentUser.Info;
 
             return View();
-		}
+        }
 
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
 
-			return View();
-		}
+            return View();
+        }
 
 
-	
+
 
         public ActionResult Editor()
         {
@@ -65,42 +65,55 @@ namespace ProgramWeb.Controllers
         [HttpPost]
         public ActionResult CreateProject(ProjectViewModel model)
         {
-			Projects entity = new Projects();
+            Projects entity = new Projects();
             entity.Name = model.Name;
             entity.Description = model.Description;
             projectService = new ProjectService();
-             if ( projectService.NewProject(entity) )
+            if (projectService.NewProject(entity))
             {
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
-		[HttpGet]
-		public ActionResult CreateFile()
-		{
-			NewFileViewModel model = new NewFileViewModel();
-			return View(model);
-		}
-		[HttpPost]
-		public ActionResult CreateFile(NewFileViewModel model)
-		{
-			NewFileViewModel entity = new NewFileViewModel();
-			//entity.ProjectId = model.ProjectId;
-			entity.ProjectId = 2;
-			Files newFile = model.File;
-			entity.File = newFile;
+        [HttpGet]
+        public ActionResult CreateFile()
+        {
+            NewFileViewModel model = new NewFileViewModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CreateFile(NewFileViewModel model)
+        {
+            NewFileViewModel entity = new NewFileViewModel();
+            //entity.ProjectId = model.ProjectId;
+            entity.ProjectId = 2;
+            Files newFile = model.File;
+            entity.File = newFile;
 
-			projectService = new ProjectService();
-			if (projectService.NewFile(entity))
-			{
-				return RedirectToAction("Index");
-			}
-			return View(model);
-		}
-	}
+            projectService = new ProjectService();
+            if (projectService.NewFile(entity))
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
 
+        [HttpGet]
+        public ActionResult GetGameListing()
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
 
+            // Recover the profile information about the logged in user
+            ViewBag.Name = currentUser.UserName;
+            ViewBag.FullName = currentUser.FullName;
+            ViewBag.Email = currentUser.Email;
+            ViewBag.Info = currentUser.Info;
+
+            return View();
+        }
+    }
 }
 
 //string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
