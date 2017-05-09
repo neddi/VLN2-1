@@ -19,7 +19,7 @@ namespace ProgramWeb.Controllers
     {
 		// ProjectService must be deleted before turn in
 		// For testing purposes only
-		private ProjectService service = new ProjectService();
+		private ProjectService service = new ProjectService(null);
 		private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 

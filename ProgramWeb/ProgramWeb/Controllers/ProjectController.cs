@@ -10,7 +10,7 @@ namespace ProgramWeb.Controllers
 {
 	public class ProjectController : Controller
 	{
-		private ProjectService service = new ProjectService();
+		private ProjectService service = new ProjectService(null);
 		// Action for Viewing Multiple tables
 		public ActionResult ProjectInfo(int id)
 		{

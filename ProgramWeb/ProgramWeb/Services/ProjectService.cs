@@ -120,7 +120,7 @@ namespace ProgramWeb.Services
 		/// <param name="info"></param>
 		public bool UpdateProjectInfo(ProjectInfoViewModel info)
 		{
-			if(info != null)
+			if (info != null)
 			{
 				var dbProject = _db.Projects.Find(info.Id);
 				Projects project = new Projects();
@@ -129,19 +129,19 @@ namespace ProgramWeb.Services
 				project.Description = info.Description;
 				project.CreateDate = info.CreateDate;
 				project.ProjectTypeId = dbProject.ProjectTypeId;
-				_db.Entry(dbProject).CurrentValues.SetValues(project);
-				_db.Entry(dbProject).State = EntityState.Modified;
+				//_db.Entry(dbProject).CurrentValues.SetValues(project);
+				//_db.Entry(dbProject).State = EntityState.Modified;
 				_db.SaveChanges();
 				return true;
 			}
 			return false;
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<ProjectViewModel> ListAllProjects()
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public List<ProjectViewModel> ListAllProjects()
         {
             var projectList = _db.Projects.ToList();
             List<ProjectViewModel> projectViewList = new List<ProjectViewModel>();
@@ -280,7 +280,7 @@ namespace ProgramWeb.Services
 
 		public bool UpdateFile(FileViewModel data)
 		{
-			if(data != null)
+			if (data != null)
 			{
 				var dbFile = _db.Files.Find(data.Id);
 				Files file = new Files();
@@ -288,8 +288,8 @@ namespace ProgramWeb.Services
 				file.Name = data.Name;
 				file.FileType = data.FileType;
 				file.Content = data.Content;
-				_db.Entry(dbFile).CurrentValues.SetValues(file);
-				_db.Entry(dbFile).State = EntityState.Modified;
+				//_db.Entry(dbFile).CurrentValues.SetValues(file);
+				//_db.Entry(dbFile).State = EntityState.Modified;
 				_db.SaveChanges();
 
 				return true;

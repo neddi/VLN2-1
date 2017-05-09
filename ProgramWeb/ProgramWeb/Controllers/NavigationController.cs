@@ -43,7 +43,7 @@ namespace ProgramWeb.Controllers
             List <UserProjectsViewModel> test2 = new List<UserProjectsViewModel>();
             
             
-            ProjectService asdf = new ProjectService();
+            ProjectService asdf = new ProjectService(null);
             asdf.GetUserProject(User.Identity.GetUserId());
 
             UserProjectsViewModel asdf2 = new UserProjectsViewModel();
