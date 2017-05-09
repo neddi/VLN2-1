@@ -20,7 +20,7 @@ namespace ProgramWeb.Models.ViewModel
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Creation date")]
-        public System.DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
 
         [DataType(DataType.Text)]
         [Display(Name = "Project Description")]

@@ -27,7 +27,7 @@ namespace ProgramWeb.Services
         {
             if (entity != null)
             {
-                var project = new ProgramWeb.Models.Entities.Projects();
+                var project = new Projects();
                 project.Name = entity.Name;
                 project.Description = entity.Description;
                 //Hardcoded as a HTML project, to be changed (knock on wood)
@@ -152,6 +152,11 @@ namespace ProgramWeb.Services
             }
             return projectViewList;
         }
+		/// <summary>
+		/// List all information about project, including file list and user list
+		/// </summary>
+		/// <param name="projectid"></param>
+		/// <returns></returns>
 		public ProjectViewModel GetProject(int projectid)
 		{
 			ProjectViewModel viewModel = new ProjectViewModel();
@@ -203,27 +208,56 @@ namespace ProgramWeb.Services
 			return viewModel;
 		}
 
+		/// <summary>
+		/// Lists all projects belongin to the logged in user
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		public UserProjectsViewModel GetUserProject(string userId)
 		{
-			//UserProjectsViewModel projectList = new UserProjectsViewModel();
+			UserProjectsViewModel viewModel = new UserProjectsViewModel();
 
-			//var projectUser = (from u in _db.ProjectUsers
-			//					   where u.userId == userId
-			//					   select new { u.FullName }).ToList();
+			var user = (from u in _db.Users
+					   where u.Id == userId
+					   select new { u.FullName, u.Id }).SingleOrDefault();
 
-			//List<string> users = new List<string>();
-			//foreach (var item in projectUser)
-			//{
-			//	string tmpName = item.FullName;
+			viewModel.Id = user.Id;
+			viewModel.FullName = user.FullName;
 
-			//	users.Add(tmpName);
-			//}
-
-			//viewModel.ProjectUsers = users;
+			var allProjects = (from u in _db.ProjectUsers
+								   where u.userId == userId
+								   select new { u.ProjectId }).ToList();
 
 
-			//return viewModel;
-			return null;
+			List<ProjectViewModel> projects = new List<ProjectViewModel>();
+
+			foreach(var item in allProjects)
+			{
+				ProjectViewModel tmpProject = new ProjectViewModel();
+				tmpProject = GetProject(item.ProjectId);
+				projects.Add(tmpProject);
+			}
+
+			viewModel.ProjectList = projects;
+
+			return viewModel;
+		}
+
+		public bool NewFile(NewFileViewModel entity)
+		{
+			if (entity != null)
+			{
+				var file = entity.File;
+				_db.Files.Add(file);
+				_db.SaveChanges();
+				ProjectFiles newProject = new ProjectFiles();
+				newProject.ProjectId = entity.ProjectId;
+				newProject.FileId = file.ID;
+				_db.ProjectFiles.Add(newProject);
+				_db.SaveChanges();
+				return true;
+			}
+			return false;
 		}
 	}
 }
