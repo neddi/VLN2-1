@@ -26,3 +26,8 @@ aside {
 	margin: 3px;
 	padding: 3px;
 }
+
+.modal-content {
+    width: 600px !important;
+    margin: 30px auto !important;
+}

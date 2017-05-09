@@ -305,6 +305,7 @@
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
     <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
+    <Content Include="Views\Shared\_NewProjectFromEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

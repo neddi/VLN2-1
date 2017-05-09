@@ -1,31 +1,26 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
-
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Editorediting";
 }
 
 <section id="entiresite">
-<nav>
-    <section id="navigation">
-        @Html.Action("Menu", "Navigation")
+    <nav>
+        <section id="navigation">
+            @Html.Action("Menu", "Navigation")
 
-    </section>
-</nav>
-    <section id="editor">
-
-    </section>
+        </section>
+    </nav>
+    <section id="editor"></section>
     <aside>aside</aside>
 </section>
 
-
-
-
 @section scripts
 {
-<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/chrome");
-    editor.getSession().setMode("ace/mode/html");
-</script>
+    <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/chrome");
+        editor.getSession().setMode("ace/mode/html");
+    </script>
 }
