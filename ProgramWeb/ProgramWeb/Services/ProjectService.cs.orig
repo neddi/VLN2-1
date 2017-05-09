@@ -14,13 +14,23 @@ using System.Data.Entity;
 
 namespace ProgramWeb.Services
 {
-    public class ProjectService
-    {
+<<<<<<< HEAD
+	public class ProjectService
+	{
 		private readonly IAppDataContext _db;
 		public ProjectService(IAppDataContext context)
-        {
+		{
 			_db = context ?? new ApplicationDbContext();
+		}
+=======
+    public class ProjectService
+    {
+        private ApplicationDbContext _db;
+        public ProjectService()
+        {
+            _db = new ApplicationDbContext();
         }
+>>>>>>> 87662d41e806f37f43bb209dc55f18f56f881cac
 
         ///Create new Project
         public bool NewProject(Projects entity, string currentUserId)

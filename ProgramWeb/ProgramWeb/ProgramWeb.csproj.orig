@@ -302,9 +302,12 @@
     <Content Include="Views\Manage\AddName.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
+=======
     <Content Include="Views\Project\CreateProject.cshtml" />
     <Content Include="Views\Home\Invite.cshtml" />
+>>>>>>> 87662d41e806f37f43bb209dc55f18f56f881cac
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
     <Content Include="Views\Project\UpdateFile.cshtml" />

@@ -166,6 +166,7 @@ namespace ProgramWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var currentUser = UserManager.FindById(User.Identity.GetUserId());
                 currentUser.FullName = model.FullName;
                 currentUser.Info = model.Info;
@@ -189,22 +190,6 @@ namespace ProgramWeb.Controllers
 			//	Email = currentUser.Email,
 			//	Info = currentUser.Info
 			//};
-
-			// Display for user list
-			//var context = new IdentityDbContext();
-			//var users = context.Users.ToList();
-			//List<UserInfoViewModel> viewModel = new List<UserInfoViewModel>();
-
-			//foreach (var item in users)
-			//{
-			//	var currentUser = UserManager.FindById(item.Id);
-			//	UserInfoViewModel temp = new UserInfoViewModel();
-			//	temp.FullName = currentUser.FullName;
-			//	temp.Email = currentUser.Email;
-			//	temp.UserName = currentUser.UserName;
-			//	temp.Info = currentUser.Info;
-			//	viewModel.Add(temp);
-			//}
 
 			// Display for Project and file/user list
 			//ProjectViewModel viewModel = service.GetProject(2);
