@@ -14,16 +14,16 @@ using System.Data.Entity;
 
 namespace ProgramWeb.Services
 {
-	public class ProjectService
-	{
-		private ApplicationDbContext _db;
-		public ProjectService()
-		{
-			_db = new ApplicationDbContext();
-		}
+    public class ProjectService
+    {
+        private ApplicationDbContext _db;
+        public ProjectService()
+        {
+            _db = new ApplicationDbContext();
+        }
 
         ///Create new Project
-        public bool NewProject(Projects entity)
+        public bool NewProject(Projects entity, string currentUserId)
         {
             if (entity != null)
             {
@@ -44,17 +44,47 @@ namespace ProgramWeb.Services
                 newProject.ProjectId = project.Id;
                 newProject.FileId = index.ID;
                 _db.ProjectFiles.Add(newProject);
+                var userInProject = new UserProjects();
+                userInProject.UserId = currentUserId;
+                userInProject.IsAdmin = true;
+                userInProject.ProjectId = project.Id; 
+                _db.UserProjects.Add(userInProject);
                 _db.SaveChanges();
                 return true;
             }
             return false;
         }
-		/// <summary>
-		/// Get information about the active project
-		/// </summary>
-		/// <param name="projectid"></param>
-		/// <returns></returns>
-		public ProjectInfoViewModel GetProjectInfo(int projectid)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool AddUserToProject(string userId)
+        {
+            if (userId != null)
+            {
+                var userDb = new IdentityDbContext();
+                var invitedUser = userDb.Users
+                    .Select(u => u.Id == userId);
+                //hardcoded project ID
+                var userInProject = new UserProjects();
+                userInProject.UserId = userId;
+                userInProject.IsAdmin = false;
+                userInProject.ProjectId = 3; // TODO add "currentProject / activeProject"
+                _db.UserProjects.Add(userInProject);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Get information about the active project
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        public ProjectInfoViewModel GetProjectInfo(int projectid)
 		{
 			ProjectInfoViewModel viewModel = new ProjectInfoViewModel();
 
@@ -81,7 +111,6 @@ namespace ProgramWeb.Services
 			viewModel.Users = ProjectUsers;
 			viewModel.ProjectOwners = ProjectOwners;
 
-
 			return viewModel;
 		}
 
@@ -103,7 +132,26 @@ namespace ProgramWeb.Services
 			_db.SaveChanges();
 		}
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<ProjectViewModel> ListAllProjects()
+        {
+            var projectList = _db.Projects.ToList();
+            List<ProjectViewModel> projectViewList = new List<ProjectViewModel>();
+            foreach (Projects proj in projectList)
+            {
+                
+                //projModel.Name = proj.Name;
+                //projModel.Description = proj.Description;
+                //projModel.Id = proj.Id;
+                //projModel.ProjectTypeId = proj.ProjectTypeId;
+                projectViewList.Add( GetProject(proj.Id) );
+                
+            }
+            return projectViewList;
+        }
 		/// <summary>
 		/// List all information about project, including file list and user list
 		/// </summary>
@@ -116,7 +164,16 @@ namespace ProgramWeb.Services
 			var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
 			viewModel.Id = project.Id;
 			viewModel.Name = project.Name;
-
+            if (project.Description == null)
+            {
+                viewModel.Description = "No Description";
+            }
+            else
+            {
+                viewModel.Description = project.Description;
+            }
+            viewModel.CreateDate = project.CreateDate;
+            viewModel.ProjectTypeId = project.ProjectTypeId;
 			var allProjectUsers = (from u in _db.ProjectUsers
 								   where u.ProjectId == projectid
 								   select new { u.FullName }).ToList();

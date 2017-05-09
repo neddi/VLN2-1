@@ -27,7 +27,10 @@ namespace ProgramWeb.Models.ViewModel
         public string Description { get; set; }
 
         [Required]
+        public int ProjectTypeId { get; set; }
+        [Required]
         public List<Files> ProjectFiles { get; set; }
+
 		public List<string> ProjectUsers { get; set; }
 	}
 }

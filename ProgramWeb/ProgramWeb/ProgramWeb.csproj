@@ -301,7 +301,12 @@
     <Content Include="Views\Manage\AddName.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
+=======
+    <Content Include="Views\Project\CreateProject.cshtml" />
+    <Content Include="Views\Home\Invite.cshtml" />
+>>>>>>> refs/remotes/origin/master
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
     <Content Include="Views\Shared\_UserInformation.cshtml" />
