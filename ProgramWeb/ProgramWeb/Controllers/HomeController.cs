@@ -13,13 +13,13 @@ using ProgramWeb.Services;
 
 namespace ProgramWeb.Controllers
 {
+	[Authorize]
 	public class HomeController : Controller
 	{
 		public ActionResult Index()
 		{
-			return View();
+			return RedirectToAction("Editor");
 		}
-        [Authorize]
 		public ActionResult About()
 		{
 			ViewBag.Message = "Your application description page.";
@@ -62,8 +62,12 @@ namespace ProgramWeb.Controllers
                 newUser.Files.Add("File 1");
                 newUser.Files.Add("File 2");
 
+
                 projects.Add(newUser);
             }
+
+			ViewBag.Name = "dabbitesterfucktard";
+
             return View(projects);
         }
         
