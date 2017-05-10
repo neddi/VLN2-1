@@ -30,18 +30,23 @@ namespace ProgramWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult File(Files filefromView)
+		[ValidateInput(false)]
+		public ActionResult File(Files filefromView)
         {
             var projectService = new ProjectService(null);
             var fileToSave = new Files();
-            fileToSave.ID = filefromView.ID;
-            fileToSave.FileType = filefromView.FileType;
-            fileToSave.Name = filefromView.Name;
+			var tmpFile = service.GetFile(filefromView.ID);
+			//fileToSave.ID = 7;
+			fileToSave.ID = filefromView.ID;
+			//fileToSave.FileType = "css";
+			fileToSave.FileType = tmpFile.FileType;
+			//fileToSave.Name = "prufa";
+			fileToSave.Name = tmpFile.Name;
             fileToSave.Content = filefromView.Content;
 
             if (projectService.SaveFile(fileToSave))
             {
-                return RedirectToRoute("Index", "Home");
+                return RedirectToRoute("Editor", "Home");
             }
             return View(fileToSave);
         }

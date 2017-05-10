@@ -2,7 +2,7 @@
 
 @using Microsoft.AspNet.Identity;
 @{
-    ViewBag.Title = "Editorediting";
+    ViewBag.Title = "Editor";
 }
 <section id="entiresite">
     <nav>
@@ -13,14 +13,13 @@
     <section id="editor"></section>
         
     <aside>
-    @using (Html.BeginForm("File", "Project", FormMethod.Post))
-    {
-        @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor"})
-        @Html.HiddenFor(m => m.ID)
-        @Html.HiddenFor(m => m.FileType)
-        @Html.HiddenFor(m => m.Name)
-        <input type="submit" value="Save" class="btn btn-success" />
-    }
+        @using (Html.BeginForm("Editor", "Home", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
+            @Html.HiddenFor(m => m.ID, new { @id = "fileID"})
+            <input type="submit" value="Save" class="btn btn-success" />
+        }
+    </aside>
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
@@ -36,5 +35,8 @@
     }
     $("form").submit(function () {
         $("#hidden_editor").val(editor.getSession().getValue());
+        var hashParams = window.location.hash.substr(1).split('#'); // substr(1) to remove the `#`
+        document.getElementById("fileID").value = decodeURIComponent(hashParams);
     });
+  
 </script>

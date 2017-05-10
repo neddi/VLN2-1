@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ProgramWeb.Models.ViewModel
 {
@@ -21,7 +22,7 @@ namespace ProgramWeb.Models.ViewModel
 		[Display(Name = "File Type")]
 		public string FileType { get; set; }
 
-		[DataType(DataType.Text)]
+		[DataType(DataType.Html)]
 		[Display(Name = "Content")]
 		public string Content { get; set; }
 	}
