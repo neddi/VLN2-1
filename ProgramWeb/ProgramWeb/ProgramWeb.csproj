@@ -236,7 +236,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\CustomApplicationException.cs" />
-    <Compile Include="Views\ErrorExceptionHandling.cs" />
+    <Compile Include="Utilities\ErrorExceptionHandling.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

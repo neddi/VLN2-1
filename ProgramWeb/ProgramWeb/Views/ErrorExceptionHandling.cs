@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
 using ProgramWeb.Utilities;
 using System;
 using System.Web.Mvc;
@@ -15,7 +15,7 @@ namespace ErroProject.Custom
 
             //TODO: Log the exception!
             //Example using singleton logger class in Utilities folder which write exception to file
-            Logger.Instance.LogException(ex);
+            //Logger.Instance.LogException(ex);
 
             //Set the view name to be returned, maybe return different error view for different exception types
             string viewName = "Error";
