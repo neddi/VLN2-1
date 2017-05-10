@@ -21,10 +21,15 @@
 
 
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
+
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/html");
 
-
+    function hideSidebar() {
+        $("nav").toggle();
+    }
 </script>
