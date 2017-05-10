@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProgramWeb.Models.ViewModel;
+using ProgramWeb.Services;
+using Microsoft.AspNet.Identity;
 
 namespace ProgramWeb.Controllers
 {
@@ -12,6 +14,7 @@ namespace ProgramWeb.Controllers
         // GET: Navigation
         public ActionResult Menu()
         {
+            /*
             List<TestData2> projects = new List<TestData2>();
 
             for (int i = 0; i < 5; i++)
@@ -33,6 +36,12 @@ namespace ProgramWeb.Controllers
 
                 projects.Add(newUser);
             }
+            */
+            ProjectService thisUser = new ProjectService();
+            //thisUser.GetUserProject(User.Identity.GetUserId());
+
+            UserProjectsViewModel projects = new UserProjectsViewModel();
+            projects = thisUser.GetUserProject(User.Identity.GetUserId());
 
             return PartialView("_SideBarNavigation", projects);
         }

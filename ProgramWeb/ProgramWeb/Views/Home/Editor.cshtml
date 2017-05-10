@@ -3,41 +3,15 @@
 @{
     ViewBag.Title = "Editorediting";
 }
-<div id="theModal" class="modal fade text-center">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
 <section id="entiresite">
     <nav>
         <section id="navigation">
             @Html.Action("Menu", "Navigation")
-
         </section>
     </nav>
-
-    
     <section id="editor"></section>
     <aside>aside</aside>
 </section>
-<<<<<<< HEAD
-<a href="~/Home/ViewPage1" data-toggle="modal" data-target="#theModal">Lab 6</a>
-
-@section scripts
-{
-    <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script>
-        var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/chrome");
-        editor.getSession().setMode("ace/mode/html");
-    </script>
-}
-=======
-
-
-
-
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
@@ -51,4 +25,3 @@
         $("nav").toggle();
     }
 </script>
->>>>>>> origin/Nytt-View-Funi

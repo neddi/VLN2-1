@@ -1,34 +1,4 @@
-<<<<<<< HEAD
-﻿@model IEnumerable<ProgramWeb.Models.ViewModel.TestData2>
-@using Microsoft.AspNet.Identity
-<!--- Sidemenu -->
-<div id="sidebar-menu">
-   <!-- <h3> *at*Html.ActionLink("Hello " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</h3> -->
-    <h3>@User.Identity.GetUserName()</h3>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        @foreach (var project in Model)
-        {
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="heading">
-                    <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            @project.Name
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        @foreach (var files in project.Files)
-                        {
-                            <p><a href="#" onclick="setEditorContent('@files.Content', this)">@files.Name</a></p>
-                        }
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
 
-=======
 ﻿@model ProgramWeb.Models.ViewModel.UserProjectsViewModel
 
 
@@ -67,7 +37,7 @@
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
-                                    <li class="list-group-item"> @file.Name </li>
+                                    <li class="list-group-item" onclick="setEditorContent('@file.Content', this)"> @file.Name </li>
                                 }
                             </ul>
                         </div>
