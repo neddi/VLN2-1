@@ -21,6 +21,7 @@
     <section id="editor"></section>
     <aside>aside</aside>
 </section>
+<<<<<<< HEAD
 <a href="~/Home/ViewPage1" data-toggle="modal" data-target="#theModal">Lab 6</a>
 
 @section scripts
@@ -32,3 +33,22 @@
         editor.getSession().setMode("ace/mode/html");
     </script>
 }
+=======
+
+
+
+
+<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
+
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setMode("ace/mode/html");
+
+    function hideSidebar() {
+        $("nav").toggle();
+    }
+</script>
+>>>>>>> origin/Nytt-View-Funi

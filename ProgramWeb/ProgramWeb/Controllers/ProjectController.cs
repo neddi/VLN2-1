@@ -1,8 +1,10 @@
-﻿using ProgramWeb.Models.ViewModel;
+﻿using ProgramWeb.Models.Entities;
+using ProgramWeb.Models.ViewModel;
 using ProgramWeb.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,7 +20,31 @@ namespace ProgramWeb.Controllers
 
 			return View(viewModel);
 		}
+        [HttpGet]
+        public ActionResult File()
+        {
+            var projectService = new ProjectService();
+            //hardcoded value for open file
+            var fileModel = projectService.OpenFile(2);
+            return View(fileModel);
+        }
 
+        [HttpPost]
+        public ActionResult File(Files filefromView)
+        {
+            var projectService = new ProjectService();
+            var fileToSave = new Files();
+            fileToSave.ID = filefromView.ID;
+            fileToSave.FileType = filefromView.FileType;
+            fileToSave.Name = filefromView.Name;
+            fileToSave.Content = filefromView.Content;
+
+            if (projectService.SaveFile(fileToSave))
+            {
+                return RedirectToRoute("Index", "Home");
+            }
+            return View(fileToSave);
+        }
 		[HttpGet]
 		public ActionResult UpdateProjectInfo(int id)
 		{
