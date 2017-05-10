@@ -234,8 +234,6 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utilities\CustomApplicationException.cs" />
-    <Compile Include="Utilities\ErrorExceptionHandling.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -332,6 +330,7 @@
     <Folder Include="CustomData\Ace\src-noconflict\" />
     <Folder Include="CustomData\Ace\src\" />
     <Folder Include="CustomData\Ace\textarea\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

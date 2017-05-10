@@ -20,6 +20,18 @@ namespace ProgramWeb.Controllers
 
 			return View(viewModel);
 		}
+        // Hér byrjar Funi að breyta og bæta
+        // Ég er að reyna að henda inn ID af File sem ég vil endilega fá
+
+        [HttpPost]
+        public ActionResult GetFileForEditor(int id)
+        {
+            ProjectService fileService = new ProjectService(null);
+            string fileContent;
+            fileContent = (fileService.GetFile(id)).Content;
+    
+            return Json(fileContent);
+        }
         [HttpGet]
         public ActionResult File()
         {

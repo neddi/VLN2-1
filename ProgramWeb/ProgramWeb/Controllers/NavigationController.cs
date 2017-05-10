@@ -18,9 +18,8 @@ namespace ProgramWeb.Controllers
 
             UserProjectsViewModel projects = new UserProjectsViewModel();
             projects = thisUser.GetUserProject(User.Identity.GetUserId());
-
+            
             return PartialView("_SideBarNavigation", projects);
-			return View();
         }
         public ActionResult ViewLyubomir()
         {
