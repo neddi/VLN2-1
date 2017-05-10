@@ -15,8 +15,8 @@ aside {
 	background: #C9C9C9;
 	/* Shorthand property specifying flex-grow, flex-shrink, and flex-basis. */
 	flex: 1 1 15%;
-	min-width: 65px;
-    max-width: 65px;
+	min-width: 110px;
+    max-width: 50px;
 	padding: 3px;
 	margin: 3px;
 }
