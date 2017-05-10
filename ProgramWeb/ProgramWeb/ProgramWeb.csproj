@@ -311,6 +311,9 @@
     <Content Include="Views\Home\CreateFile.cshtml" />
     <Content Include="Views\Project\UpdateFile.cshtml" />
     <Content Include="Views\Project\File.cshtml" />
+    <Content Include="Views\Shared\ErrorArgument.cshtml" />
+    <Content Include="Views\Shared\ErrorCustom.cshtml" />
+    <Content Include="Views\Shared\_UserInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
