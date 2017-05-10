@@ -64,3 +64,11 @@ aside {
     position:relative;
     top:10px;
 }
+
+.loginLabelSpacer{
+    margin-left:15px;
+
+    dislplay:block;
+
+}
+
