@@ -36,13 +36,13 @@
         $("#userInviteTable tr").click(function () {
             $(this).addClass('selected').siblings().removeClass('selected');
             var value = $(this).find('td:first').html();
-            $('#invitedUserId').append('<form> <input type="text" value="' + value + '">  </form>');
+            $('#invitedUserId').add('<form> <input type="text" value="' + value + '">  </form>');
             console.log(value);
         });
-       // //TODO POST
-       // $('.invite').on('submit', function (e) {
-       //     var userId = $("#userInviteTable tr.selected td:first").serialize();
-       //     console.log(userId);
-       //     $.post("~/Invite", userId);
-       // });
+        //TODO POST
+        $('.invite').on('submit', function (e) {
+            var userId = $("#userInviteTable tr.selected td:first").serialize();
+            console.log(userId);
+            $.post("~/Invite", userId);
+        });
     </script>

@@ -86,7 +86,7 @@ namespace ProgramWeb.Controllers
         [HttpPost]
         public ActionResult Invite(string invUser)
         {
-           string invitedUserId = "aa514bbb - 6278 - 429f - a285 - 851caab053a5";
+           string invitedUserId = invUser;
             //TODO tengja við service
             ProjectService projServ = new ProjectService();
             if (projServ.AddUserToProject(invitedUserId))

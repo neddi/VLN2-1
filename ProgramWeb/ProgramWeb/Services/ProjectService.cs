@@ -176,17 +176,18 @@ namespace ProgramWeb.Services
             viewModel.ProjectTypeId = project.ProjectTypeId;
 			var allProjectUsers = (from u in _db.ProjectUsers
 								   where u.ProjectId == projectid
-								   select new { u.FullName }).ToList();
+								   select new { u }).ToList();
 
-			List<string> users = new List<string>();
+			List<UserInfoViewModel> users = new List<UserInfoViewModel>();
 			foreach(var item in allProjectUsers)
 			{
-				string tmpName = item.FullName;
-
-				users.Add(tmpName);
+                var tmpUser = new UserInfoViewModel();
+				tmpUser.FullName = item.u.FullName;
+                tmpUser.Id = item.u.userId;
+                users.Add(tmpUser);
 			}
 
-			//viewModel.ProjectUsers = users;
+			viewModel.ProjectUsers = users;
 
 			var fileList = (from f in _db.Files
 							 join p in _db.ProjectFiles on f.ID equals p.FileId
