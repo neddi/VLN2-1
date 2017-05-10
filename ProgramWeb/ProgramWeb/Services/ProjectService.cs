@@ -333,5 +333,23 @@ namespace ProgramWeb.Services
                               select f).FirstOrDefault();
             return fileToEdit;    
         }
+        public bool RemoveFile(int fileId)
+        {
+            var fileToEdit = (from f in _db.Files
+                              where f.ID == fileId
+                              select f).FirstOrDefault();
+            if (fileToEdit != null)
+            {
+                var fileInProject = (from fp in _db.ProjectFiles
+                                     where fp.FileId == fileToEdit.ID
+                                     select fp).FirstOrDefault();
+                _db.ProjectFiles.Remove(fileInProject);
+                _db.SaveChanges();
+                _db.Files.Remove(fileToEdit);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
 	}
 }
