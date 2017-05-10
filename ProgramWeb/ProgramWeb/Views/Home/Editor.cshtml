@@ -1,4 +1,5 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+﻿@model ProgramWeb.Models.Entities.Files
+
 @using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Editorediting";
@@ -12,7 +13,14 @@
     <section id="editor"></section>
         
     <aside>
-    <div class="btn btn-success">Save</div></aside>
+    @using (Html.BeginForm("File", "Project", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor"})
+        @Html.HiddenFor(m => m.ID)
+        @Html.HiddenFor(m => m.FileType)
+        @Html.HiddenFor(m => m.Name)
+        <input type="submit" value="Save" class="btn btn-success" />
+    }
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
@@ -26,4 +34,7 @@
     function hideSidebar() {
         $("nav").toggle();
     }
+    $("form").submit(function () {
+        $("#hidden_editor").val(editor.getSession().getValue());
+    });
 </script>

@@ -62,5 +62,20 @@
     };
 
 
+    $(document).ready(function() {
+        $("#btnSave").on("click", function () {                
+            $.ajax({
+                url: '@Url.Action("File", "Project")',
+                type: 'POST',
+                data: { id: @Model.ID,
+                    html: ace.edit("editor").getValue() },
+                cache: false,
+                success: function (response) {
+                    alert("Changes saved.");
+                }                        
+            });
+        });
+    });
+
 </script>
 <!-- Sidebar -->

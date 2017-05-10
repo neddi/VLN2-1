@@ -297,7 +297,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Manage\TableTesting.cshtml" />
     <Content Include="Views\Home\Editor.cshtml" />
-    <Content Include="Views\Home\EditorOnPage.cshtml" />
     <Content Include="Views\Manage\AddName.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
