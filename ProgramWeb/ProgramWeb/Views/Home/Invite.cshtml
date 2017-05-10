@@ -30,13 +30,13 @@
         });
 
         $('#inviteBtn').on('click', function () {
-            var userId = $("#userInviteTable tr.selected td:first").html();
-            console.log(userId);
+            var invUser = $("#userInviteTable tr.selected td:first").html();
+            console.log(invUser);
             
             $.ajax({
                 type: 'POST',
                 url: 'Invite',
-                data: userId,
+                data: invUser,
                 success: function success() {
                     var url = '@Url.Action("Index", "Home")';
                     window.location.href = url

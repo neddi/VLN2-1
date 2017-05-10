@@ -77,7 +77,7 @@ namespace ProgramWeb.Services
                 var userInProject = new UserProjects();
                 userInProject.UserId = userId;
                 userInProject.IsAdmin = false;
-                userInProject.ProjectId = 3; // TODO add "currentProject / activeProject"
+                userInProject.ProjectId = 2; // TODO add "currentProject / activeProject"
                 _db.UserProjects.Add(userInProject);
                 _db.SaveChanges();
                 return true;

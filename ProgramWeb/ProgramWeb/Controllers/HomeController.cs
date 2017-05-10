@@ -88,7 +88,7 @@ namespace ProgramWeb.Controllers
         {
            string invitedUserId = invUser;
             ProjectService projServ = new ProjectService(null);
-            if (projServ.AddUserToProject(invitedUserId))
+            if (invUser !=null && projServ.AddUserToProject(invitedUserId))
             { 
                 return RedirectToAction("Index");
             }
