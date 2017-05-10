@@ -18,12 +18,18 @@ namespace ProgramWeb.Services
     {
 		private readonly IAppDataContext _db;
 		public ProjectService(IAppDataContext context)
-        {
+		{
 			_db = context ?? new ApplicationDbContext();
-        }
+		}
 
-        ///Create new Project
-        public bool NewProject(Projects entity, string currentUserId)
+		//private ApplicationDbContext _db;
+		//public ProjectService(ApplicationDbContext d)
+		//{
+		//	_db = new ApplicationDbContext();
+		//}
+
+		///Create new Project
+		public bool NewProject(Projects entity, string currentUserId)
         {
             if (entity != null)
             {
@@ -129,8 +135,8 @@ namespace ProgramWeb.Services
 				project.Description = info.Description;
 				project.CreateDate = info.CreateDate;
 				project.ProjectTypeId = dbProject.ProjectTypeId;
-				//_db.Entry(dbProject).CurrentValues.SetValues(project);
-				//_db.Entry(dbProject).State = EntityState.Modified;
+				_db.Entry(dbProject).CurrentValues.SetValues(project);
+				_db.Entry(dbProject).State = EntityState.Modified;
 				_db.SaveChanges();
 				return true;
 			}
@@ -162,55 +168,62 @@ namespace ProgramWeb.Services
 		/// </summary>
 		/// <param name="projectid"></param>
 		/// <returns></returns>
-		public ProjectViewModel GetProject(int projectid)
+		public ProjectViewModel GetProject(int? projectid)
 		{
-			ProjectViewModel viewModel = new ProjectViewModel();
+			try
+			{ 
+				ProjectViewModel viewModel = new ProjectViewModel();
 
-			var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
-			viewModel.Id = project.Id;
-			viewModel.Name = project.Name;
-            if (project.Description == null)
-            {
-                viewModel.Description = "No Description";
-            }
-            else
-            {
-                viewModel.Description = project.Description;
-            }
-            viewModel.CreateDate = project.CreateDate;
-            viewModel.ProjectTypeId = project.ProjectTypeId;
-			var allProjectUsers = (from u in _db.ProjectUsers
-								   where u.ProjectId == projectid
-								   select new { u.FullName }).ToList();
+				var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
+				viewModel.Id = project.Id;
+				viewModel.Name = project.Name;
+				if (project.Description == null)
+				{
+					viewModel.Description = "No Description";
+				}
+				else
+				{
+					viewModel.Description = project.Description;
+				}
+				viewModel.CreateDate = project.CreateDate;
+				viewModel.ProjectTypeId = project.ProjectTypeId;
+				var allProjectUsers = (from u in _db.ProjectUsers
+									   where u.ProjectId == projectid
+									   select new { u.FullName }).ToList();
 
-			List<string> users = new List<string>();
-			foreach(var item in allProjectUsers)
+				List<string> users = new List<string>();
+				foreach (var item in allProjectUsers)
+				{
+					string tmpName = item.FullName;
+
+					users.Add(tmpName);
+				}
+
+				viewModel.ProjectUsers = users;
+
+				var fileList = (from f in _db.Files
+								join p in _db.ProjectFiles on f.ID equals p.FileId
+								where p.ProjectId == projectid
+								select new { f.ID, f.Name, f.FileType, f.Content }).ToList();
+
+				List<Files> files = new List<Files>();
+				foreach (var fileItem in fileList)
+				{
+					Files tmpFile = new Files();
+					tmpFile.ID = fileItem.ID;
+					tmpFile.Name = fileItem.Name;
+					tmpFile.FileType = fileItem.FileType;
+					tmpFile.Content = fileItem.Content;
+					files.Add(tmpFile);
+				}
+				viewModel.ProjectFiles = files;
+
+				return viewModel;
+			} catch(Exception ex)
 			{
-				string tmpName = item.FullName;
-
-				users.Add(tmpName);
+				return null;
 			}
 
-			viewModel.ProjectUsers = users;
-
-			var fileList = (from f in _db.Files
-							 join p in _db.ProjectFiles on f.ID equals p.FileId
-							 where p.ProjectId == projectid
-							 select new { f.ID, f.Name, f.FileType, f.Content }).ToList();
-
-			List<Files> files = new List<Files>();
-			foreach(var fileItem in fileList)
-			{
-				Files tmpFile = new Files();
-				tmpFile.ID = fileItem.ID;
-				tmpFile.Name = fileItem.Name;
-				tmpFile.FileType = fileItem.FileType;
-				tmpFile.Content = fileItem.Content;
-				files.Add(tmpFile);
-			}
-			viewModel.ProjectFiles = files;
-
-			return viewModel;
 		}
 
 		/// <summary>
@@ -288,8 +301,8 @@ namespace ProgramWeb.Services
 				file.Name = data.Name;
 				file.FileType = data.FileType;
 				file.Content = data.Content;
-				//_db.Entry(dbFile).CurrentValues.SetValues(file);
-				//_db.Entry(dbFile).State = EntityState.Modified;
+				_db.Entry(dbFile).CurrentValues.SetValues(file);
+				_db.Entry(dbFile).State = EntityState.Modified;
 				_db.SaveChanges();
 
 				return true;

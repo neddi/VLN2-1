@@ -226,7 +226,9 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\CustomApplicationException.cs" />
     <Compile Include="Utilities\CustomHandleErrorAttribute.cs" />
+    <Compile Include="Utilities\ErrorExceptionHandling.cs" />
     <Compile Include="Utilities\Logger.cs" />
   </ItemGroup>
   <ItemGroup>

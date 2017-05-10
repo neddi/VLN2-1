@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ProgramWeb.Models.Entities;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 
 namespace ProgramWeb.Models
 {
@@ -33,6 +34,7 @@ namespace ProgramWeb.Models
 		IDbSet<ProjectUsers> ProjectUsers { get; set; }
 		IDbSet<Users> Users { get; set; }
 		int SaveChanges();
+		DbEntityEntry Entry(object entity);
 	}
 
 	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IAppDataContext

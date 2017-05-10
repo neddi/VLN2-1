@@ -28,6 +28,16 @@ namespace ProgramWeb.test.Services
 			};
 			fakeDb.Projects.Add(proj1);
 
+			var proj2 = new Projects()
+			{
+				Id = 4,
+				Name = "TestProject2",
+				Description = "Description for the Second project",
+				ProjectTypeId = 1,
+				CreateDate = DateTime.Now
+			};
+			fakeDb.Projects.Add(proj2);
+
 			var projUsers1 = new ProjectUsers
 			{
 				userId = "276e4436-e51d-4bfc-ac7d-986238dca852",
@@ -77,7 +87,7 @@ namespace ProgramWeb.test.Services
 		}
 
 		[TestMethod]
-		public void TestGetProject()
+		public void TestGetProjectNo2()
 		{
 			// Assign: Breytur sem notaðar eru við testið
 			const int projectId = 2;
@@ -87,6 +97,44 @@ namespace ProgramWeb.test.Services
 
 			// Assert: Prófar útkomuna
 			Assert.IsNotNull(result);
+		}
+
+		[TestMethod]
+		public void TestGetProjectNo2Content()
+		{
+			const int projectId = 2;
+
+			var result = _service.GetProject(projectId);
+
+			Assert.AreEqual(result.Id, 2);
+			Assert.AreEqual(result.Name, "TestProject1");
+			Assert.AreEqual(result.Description, "Description for the project");
+			foreach(var item in result.ProjectFiles)
+			{
+				Assert.IsNotNull(item);
+			}
+			foreach(var item in result.ProjectUsers)
+			{
+				Assert.IsNotNull(item);
+			}
+		}
+
+		[TestMethod]
+		public void TestGetProjectNotFound()
+		{
+			const int projectId = 0;
+
+			
+
+			try
+			{
+				var result = _service.GetProject(projectId);
+				Assert.Fail();
+			}
+			catch(Exception)
+			{
+
+			}
 		}
 	}
 }

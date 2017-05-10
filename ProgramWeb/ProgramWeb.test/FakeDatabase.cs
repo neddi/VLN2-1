@@ -3,6 +3,7 @@ using FakeDbSet;
 using System.Data.Entity;
 using ProgramWeb.Models;
 using ProgramWeb.Models.Entities;
+using System.Data.Entity.Infrastructure;
 
 namespace ProgramWeb.test
 {
@@ -48,6 +49,11 @@ namespace ProgramWeb.test
 		public void Dispose()
 		{
 			// Do nothing!
+		}
+
+		public DbEntityEntry Entry(object entity)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
