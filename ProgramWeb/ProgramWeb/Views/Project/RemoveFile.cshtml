@@ -5,7 +5,7 @@
 }
 <h2>@ViewBag.Title.</h2>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-@using (Html.BeginForm("File", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("RemoveFile", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     <div class="col-md-10" hidden>
         @Html.TextBoxFor(m => m.ID, new { @class = "form-control", @Value = Model.ID })
@@ -33,7 +33,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Save" />
+            <input type="submit" id="delete" class="btn btn-default" value="Delete" />
         </div>
     </div>
 }

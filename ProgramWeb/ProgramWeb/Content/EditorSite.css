@@ -1,6 +1,7 @@
 ﻿#entiresite {
   /* Specifies that the contents will be laid out according to Flexbox rules. */
 	display: flex;
+    margin-top:20px;
 } 
 nav {
 	background: #C9BFBF;
@@ -26,6 +27,7 @@ aside {
 	flex: 2 1 70%;
 	margin: 3px;
 	padding: 3px;
+
 }
 
 .modal-content {
@@ -65,3 +67,11 @@ aside {
     position:relative;
     top:10px;
 }
+
+.loginLabelSpacer{
+    margin-left:15px;
+
+    dislplay:block;
+
+}
+

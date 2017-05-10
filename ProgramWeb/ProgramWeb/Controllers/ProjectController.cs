@@ -25,7 +25,7 @@ namespace ProgramWeb.Controllers
         {
             var projectService = new ProjectService(null);
             //hardcoded value for open file
-            var fileModel = projectService.OpenFile(2);
+            var fileModel = projectService.OpenFile(3);
             return View(fileModel);
         }
 
@@ -49,6 +49,30 @@ namespace ProgramWeb.Controllers
                 return RedirectToRoute("Editor", "Home");
             }
             return View(fileToSave);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveFile()
+        {
+            var projectService = new ProjectService(null);
+            //hardcoded value for open file
+            var fileModel = projectService.OpenFile(0);
+            return View(fileModel);
+        }
+        [HttpPost]
+        public ActionResult RemoveFile(Files fileFromView)
+        {
+            var projectService = new ProjectService(null);
+            var fileToRm = new Files();
+            fileToRm.ID = fileFromView.ID;
+            //fileToRm.FileType = fileFromView.FileType;
+            //fileToRm.Name = fileFromView.Name;
+            //fileToRm.Content = fileFromView.Content;
+            if (projectService.RemoveFile(fileToRm.ID))
+            {
+                return RedirectToRoute("Index", "Home");
+            }
+            return View(fileToRm);
         }
 		[HttpGet]
 		public ActionResult UpdateProjectInfo(int id)

@@ -8,6 +8,7 @@
 
 <div class="row imgPos">
     <img src="~/CustomData/demo2resize.PNG" alt="demo" height="350px" />
+    
     <div class="col-md-8 loginBoxPosition">
         <h2>@ViewBag.Title.</h2>
         <section id="loginForm">
@@ -20,14 +21,14 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.UserName, "Username", new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control loginLabelSpacer" })
                         @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control loginLabelSpacer" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
