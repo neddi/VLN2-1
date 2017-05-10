@@ -127,14 +127,6 @@ namespace ProgramWeb.Controllers
             return View();
         }
 
-		[HttpGet]
-		public ActionResult CreateFile()
-		{
-			NewFileViewModel model = new NewFileViewModel();
-			return View(model);
-		}
-
-
         [HttpPost]
         public ActionResult CreateFile(NewFileViewModel model)
         {
@@ -144,7 +136,7 @@ namespace ProgramWeb.Controllers
             Files newFile = model.File;
             entity.File = newFile;
 
-            projectService = new ProjectService();
+            projectService = new ProjectService(null);
             if (projectService.NewFile(entity))
             {
                 return RedirectToAction("Index");

@@ -14,14 +14,13 @@ namespace ProgramWeb.Controllers
         // GET: Navigation
         public ActionResult Menu()
         {
-            /*
-
-            ProjectService thisUser = new ProjectService(null);
+			ProjectService thisUser = new ProjectService(null);
 
             UserProjectsViewModel projects = new UserProjectsViewModel();
             projects = thisUser.GetUserProject(User.Identity.GetUserId());
 
             return PartialView("_SideBarNavigation", projects);
+			return View();
         }
         public ActionResult ViewLyubomir()
         {
