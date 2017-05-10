@@ -12,38 +12,31 @@
     <section id="editor"></section>
     <aside>aside</aside>
 </section>
+
+
+
+
+
+<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+<script src="~/signalr/hubs"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setMode("ace/mode/html");
 
-<form method="post">
-    <button id="button_1" value="val_1" name="but1">button 1</button>
-</form>
+    function hideSidebar() {
+        $("nav").toggle();
+    }
 
-
-    <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
-
-    <script>
-        var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/chrome");
-        editor.getSession().setMode("ace/mode/html");
-
-        function hideSidebar() {
-            $("nav").toggle();
-        }
-
-        $(document).ready(function () {
-            $("#button_1").click(function() {
-                $.ajax({
-                    type: "POST",
-                    url: "/ProjectService/SaveFileFuni/",
-                    data: { content: $("#button_1").val() },
-                    success: function (result) {
-                        alert('ok');
-                    },
-                    error: function (result) {
-                        alert('error');
-                    }
-                });
-            }); 
+    var codehub = $.connection.codeHub;
+    $.connection.hub.start().done(function () {
+        editor.on("change", function (obj) {
+            console.log(obj);
         });
+    });
 
-    </script>
+
+
+</script>

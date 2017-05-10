@@ -8,7 +8,8 @@ namespace ProgramWeb
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            //ConfigureAuth(app); Þetta er tekið út smkv tutorial -Funi
+            app.MapSignalR();
         }
     }
 }
