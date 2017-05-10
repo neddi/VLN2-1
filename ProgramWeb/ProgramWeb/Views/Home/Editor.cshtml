@@ -1,5 +1,5 @@
 ﻿
-
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Editorediting";
 }
@@ -9,79 +9,30 @@
 
 <section id="entiresite">
     <nav>
-        <div id="myTreeView" title="One fine body…"></div>
-   
+        <section id="navigation">
+            @Html.Action("Menu", "Navigation")
     </nav>
-    <section id="editor">
-
-    </section>
+        </section>
+    </nav>
+    <section id="editor"></section>
+        
     <aside>aside</aside>
 </section>
+<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<div class="btn btn-success">Save</div>
 
+<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
 
 <script src="http://cdn.alloyui.com/3.0.1/aui/aui-min.js"></script>
 <link href="http://cdn.alloyui.com/3.0.1/aui-css/css/bootstrap.min.css" rel="stylesheet">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/html");
 
-
-    $(function () {
-
-        $("button.test").on("click", function () {
-            console.log("click");
-            var content = ace.edit("editor").getValue();
-            console.log("content = ", content);
-            ace.edit("editor").setValue(@ViewBag.Name);
-        });
-    });
-</script>
-
-<script>
- YUI().use(
-    'aui-tree-view',
-    function (Y) {
-        var children = [
-        {
-            children: [
-            {
-                label: 'Awesome 1'
-            },
-            {
-                label: 'Awesome 2'
-            },
-            {
-                label: 'Awesome 3'
-            }
-            ],
-            expanded: true,
-            label: 'FUCKING AWESOME TREEVIEW'
-        }
-        ];
-        new Y.TreeView(
-        {
-            boundingBox: '#myTreeView',
-            children: children
-        }
-        ).render();
-        }
-        
-    );
-
- YUI().ready(
-   'aui-tooltip',
-   function (Y) {
-       new Y.Tooltip(
-         {
-             trigger: '#myTreeView',
-             position: 'left'
-         }
-       ).render();
-   }
- );
-
+    function hideSidebar() {
+        $("nav").toggle();
+    }
 </script>

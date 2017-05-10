@@ -1,0 +1,39 @@
+﻿@model ProgramWeb.Models.Entities.Files
+<!-- Temporary page for testing of tables -->
+@{
+    ViewBag.Title = "File Information";
+}
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("File", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="col-md-10" hidden>
+        @Html.TextBoxFor(m => m.ID, new { @class = "form-control", @Value = Model.ID })
+    </div>
+    <div class="col-md-10"hidden>
+        @Html.TextBoxFor(m => m.FileType, new { @class = "form-control", @Value = Model.FileType })
+    </div>
+    @Html.AntiForgeryToken()
+    <h4>Add a name and some personal info</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Value = Model.Name })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Content, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", @id = "Content" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Save" />
+        </div>
+    </div>
+}

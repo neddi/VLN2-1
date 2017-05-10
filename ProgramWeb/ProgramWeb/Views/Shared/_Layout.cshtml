@@ -23,6 +23,17 @@
                  
                   
               </div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Table Testing", "TableTesting", "Home")</li>
+                    <li>@Html.ActionLink("Table Testing", "TableTesting", "Manage")</li>
+                    <li>@Html.ActionLink("New Project", "CreateProject", "Home")</li>
+                    <li>@Html.ActionLink("Invite User", "Invite", "Home")</li>
+                    <li>@Html.ActionLink("Project Info", "ProjectInfo", "Project")</li>
               @Html.Partial("_LoginPartial")
         </div>
     </div>

@@ -66,6 +66,7 @@ namespace ProgramWeb.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
     }
 
     public class RegisterViewModel
@@ -74,12 +75,6 @@ namespace ProgramWeb.Models
         [DataType(DataType.Text)]
         [Display(Name = "User Name")]
         public string UserName { get; set; }
-
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "Full Name")]
-        public string FullName { get; set; }
-
 
         [Required]
         [EmailAddress]
@@ -96,6 +91,11 @@ namespace ProgramWeb.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Creation date")]
+        public System.DateTime CreateDate { get; set; }
 
     }
 

@@ -2,10 +2,336 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ProgramWeb.Models.ViewModel;
+using ProgramWeb.Models.Entities;
+using ProgramWeb.Models;
+using ProgramWeb.Controllers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System.Data.Entity;
 
 namespace ProgramWeb.Services
 {
-	public class ProjectService
-	{
+    public class ProjectService
+    {
+		private readonly IAppDataContext _db;
+		public ProjectService(IAppDataContext context)
+		{
+			_db = context ?? new ApplicationDbContext();
+		}
+
+		//private ApplicationDbContext _db;
+		//public ProjectService(ApplicationDbContext d)
+		//{
+		//	_db = new ApplicationDbContext();
+		//}
+
+		///Create new Project
+		public bool NewProject(Projects entity, string currentUserId)
+        {
+            if (entity != null)
+            {
+                var project = new Projects();
+                project.Name = entity.Name;
+                project.Description = entity.Description;
+                //Hardcoded as a HTML project, to be changed (knock on wood)
+                project.ProjectTypeId = 1;
+                project.CreateDate = DateTime.Now;
+                Files index = new Files();
+                //also hardcoded for now
+                index.Name = "index";
+                index.FileType = "HTML";
+                _db.Projects.Add(project);
+                _db.Files.Add(index);
+                _db.SaveChanges();
+                ProjectFiles newProject = new ProjectFiles();
+                newProject.ProjectId = project.Id;
+                newProject.FileId = index.ID;
+                _db.ProjectFiles.Add(newProject);
+                var userInProject = new UserProjects();
+                userInProject.UserId = currentUserId;
+                userInProject.IsAdmin = true;
+                userInProject.ProjectId = project.Id; 
+                _db.UserProjects.Add(userInProject);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool AddUserToProject(string userId)
+        {
+            if (userId != null)
+            {
+                var userDb = new IdentityDbContext();
+                var invitedUser = userDb.Users
+                    .Select(u => u.Id == userId);
+                //hardcoded project ID
+                var userInProject = new UserProjects();
+                userInProject.UserId = userId;
+                userInProject.IsAdmin = false;
+                userInProject.ProjectId = 3; // TODO add "currentProject / activeProject"
+                _db.UserProjects.Add(userInProject);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Get information about the active project
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        public ProjectInfoViewModel GetProjectInfo(int projectid)
+		{
+			ProjectInfoViewModel viewModel = new ProjectInfoViewModel();
+
+			var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
+			viewModel.Id = project.Id;
+			viewModel.Name = project.Name;
+			viewModel.CreateDate = project.CreateDate;
+			viewModel.Description = project.Description;
+
+			var allProjectUsers = (from u in _db.ProjectUsers
+								   where u.ProjectId == projectid
+									select new { u.FullName, u.IsAdmin }).ToList();
+			List<string> ProjectUsers = new List<string>();
+			List<string> ProjectOwners = new List<string>();
+			foreach (var item in allProjectUsers)
+			{
+				string tmpName = item.FullName;
+				ProjectUsers.Add(tmpName);
+				if(item.IsAdmin)
+				{
+					ProjectOwners.Add(tmpName);
+				}
+			}
+			viewModel.Users = ProjectUsers;
+			viewModel.ProjectOwners = ProjectOwners;
+
+			return viewModel;
+		}
+
+		/// <summary>
+		/// Updating project information
+		/// </summary>
+		/// <param name="info"></param>
+		public bool UpdateProjectInfo(ProjectInfoViewModel info)
+		{
+			if (info != null)
+			{
+				var dbProject = _db.Projects.Find(info.Id);
+				Projects project = new Projects();
+				project.Id = info.Id;
+				project.Name = info.Name;
+				project.Description = info.Description;
+				project.CreateDate = info.CreateDate;
+				project.ProjectTypeId = dbProject.ProjectTypeId;
+				_db.Entry(dbProject).CurrentValues.SetValues(project);
+				_db.Entry(dbProject).State = EntityState.Modified;
+				_db.SaveChanges();
+				return true;
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public List<ProjectViewModel> ListAllProjects()
+        {
+            var projectList = _db.Projects.ToList();
+            List<ProjectViewModel> projectViewList = new List<ProjectViewModel>();
+            foreach (Projects proj in projectList)
+            {
+                
+                //projModel.Name = proj.Name;
+                //projModel.Description = proj.Description;
+                //projModel.Id = proj.Id;
+                //projModel.ProjectTypeId = proj.ProjectTypeId;
+                projectViewList.Add( GetProject(proj.Id) );
+                
+            }
+            return projectViewList;
+        }
+		/// <summary>
+		/// List all information about project, including file list and user list
+		/// </summary>
+		/// <param name="projectid"></param>
+		/// <returns></returns>
+		public ProjectViewModel GetProject(int? projectid)
+		{
+			try
+			{ 
+				ProjectViewModel viewModel = new ProjectViewModel();
+
+				var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
+				viewModel.Id = project.Id;
+				viewModel.Name = project.Name;
+				if (project.Description == null)
+				{
+					viewModel.Description = "No Description";
+				}
+				else
+				{
+					viewModel.Description = project.Description;
+				}
+				viewModel.CreateDate = project.CreateDate;
+				viewModel.ProjectTypeId = project.ProjectTypeId;
+				var allProjectUsers = (from u in _db.ProjectUsers
+									   where u.ProjectId == projectid
+									   select new { u.FullName }).ToList();
+
+				List<string> users = new List<string>();
+				foreach (var item in allProjectUsers)
+				{
+					string tmpName = item.FullName;
+
+					users.Add(tmpName);
+				}
+
+			//viewModel.ProjectUsers = users;
+
+				var fileList = (from f in _db.Files
+								join p in _db.ProjectFiles on f.ID equals p.FileId
+								where p.ProjectId == projectid
+								select new { f.ID, f.Name, f.FileType, f.Content }).ToList();
+
+				List<Files> files = new List<Files>();
+				foreach (var fileItem in fileList)
+				{
+					Files tmpFile = new Files();
+					tmpFile.ID = fileItem.ID;
+					tmpFile.Name = fileItem.Name;
+					tmpFile.FileType = fileItem.FileType;
+					tmpFile.Content = fileItem.Content;
+					files.Add(tmpFile);
+				}
+				viewModel.ProjectFiles = files;
+
+				return viewModel;
+			} catch(Exception ex)
+			{
+				return null;
+			}
+
+		}
+
+		/// <summary>
+		/// Lists all projects belongin to the logged in user
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		public UserProjectsViewModel GetUserProject(string userId)
+		{
+			UserProjectsViewModel viewModel = new UserProjectsViewModel();
+
+			var user = (from u in _db.Users
+					   where u.Id == userId
+					   select new { u.FullName, u.Id }).SingleOrDefault();
+
+			viewModel.Id = user.Id;
+			viewModel.FullName = user.FullName;
+
+			var allProjects = (from u in _db.ProjectUsers
+								   where u.userId == userId
+								   select new { u.ProjectId }).ToList();
+
+
+			List<ProjectViewModel> projects = new List<ProjectViewModel>();
+
+			foreach(var item in allProjects)
+			{
+				ProjectViewModel tmpProject = new ProjectViewModel();
+				tmpProject = GetProject(item.ProjectId);
+				projects.Add(tmpProject);
+			}
+
+			viewModel.ProjectList = projects;
+
+			return viewModel;
+		}
+
+		public bool NewFile(NewFileViewModel entity)
+		{
+			if (entity != null)
+			{
+				var file = entity.File;
+				_db.Files.Add(file);
+				_db.SaveChanges();
+				ProjectFiles newProject = new ProjectFiles();
+				newProject.ProjectId = entity.ProjectId;
+				newProject.FileId = file.ID;
+				_db.ProjectFiles.Add(newProject);
+				_db.SaveChanges();
+				return true;
+			}
+			return false;
+		}
+
+		public FileViewModel GetFile(int fileId)
+		{
+			Files fileData = _db.Files.SingleOrDefault(x => x.ID == fileId);
+			FileViewModel viewModel = new FileViewModel();
+
+			viewModel.Id = fileData.ID;
+			viewModel.Name = fileData.Name;
+			viewModel.FileType = fileData.FileType;
+			viewModel.Content = fileData.Content;
+
+			return viewModel;
+		}
+
+		public bool UpdateFile(FileViewModel data)
+		{
+			if (data != null)
+			{
+				var dbFile = _db.Files.Find(data.Id);
+				Files file = new Files();
+				file.ID = data.Id;
+				file.Name = data.Name;
+				file.FileType = data.FileType;
+				file.Content = data.Content;
+				_db.Entry(dbFile).CurrentValues.SetValues(file);
+				_db.Entry(dbFile).State = EntityState.Modified;
+				_db.SaveChanges();
+
+				return true;
+			}
+			return false;
+		}
+
+        public bool SaveFile(Files model)
+        {
+            if (model != null)
+            {
+                var newFile = _db.Files.Find(model.ID);
+                //Files newFile = new Files();
+                newFile.Name = model.Name;
+                newFile.Content = model.Content;
+                newFile.FileType = model.FileType;
+                //_db.Entry(dbProject).CurrentValues.SetValues(newFile);
+                //_db.Entry(dbProject).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return false;
+        }
+
+        public Files OpenFile(int fileId)
+        {
+            var fileToEdit = (from f in _db.Files
+                              where f.ID == fileId
+                              select f).FirstOrDefault();
+            return fileToEdit;    
+        }
 	}
 }

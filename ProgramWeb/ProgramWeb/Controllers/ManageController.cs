@@ -4,16 +4,23 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProgramWeb.Models;
+using System.Collections.Generic;
+using ProgramWeb.Models.ViewModel;
+using ProgramWeb.Services; // to be deleted
 
 namespace ProgramWeb.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationSignInManager _signInManager;
+		// ProjectService must be deleted before turn in
+		// For testing purposes only
+		private ProjectService service = new ProjectService(null);
+		private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public ManageController()
@@ -131,8 +138,66 @@ namespace ProgramWeb.Controllers
         }
 
         //
-        // POST: /Manage/EnableTwoFactorAuthentication
+        // GET: /Manage/AddFullName
+        public ActionResult AddName()
+        {
+            var currentUser = UserManager.FindById(User.Identity.GetUserId());
+            var Model = new AddNameViewModel();
+            Model.FullName = currentUser.FullName;
+            Model.Info = currentUser.Info;
+            return View(Model);
+        }
+
+        //
+        // POST: /Manage/AddFullName
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddName(AddNameViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                var currentUser = UserManager.FindById(User.Identity.GetUserId());
+                currentUser.FullName = model.FullName;
+                currentUser.Info = model.Info;
+                UserManager.Update(currentUser);
+                return RedirectToAction("Index", new { Message = "Name Updated succesfully" });
+            }
+            
+            return View(model);
+        }
+
+		//Temporary Action for testing of tables
+		public ActionResult TableTesting()
+		{
+			ViewBag.Message = "Your contact page.";
+			// Display for single user
+			//var currentUser = UserManager.FindById(User.Identity.GetUserId());
+			//UserInfoViewModel viewModel = new UserInfoViewModel
+			//{
+			//	FullName = currentUser.FullName,
+			//	UserName = currentUser.UserName,
+			//	Email = currentUser.Email,
+			//	Info = currentUser.Info
+			//};
+
+			// Display for Project and file/user list
+			//ProjectViewModel viewModel = service.GetProject(2);
+
+			// Display for all project belonging current user
+			//var currentUser = UserManager.FindById(User.Identity.GetUserId());
+			//var currentuserId = currentUser.Id;
+
+			//UserProjectsViewModel viewModel = service.GetUserProject(currentuserId);
+
+			FileViewModel viewModel = service.GetFile(7);
+
+			return View(viewModel);
+		}
+
+		//
+		// POST: /Manage/EnableTwoFactorAuthentication
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {

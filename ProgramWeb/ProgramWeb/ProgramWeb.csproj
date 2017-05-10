@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -207,18 +208,26 @@
     <Compile Include="Models\Entities\ProjectTypes.cs" />
     <Compile Include="Models\Entities\Files.cs" />
     <Compile Include="Models\Entities\ProjectFiles.cs" />
+    <Compile Include="Models\Entities\ProjectUsers.cs" />
     <Compile Include="Models\Entities\UserProjects.cs" />
     <Compile Include="Models\Entities\Users.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModel\FileViewModel.cs" />
+    <Compile Include="Models\ViewModel\NewFileViewModel.cs" />
+    <Compile Include="Models\ViewModel\ProjectInfoViewModel.cs" />
+    <Compile Include="Models\ViewModel\ProjectViewModel.cs" />
     <Compile Include="Models\ViewModel\TableTestingViewModel.cs" />
-    <Compile Include="Models\ViewModel\TestData.cs" />
+    <Compile Include="Models\ViewModel\TestDataNew.cs" />
+    <Compile Include="Models\ViewModel\UpdateProjectInfoViewModel.cs" />
+    <Compile Include="Models\ViewModel\UserInfoViewModel.cs" />
+    <Compile Include="Models\ViewModel\UserProjectsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utilities\CustomHandleErrorAttribute.cs" />
-    <Compile Include="Utilities\Logger.cs" />
+    <Compile Include="Utilities\CustomApplicationException.cs" />
+    <Compile Include="Utilities\ErrorExceptionHandling.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -286,9 +295,21 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\TableTesting.cshtml" />
+    <Content Include="Views\Manage\TableTesting.cshtml" />
     <Content Include="Views\Home\Editor.cshtml" />
     <Content Include="Views\Home\EditorOnPage.cshtml" />
+    <Content Include="Views\Manage\AddName.cshtml" />
+    <Content Include="Views\Project\ProjectInfo.cshtml" />
+    <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
+    <Content Include="Views\Project\CreateProject.cshtml" />
+    <Content Include="Views\Home\Invite.cshtml" />
+    <Content Include="Views\Home\CreateProject.cshtml" />
+    <Content Include="Views\Home\CreateFile.cshtml" />
+    <Content Include="Views\Project\UpdateFile.cshtml" />
+    <Content Include="Views\Project\File.cshtml" />
+    <Content Include="Views\Shared\ErrorArgument.cshtml" />
+    <Content Include="Views\Shared\ErrorCustom.cshtml" />
+    <Content Include="Views\Shared\_UserInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,7 +319,6 @@
     <Folder Include="CustomData\Ace\src-noconflict\" />
     <Folder Include="CustomData\Ace\src\" />
     <Folder Include="CustomData\Ace\textarea\" />
-    <Folder Include="Views\Project\" />
     <Folder Include="Views\TestData\" />
   </ItemGroup>
   <ItemGroup>
