@@ -4,17 +4,31 @@
     ViewBag.Title = "Editorediting";
 }
 <section id="entiresite">
+<<<<<<< HEAD
+<nav>
+    <section id="navigation">
+        @Html.Action("Menu", "Navigation")
+
+    </section>
+</nav>
+    <section id="editor">
+
+        
+    </section>
+    <aside>aside</aside>
+</section>
+<div class="btn btn-success">Save</div>
+=======
     <nav>
         <section id="navigation">
             @Html.Action("Menu", "Navigation")
         </section>
     </nav>
     <section id="editor"></section>
-        
     <aside>aside</aside>
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
-<div class="btn btn-success">Save</div>
+>>>>>>> 76d01fef8ca354b0ebb655058df82868fc813fc4
 
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
 
