@@ -9,14 +9,15 @@ using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Controllers
 {
-    public class HomeController : Controller
+	[Authorize]
+	public class HomeController : Controller
     {
         private ProjectService projectService;
         private UserService userService;
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Editor");
         }
  /*       [Authorize]
         public ActionResult About()
