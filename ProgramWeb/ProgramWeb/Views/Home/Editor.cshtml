@@ -14,14 +14,36 @@
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
-<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
+<form method="post">
+    <button id="button_1" value="val_1" name="but1">button 1</button>
+</form>
 
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/chrome");
-    editor.getSession().setMode("ace/mode/html");
 
-    function hideSidebar() {
-        $("nav").toggle();
-    }
-</script>
+    <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
+
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/chrome");
+        editor.getSession().setMode("ace/mode/html");
+
+        function hideSidebar() {
+            $("nav").toggle();
+        }
+
+        $(document).ready(function () {
+            $("#button_1").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/ProjectService/SaveFileFuni/",
+                    data: { content: $("#button_1").val() },
+                    success: function (result) {
+                        alert('ok');
+                    },
+                    error: function (result) {
+                        alert('error');
+                    }
+                });
+            }); 
+        });
+
+    </script>

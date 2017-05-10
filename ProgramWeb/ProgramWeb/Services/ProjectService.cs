@@ -325,6 +325,19 @@ namespace ProgramWeb.Services
             }
             return false;
         }
+        public bool SaveFileFuni(string content)
+        {
+            if (content != null)
+            {
+                var newFile = _db.Files.Find(2);
+                //Files newFile = new Files();
+                newFile.Content = content;
+                //_db.Entry(dbProject).CurrentValues.SetValues(newFile);
+                //_db.Entry(dbProject).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return false;
+        }
 
         public Files OpenFile(int fileId)
         {
