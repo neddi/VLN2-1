@@ -17,8 +17,8 @@
             
             <div class="navbar-header">
              <header>
-                 <img src="~/CustomData/logo4.png" class="logoPosSize" alt="logo" class="logoPosSize" height="70px" />
-                 <div class="quoteMovePos">blehbelhbebeb</div>
+                 <a href="@Url.Action("Editor","Home")"><img src="~/CustomData/logo4.png" class="logoPosSize" alt="logo" class="logoPosSize" height="70px" /></a>
+                 <div class="quoteMovePos">Nútíma lausn fyrir nútíma þarfir</div>
              </header>
                  
                   
@@ -29,10 +29,11 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer >
             <p>&copy; @DateTime.Now.Year - All rights reserved</p>
         </footer>
     </div>
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
