@@ -27,12 +27,10 @@ aside {
 	padding: 3px;
 }
 
-  .modal-header, h4, .close {
-      background-color: #5cb85c;
-      color:white !important;
-      text-align: center;
-      font-size: 30px;
-  }
-  .modal-footer {
-      background-color: #f9f9f9;
-  }
+.modal-content {
+    width: 600px !important;
+    margin: 30px auto !important;
+}
+.modal-backdrop {
+  z-index: -1;
+}

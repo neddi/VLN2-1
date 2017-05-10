@@ -9,15 +9,34 @@ using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Controllers
 {
-	public class HomeController : Controller
-	{
+    public class HomeController : Controller
+    {
         private ProjectService projectService;
         private UserService userService;
 
         public ActionResult Index()
-		{
-			return View();
-		}
+        {
+            return View();
+        }
+ /*       [Authorize]
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+            // Get the current logged in User and look up the user in ASP.NET Identity
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+
+            // Recover the profile information about the logged in user
+            ViewBag.Name = currentUser.UserName;
+            ViewBag.FullName = currentUser.FullName;
+            ViewBag.Email = currentUser.Email;
+            ViewBag.Info = currentUser.Info;
+
+            return View();
+        }
+*/
+
 
         [Authorize]
 		public ActionResult About()
@@ -30,14 +49,16 @@ namespace ProgramWeb.Controllers
                 return RedirectToAction("Index");
             }
             return View(projects);
-		}
+        }
 
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
 
-			return View();
-		}
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
 
         public ActionResult Editor()
         {
@@ -60,10 +81,11 @@ namespace ProgramWeb.Controllers
         [HttpPost]
         public ActionResult CreateProject(ProjectViewModel model)
         {
-			Projects entity = new Projects();
+            Projects entity = new Projects();
             entity.Name = model.Name;
             entity.Description = model.Description;
             var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
             projectService = new ProjectService(null);
             if ( projectService.NewProject(entity, currentUser) )
             {
@@ -71,6 +93,15 @@ namespace ProgramWeb.Controllers
             }
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult CreateFile()
+        {
+            NewFileViewModel model = new NewFileViewModel();
+            return View(model);
+        }
+
+
         [HttpGet]
         public ActionResult Invite()
         {
@@ -86,42 +117,43 @@ namespace ProgramWeb.Controllers
         [HttpPost]
         public ActionResult Invite(string invUser)
         {
-           string invitedUserId = "aa514bbb - 6278 - 429f - a285 - 851caab053a5";
+            string invitedUserId = "aa514bbb - 6278 - 429f - a285 - 851caab053a5";
             //TODO tengja við service
             ProjectService projServ = new ProjectService(null);
             if (projServ.AddUserToProject(invitedUserId))
-            { 
+            {
                 return RedirectToAction("Index");
             }
             return View();
         }
+
 		[HttpGet]
 		public ActionResult CreateFile()
 		{
 			NewFileViewModel model = new NewFileViewModel();
 			return View(model);
 		}
-		[HttpPost]
-		public ActionResult CreateFile(NewFileViewModel model)
-		{
-			NewFileViewModel entity = new NewFileViewModel();
-			//entity.ProjectId = model.ProjectId;
-			entity.ProjectId = 2;
-			Files newFile = model.File;
-			entity.File = newFile;
-
-			projectService = new ProjectService(null);
-			if (projectService.NewFile(entity))
-			{
-				return RedirectToAction("Index");
-			}
-			return View(model);
-		}
-	}
 
 
+        [HttpPost]
+        public ActionResult CreateFile(NewFileViewModel model)
+        {
+            NewFileViewModel entity = new NewFileViewModel();
+            //entity.ProjectId = model.ProjectId;
+            entity.ProjectId = 2;
+            Files newFile = model.File;
+            entity.File = newFile;
 
+            projectService = new ProjectService();
+            if (projectService.NewFile(entity))
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+    }
 }
+
 
 //string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 //IEnumerable<Movie> model = MovieAppRepository.Instance.GetAllMovies(username);
