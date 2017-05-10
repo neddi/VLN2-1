@@ -39,10 +39,10 @@ namespace ProgramWeb.Controllers
 
 
         [Authorize]
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your testing page.";
-            projectService = new ProgramWeb.Services.ProjectService();
+		public ActionResult About()
+		{
+			ViewBag.Message = "Your testing page.";
+            projectService = new ProgramWeb.Services.ProjectService(null);
             System.Collections.Generic.IEnumerable<ProjectViewModel> projects = projectService.ListAllProjects();
             if (projects == null)
             {
@@ -85,9 +85,9 @@ namespace ProgramWeb.Controllers
             entity.Name = model.Name;
             entity.Description = model.Description;
             var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            projectService = new ProjectService();
 
-            if (projectService.NewProject(entity, currentUser))
+            projectService = new ProjectService(null);
+            if ( projectService.NewProject(entity, currentUser) )
             {
                 return RedirectToAction("Index");
             }
@@ -119,13 +119,21 @@ namespace ProgramWeb.Controllers
         {
             string invitedUserId = "aa514bbb - 6278 - 429f - a285 - 851caab053a5";
             //TODO tengja við service
-            ProjectService projServ = new ProjectService();
+            ProjectService projServ = new ProjectService(null);
             if (projServ.AddUserToProject(invitedUserId))
             {
                 return RedirectToAction("Index");
             }
             return View();
         }
+
+		[HttpGet]
+		public ActionResult CreateFile()
+		{
+			NewFileViewModel model = new NewFileViewModel();
+			return View(model);
+		}
+
 
         [HttpPost]
         public ActionResult CreateFile(NewFileViewModel model)

@@ -199,12 +199,16 @@ namespace ProgramWeb.Services
 					users.Add(tmpName);
 				}
 
-			//viewModel.ProjectUsers = users;
+				viewModel.ProjectUsers = users;
 
+<<<<<<< HEAD
 				var fileList = (from f in _db.Files
 								join p in _db.ProjectFiles on f.ID equals p.FileId
 								where p.ProjectId == projectid
 								select new { f.ID, f.Name, f.FileType, f.Content }).ToList();
+=======
+			//viewModel.ProjectUsers = users;
+>>>>>>> 890e64cfd4b5d7e292f6c4d3982719ba9e8cb549
 
 				List<Files> files = new List<Files>();
 				foreach (var fileItem in fileList)
@@ -278,6 +282,7 @@ namespace ProgramWeb.Services
 			return false;
 		}
 
+<<<<<<< HEAD
 		public FileViewModel GetFile(int fileId)
 		{
 			Files fileData = _db.Files.SingleOrDefault(x => x.ID == fileId);
@@ -309,7 +314,7 @@ namespace ProgramWeb.Services
 			}
 			return false;
 		}
-
+=======
         public bool SaveFile(Files model)
         {
             if (model != null)
@@ -333,5 +338,6 @@ namespace ProgramWeb.Services
                               select f).FirstOrDefault();
             return fileToEdit;    
         }
+>>>>>>> 890e64cfd4b5d7e292f6c4d3982719ba9e8cb549
 	}
 }
