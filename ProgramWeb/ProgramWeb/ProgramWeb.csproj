@@ -310,6 +310,7 @@
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
     <Content Include="Views\Project\UpdateFile.cshtml" />
+    <Content Include="Views\Project\File.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

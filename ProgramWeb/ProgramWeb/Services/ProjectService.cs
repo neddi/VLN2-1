@@ -199,7 +199,7 @@ namespace ProgramWeb.Services
 					users.Add(tmpName);
 				}
 
-				viewModel.ProjectUsers = users;
+			//viewModel.ProjectUsers = users;
 
 				var fileList = (from f in _db.Files
 								join p in _db.ProjectFiles on f.ID equals p.FileId
@@ -309,5 +309,29 @@ namespace ProgramWeb.Services
 			}
 			return false;
 		}
+
+        public bool SaveFile(Files model)
+        {
+            if (model != null)
+            {
+                var newFile = _db.Files.Find(model.ID);
+                //Files newFile = new Files();
+                newFile.Name = model.Name;
+                newFile.Content = model.Content;
+                newFile.FileType = model.FileType;
+                //_db.Entry(dbProject).CurrentValues.SetValues(newFile);
+                //_db.Entry(dbProject).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return false;
+        }
+
+        public Files OpenFile(int fileId)
+        {
+            var fileToEdit = (from f in _db.Files
+                              where f.ID == fileId
+                              select f).FirstOrDefault();
+            return fileToEdit;    
+        }
 	}
 }

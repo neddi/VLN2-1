@@ -31,6 +31,6 @@ namespace ProgramWeb.Models.ViewModel
         [Required]
         public List<Files> ProjectFiles { get; set; }
 
-		public List<string> ProjectUsers { get; set; }
+		public List<UserInfoViewModel> ProjectUsers { get; set; }
 	}
 }

@@ -226,7 +226,9 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\CustomApplicationException.cs" />
     <Compile Include="Utilities\CustomHandleErrorAttribute.cs" />
+    <Compile Include="Utilities\ErrorExceptionHandling.cs" />
     <Compile Include="Utilities\Logger.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -302,15 +304,16 @@
     <Content Include="Views\Manage\AddName.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
-=======
     <Content Include="Views\Project\CreateProject.cshtml" />
     <Content Include="Views\Home\Invite.cshtml" />
->>>>>>> 87662d41e806f37f43bb209dc55f18f56f881cac
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Project\UpdateFile.cshtml" />
+=======
+    <Content Include="Views\Project\File.cshtml" />
+>>>>>>> 890e64cfd4b5d7e292f6c4d3982719ba9e8cb549
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
