@@ -4,21 +4,34 @@
     ViewBag.Title = "Editorediting";
 }
 <section id="entiresite">
+<<<<<<< HEAD
+<nav>
+    <section id="navigation">
+        @Html.Action("Menu", "Navigation")
+
+    </section>
+</nav>
+    <section id="editor">
+
+        
+    </section>
+    <aside>aside</aside>
+</section>
+<div class="btn btn-success">Save</div>
+=======
     <nav>
         <section id="navigation">
             @Html.Action("Menu", "Navigation")
         </section>
     </nav>
     <section id="editor"></section>
-        
     <aside>aside</aside>
 </section>
-
+<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+>>>>>>> 76d01fef8ca354b0ebb655058df82868fc813fc4
 
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" /></div>
-<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
-<script src="~/signalr/hubs"></script>
+
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
@@ -27,14 +40,4 @@
     function hideSidebar() {
         $("nav").toggle();
     }
-
-    var codehub = $.connection.codeHub;
-    $.connection.hub.start().done(function () {
-        editor.on("change", function (obj) {
-            console.log(obj);
-        });
-    });
-
-
-
 </script>
