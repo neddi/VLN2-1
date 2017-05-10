@@ -23,7 +23,7 @@ namespace ProgramWeb.Controllers
         [HttpGet]
         public ActionResult File()
         {
-            var projectService = new ProjectService();
+            var projectService = new ProjectService(null);
             //hardcoded value for open file
             var fileModel = projectService.OpenFile(2);
             return View(fileModel);
@@ -32,7 +32,7 @@ namespace ProgramWeb.Controllers
         [HttpPost]
         public ActionResult File(Files filefromView)
         {
-            var projectService = new ProjectService();
+            var projectService = new ProjectService(null);
             var fileToSave = new Files();
             fileToSave.ID = filefromView.ID;
             fileToSave.FileType = filefromView.FileType;
