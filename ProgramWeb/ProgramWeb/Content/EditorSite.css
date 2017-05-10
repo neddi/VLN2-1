@@ -31,3 +31,6 @@ aside {
     width: 600px !important;
     margin: 30px auto !important;
 }
+.modal-backdrop {
+  z-index: -1;
+}
