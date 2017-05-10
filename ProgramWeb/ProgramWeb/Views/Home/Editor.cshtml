@@ -13,7 +13,7 @@
     <section id="editor"></section>
         
     <aside>
-        @using (Html.BeginForm("Editor", "Home", FormMethod.Post))
+        @using (Html.BeginForm("File", "Project", FormMethod.Post))
         {
             @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
             @Html.HiddenFor(m => m.ID, new { @id = "fileID"})
@@ -42,9 +42,8 @@
     }
     $("form").submit(function () {
         $("#hidden_editor").val(editor.getSession().getValue());
-        var valueInEditor = $("#hidden_editor").val(editor.getSession().getValue());
-        var hashParams = window.location.hash.substr(1).split('#'); // substr(1) to remove the `#`
-        document.getElementById("fileID").value = decodeURIComponent(hashParams);
+        var getId = window.location.hash.substr(1).split('#'); // substr(1) to remove the `#`
+        document.getElementById("fileID").value = decodeURIComponent(getId);
     });
   
 </script>
