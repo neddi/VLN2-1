@@ -310,6 +310,9 @@
     <Content Include="Views\Shared\ErrorArgument.cshtml" />
     <Content Include="Views\Shared\ErrorCustom.cshtml" />
     <Content Include="Views\Shared\_UserInformation.cshtml" />
+    <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
+    <Content Include="Views\Shared\_GetUserInformation.cshtml" />
+    <Content Include="Views\Home\NewProjectFromEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
