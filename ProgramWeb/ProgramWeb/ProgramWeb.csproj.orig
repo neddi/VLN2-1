@@ -309,8 +309,11 @@
     <Content Include="Views\Home\Invite.cshtml" />
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Project\UpdateFile.cshtml" />
+=======
     <Content Include="Views\Project\File.cshtml" />
+>>>>>>> 890e64cfd4b5d7e292f6c4d3982719ba9e8cb549
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
