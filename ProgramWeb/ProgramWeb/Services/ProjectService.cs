@@ -241,9 +241,8 @@ namespace ProgramWeb.Services
 
 			viewModel.Id = user.Id;
 			viewModel.FullName = user.FullName;
-
 			var allProjects = (from u in _db.ProjectUsers
-								   where u.userId == userId
+								   where u.userId == userId 
 								   select new { u.ProjectId }).ToList();
 
 
