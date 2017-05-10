@@ -87,7 +87,6 @@ namespace ProgramWeb.Controllers
         public ActionResult Invite(string invUser)
         {
            string invitedUserId = invUser;
-            //TODO tengja við service
             ProjectService projServ = new ProjectService(null);
             if (projServ.AddUserToProject(invitedUserId))
             { 

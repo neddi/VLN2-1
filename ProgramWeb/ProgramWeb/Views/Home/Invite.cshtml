@@ -18,31 +18,30 @@
         </tr>    
     }
 </table>
-@using (Html.BeginForm("Invite", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        <div class="col-md-10" id = "invitedUserId">
-           
-        </div>
-    </div>
-<div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-        <input type="submit" id="invite" class="btn btn-default" value="Invite" />
+        <input type="button" id="inviteBtn" class="btn btn-default" value="Invite" />
     </div>
-</div>
-}
+
     <script type="text/javascript">
         $("#userInviteTable tr").click(function () {
             $(this).addClass('selected').siblings().removeClass('selected');
             var value = $(this).find('td:first').html();
-            $('#invitedUserId').add('<form> <input type="text" value="' + value + '">  </form>');
             console.log(value);
         });
-        //TODO POST
-        $('.invite').on('submit', function (e) {
-            var userId = $("#userInviteTable tr.selected td:first").serialize();
+
+        $('#inviteBtn').on('click', function () {
+            var userId = $("#userInviteTable tr.selected td:first").html();
             console.log(userId);
-            $.post("~/Invite", userId);
+            
+            $.ajax({
+                type: 'POST',
+                url: 'Invite',
+                data: userId,
+                success: function success() {
+                    var url = '@Url.Action("Index", "Home")';
+                    window.location.href = url
+                },
+                dataType: 'string'
+            });
         });
     </script>

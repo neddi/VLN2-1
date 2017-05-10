@@ -174,7 +174,6 @@ namespace ProgramWeb.Services
 			{ 
 				ProjectViewModel viewModel = new ProjectViewModel();
 
-<<<<<<< HEAD
 			var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
 			viewModel.Id = project.Id;
 			viewModel.Name = project.Name;
@@ -200,33 +199,7 @@ namespace ProgramWeb.Services
                 tmpUser.Id = item.u.userId;
                 users.Add(tmpUser);
 			}
-=======
-				var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
-				viewModel.Id = project.Id;
-				viewModel.Name = project.Name;
-				if (project.Description == null)
-				{
-					viewModel.Description = "No Description";
-				}
-				else
-				{
-					viewModel.Description = project.Description;
-				}
-				viewModel.CreateDate = project.CreateDate;
-				viewModel.ProjectTypeId = project.ProjectTypeId;
-				var allProjectUsers = (from u in _db.ProjectUsers
-									   where u.ProjectId == projectid
-									   select new { u.FullName }).ToList();
-
-				List<string> users = new List<string>();
-				foreach (var item in allProjectUsers)
-				{
-					string tmpName = item.FullName;
-
-					users.Add(tmpName);
-				}
->>>>>>> 6e1526a064c3411e7cfa89ad96afe62bdfb24c64
-
+			
 			viewModel.ProjectUsers = users;
 
 				var fileList = (from f in _db.Files
