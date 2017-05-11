@@ -20,37 +20,13 @@ namespace ProgramWeb.Controllers
         {
             return RedirectToAction("Editor", "Project");
         }
- /*       [Authorize]
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-
-            // Get the current logged in User and look up the user in ASP.NET Identity
-            var currentUser = manager.FindById(User.Identity.GetUserId());
-
-            // Recover the profile information about the logged in user
-            ViewBag.Name = currentUser.UserName;
-            ViewBag.FullName = currentUser.FullName;
-            ViewBag.Email = currentUser.Email;
-            ViewBag.Info = currentUser.Info;
-
-            return View();
-        }
-*/
-
 
 		public ActionResult About()
 		{
-			ViewBag.Message = "Your testing page.";
-            projectService = new ProgramWeb.Services.ProjectService(null);
-            System.Collections.Generic.IEnumerable<ProjectViewModel> projects = projectService.ListAllProjects();
-            if (projects == null)
-            {
-                return RedirectToAction("Index");
-            }
-            return View(projects);
-        }
+			ViewBag.Message = "Your application description page.";
+
+			return View();
+		}
 
 		[Authorize]
 		public ActionResult Contact()
@@ -58,28 +34,6 @@ namespace ProgramWeb.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        [HttpGet]
-        public ActionResult CreateProject()
-        {
-            ProjectViewModel model = new ProjectViewModel();
-            return View(model);
-        }
-        [HttpPost]
-        public ActionResult CreateProject(ProjectViewModel model)
-        {
-            Projects entity = new Projects();
-            entity.Name = model.Name;
-            entity.Description = model.Description;
-            var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
-
-            projectService = new ProjectService(null);
-            if ( projectService.NewProject(entity, currentUser) )
-            {
-                return RedirectToAction("Index");
-            }
-            return View(model);
         }
     }
 }

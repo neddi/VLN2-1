@@ -1,4 +1,5 @@
-﻿using ProgramWeb.Models.Entities;
+﻿using Microsoft.AspNet.Identity;
+using ProgramWeb.Models.Entities;
 using ProgramWeb.Models.ViewModel;
 using ProgramWeb.Services;
 using System;
@@ -211,6 +212,28 @@ namespace ProgramWeb.Controllers
 				return RedirectToAction("Index");
 			}
 			return View();
+		}
+
+		[HttpGet]
+		public ActionResult CreateProject()
+		{
+			ProjectViewModel model = new ProjectViewModel();
+			return View(model);
+		}
+		[HttpPost]
+		public ActionResult CreateProject(ProjectViewModel model)
+		{
+			Projects entity = new Projects();
+			entity.Name = model.Name;
+			entity.Description = model.Description;
+			var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+			projectService = new ProjectService(null);
+			if (projectService.NewProject(entity, currentUser))
+			{
+				return RedirectToAction("Index");
+			}
+			return View(model);
 		}
 	}
 }
