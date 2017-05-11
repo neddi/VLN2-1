@@ -324,6 +324,22 @@ namespace ProgramWeb.Services
             }
             return false;
         }
+        // Overload af save til að geta sent inn streng af efni frá Ajax kalli
+        public bool SaveFile(string id, string content)
+        {
+            if (id != null)
+            {
+                var newFile = _db.Files.Find(id);
+                //Files newFile = new Files();
+                //newFile.Name = model.Name;
+                newFile.Content = content;
+                //newFile.FileType = model.FileType;
+                //_db.Entry(dbProject).CurrentValues.SetValues(newFile);
+                //_db.Entry(dbProject).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return false;
+        }
 
         public Files OpenFile(int fileId)
         {

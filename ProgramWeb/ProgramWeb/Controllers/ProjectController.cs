@@ -32,6 +32,12 @@ namespace ProgramWeb.Controllers
     
             return Json(fileContent);
         }
+        [HttpPost]
+        public void SaveFileForEditor(string id, string content)
+        {
+            ProjectService fileService = new ProjectService(null);
+            fileService.SaveFile(id, content); 
+        }
         [HttpGet]
         public ActionResult File()
         {

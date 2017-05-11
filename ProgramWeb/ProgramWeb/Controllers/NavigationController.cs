@@ -21,15 +21,7 @@ namespace ProgramWeb.Controllers
             
             return PartialView("_SideBarNavigation", projects);
         }
-        public ActionResult ViewLyubomir()
-        {
-            return PartialView("_NewProjectFromEditor");
-        }
-        [HttpPost]
-        public ActionResult Lyubomir()
-        {
-            return RedirectToAction("Index");
-        }
+
     }
 }
 
