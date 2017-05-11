@@ -264,7 +264,7 @@ namespace ProgramWeb.Services
 			viewModel.FullName = user.FullName;
 			var allProjects = (from u in _db.UserProjects
 								   where (u.UserId == userId 
-                                   && u.IsAdmin == false) 
+                                   && u.IsAdmin == true) 
 								   select new { u.ProjectId, u.UserId, u.IsAdmin }).ToList();
 
 
@@ -272,7 +272,9 @@ namespace ProgramWeb.Services
 
 			foreach(var item in allProjects)
 			{
-                console.writlin(item.IsAdmin);
+                Console.WriteLine(item.IsAdmin);
+                Console.WriteLine(item.ProjectId);
+                Console.WriteLine(item.UserId);
 				ProjectViewModel tmpProject = new ProjectViewModel();
 				tmpProject = GetProject(item.ProjectId);
 				projects.Add(tmpProject);

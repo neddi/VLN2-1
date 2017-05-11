@@ -82,10 +82,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @Html.Partial("_ProjectInfo", new
-                   {
-                       id = 2
-                   }.ToViewDataDictionary())
+                        @Html.Partial("_ProjectInfo", new { id = 2}.ToViewDataDictionary())
                     </div>
 
                 </div>
@@ -103,7 +100,6 @@
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/html");
-
     function hideSidebar() {
         $("nav").toggle();
     }
@@ -112,10 +108,7 @@
         var url = '@Url.Action("CreateProject", "Project")';
         window.location.href = url
     }
-    function invite() {
-        var url = '@Url.Action("Invite", "Project")';
-        window.location.href = url
-    }
+
     function newFile()
     {
         var url = '@Url.Action("CreateFile", "Project")';

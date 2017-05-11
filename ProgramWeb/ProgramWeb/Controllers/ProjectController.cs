@@ -125,10 +125,12 @@ namespace ProgramWeb.Controllers
 			return View(model);
 		}
         [HttpGet]
-        public ActionResult Invite()
+        [ValidateInput(false)]
+        public ActionResult Invite(int projectId)
         {
             UserService userServ = new UserService();
             ViewBag.Message = "Your testing page.";
+            ViewBag.ProjectId = projectId;
             IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
             if (users == null)
             {
@@ -138,7 +140,7 @@ namespace ProgramWeb.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Invite(string userId)
+        public ActionResult Invite(string userId, int projectId)
         {
 
             ProjectService projServ = new ProjectService(null);

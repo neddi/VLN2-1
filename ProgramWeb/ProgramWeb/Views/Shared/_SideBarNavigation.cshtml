@@ -30,7 +30,11 @@
 
 
             </div>
-
+            @using (Html.BeginForm("Invite", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.TextBox("projectId", null, new { @id = "projectId" })
+                <input type="submit" value="Invite" onclick="invite()" />
+            }
         </div>
     </div>
 </div>
@@ -44,12 +48,18 @@
         alert(fileID);
         SaveFileAjax(fileID, content);  
     };
-
+    function invite() {
+        var projectId = $(".selectedProject").attr('data-id');
+        console.log(projectId);
+        $('#projectId').val(projectId);
+        var url = '@Url.Action("Invite", "Project")';
+        window.location.href = url
+    }
     function projectSelection(currentObject) {
         setSelectedProject(currentObject);
         var projectId = $(".selectedProject").attr('data-id');
         $('#hiddenProjectID').attr('value', projectId);
-        alert(projectId);
+        //alert(projectId);
     }
 
     function setEditorContent(value, currentObject) {

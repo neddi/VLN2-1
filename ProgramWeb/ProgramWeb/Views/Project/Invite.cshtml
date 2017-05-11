@@ -21,10 +21,12 @@
 @using (Html.BeginForm("Invite", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
         @Html.TextBox("userId", null, new { @class = "invitedUser" })
+        @Html.TextBox("projectId", null, new { @class = "projectId" })
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" onclick="invite" class="btn btn-default" value="Invite" />
         </div>
 }
+
         <script type="text/javascript">
             $("#userInviteTable tr").click(function () {
                 $(this).addClass('selected').siblings().removeClass('selected');
@@ -32,6 +34,7 @@
                 //$('#invitedUserId').append("<p>"+value+"</p>");
                 //document.getElementById("fileID").value = decodeURIComponent(getId);
                 $('.invitedUser').val(value);
+                $('.projectId').val(@ViewBag.ProjectId);
                 console.log(value);
             });
 

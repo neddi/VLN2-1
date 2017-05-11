@@ -28,7 +28,7 @@ namespace ProgramWeb.Utilities
 			ProjectService service = new ProjectService(null);
 			var projectInfo = service.GetProjectInfo(id);
 			dictionary.Add("Name", projectInfo.Name);
-			dictionary.Add("ProjectOwners", projectInfo.ProjectOwners);
+			dictionary.Add("ProjectOwners", projectInfo.ProjectOwner);
 			dictionary.Add("CreateDate", projectInfo.CreateDate);
 			dictionary.Add("Description", projectInfo.Description);
 			dictionary.Add("Users", projectInfo.Users);
