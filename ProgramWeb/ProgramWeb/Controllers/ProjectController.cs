@@ -32,8 +32,8 @@ namespace ProgramWeb.Controllers
         public ActionResult GetFileForEditor(int id)
         {
             ProjectService fileService = new ProjectService(null);
-            string fileContent;
-            fileContent = (fileService.GetFile(id)).Content;
+            FileViewModel fileContent;
+            fileContent = (fileService.GetFile(id));
     
             return Json(fileContent);
         }

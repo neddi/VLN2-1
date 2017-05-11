@@ -45,7 +45,6 @@
     function saveButton() {
         var fileID = $(".selected").attr('data-id');
         var content = editor.getSession().getValue();
-        alert(fileID);
         SaveFileAjax(fileID, content);  
     };
     function invite() {
@@ -59,13 +58,12 @@
         setSelectedProject(currentObject);
         var projectId = $(".selectedProject").attr('data-id');
         $('#hiddenProjectID').attr('value', projectId);
-        //alert(projectId);
     }
 
     function setEditorContent(value, currentObject) {
         setSelected(currentObject);
-        GetFileAjax(value).done(function (value) {
-            editor.getSession().setValue(value)
+        GetFileAjax(value).done(function (response) {
+            editor.getSession().setValue(response.Content)
         });
     };
 
