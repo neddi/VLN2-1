@@ -329,7 +329,7 @@ namespace ProgramWeb.Services
         {
             if (id != null)
             {
-                var newFile = _db.Files.Find(id);
+                var newFile = _db.Files.Find(Convert.ToInt32(id));
                 //Files newFile = new Files();
                 //newFile.Name = model.Name;
                 newFile.Content = content;
