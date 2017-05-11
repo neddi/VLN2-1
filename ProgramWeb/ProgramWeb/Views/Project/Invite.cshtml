@@ -19,40 +19,41 @@
     }
 </table>
 @using (Html.BeginForm("Invite", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{ }
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" onclick="invite" class="btn btn-default" value="Invite" />
-    </div>
+{
 
-    <script type="text/javascript">
-        $("#userInviteTable tr").click(function () {
-            $(this).addClass('selected').siblings().removeClass('selected');
-            var value = $(this).find('td:first').html();
-            //$('#invitedUserId').append("<p>"+value+"</p>");
-            //document.getElementById("fileID").value = decodeURIComponent(getId);
-            //$('#invitedUserId').append('<form> <input type="text" value="' + value + '">  </form>');
-            console.log(value);
-        });
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" onclick="invite" class="btn btn-default" value="Invite" />
+        </div>
+}
+        <script type="text/javascript">
+            $("#userInviteTable tr").click(function () {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                var value = $(this).find('td:last').html();
+                //$('#invitedUserId').append("<p>"+value+"</p>");
+                //document.getElementById("fileID").value = decodeURIComponent(getId);
+                $('.invitedUser').add('<form hidden> <input type="text" value="' + value + '">  </form>');
+                console.log(value);
+            });
 
-        function invite()
-        {
-            var value = $('.selected').find('td:first').serialize();
-            $.post('@Url.Action("Invite", "Project")', invUser);
-        }
+            //function invite()
+            //{
+            //    var value = $('.selected').find('td:first').serialize();
+            //    $.post('@Url.Action("Invite", "Project")', invUser);
+            //}
 
-        //$('.invite').on('submit', function (e) {
-        //    e.preventDefault()
-        //    var invUser = $("#userInviteTable tr.selected td:first").serialize();
-        //    console.log(invUser);
-        //    $.post('@Url.Action("Invite", "Project")', invUser);
-        //    var url = '@Url.Action("Editor", "Home")';
-        //    window.location.href = url
-        //});
-        //        success: function success() {
-        //            var url = '@Url.Action("Index", "Home")';
-        //            window.location.href = url
-        //        },
-        //        dataType: 'string'
-        //    });
-        //});
-    </script>
+            //$('.invite').on('submit', function (e) {
+            //    e.preventDefault()
+            //    var invUser = $("#userInviteTable tr.selected td:first").serialize();
+            //    console.log(invUser);
+            //    $.post('@Url.Action("Invite", "Project")', invUser);
+            //    var url = '@Url.Action("Editor", "Home")';
+            //    window.location.href = url
+            //});
+            //        success: function success() {
+            //            var url = '@Url.Action("Index", "Home")';
+            //            window.location.href = url
+            //        },
+            //        dataType: 'string'
+            //    });
+            //});
+        </script>

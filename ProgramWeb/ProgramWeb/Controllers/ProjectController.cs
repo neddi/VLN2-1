@@ -138,13 +138,15 @@ namespace ProgramWeb.Controllers
         [ValidateInput(false)]
         public ActionResult Invite(string invUser)
         {
-            //TODO tengja við service
+
             ProjectService projServ = new ProjectService(null);
             if (projServ.AddUserToProject(invUser))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Editor");
             }
-            return View();
+            UserService userServ = new UserService();
+            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            return View(users);
         }
         // Temporary for testing purposes only
         [HttpGet]
