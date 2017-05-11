@@ -72,23 +72,28 @@
                 </div>
             </div>
         </div>
+        @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.Hidden("Id", new { @id = "Id" })
+           
+            <input type="submit" value="Project Info" onclick="getUserInfo()" class="btn-aside btn-editor" />
+        }@*
+    <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
+        Project Info
+    </button>
 
-        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
-            Project Info
-        </button>
-
-        <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" onclick="getProjectInfo()">Test</button>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @Html.Partial("_ProjectInfo", new { id = 2}.ToViewDataDictionary())
-                    </div>
-
+    <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" onclick="getProjectInfo()">Test</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @Html.Partial("_ProjectInfo", new { id = 2}.ToViewDataDictionary())
                 </div>
+
             </div>
         </div>
+    </div>*@
     </aside>
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -121,10 +126,12 @@
         document.getElementById("fileID").value = decodeURIComponent(getId);
     });
 
-    function getProjectInfo() {
-        var sendId = $("#hiddenProjectID").attr('value');
-        alert(sendId);
-        $.post('@Url.Action("ProjectInfo", "Project")', sendId);
+    function getUserInfo() {
+        var sendId = $("#selectedProject").attr('value');
+        console.log(projectId);
+        $('#Id').val(sendId);
+        var url = '@Url.Action("ProjectInfo", "Project")';
+        window.location.href = url
     }
 
 </script>

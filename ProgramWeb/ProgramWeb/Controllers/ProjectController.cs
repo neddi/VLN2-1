@@ -19,9 +19,10 @@ namespace ProgramWeb.Controllers
 		private UserService userService;
 
 		// Action for Viewing Multiple tables
-		public async Task<ActionResult> ProjectInfo(int id)
+		public async Task<ActionResult> ProjectInfo(int Id)
 		{
-			ProjectInfoViewModel viewModel = service.GetProjectInfo(id);
+			//ViewBag.projectInfoId = projectInfoId;
+			ProjectInfoViewModel viewModel = service.GetProjectInfo(Id);
 
 			return PartialView("_ProjectInfo", viewModel);
 		}
