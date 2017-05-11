@@ -127,7 +127,7 @@ namespace ProgramWeb.Controllers
         {
             UserService userServ = new UserService();
             ViewBag.Message = "Your testing page.";
-            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
             if (users == null)
             {
                 RedirectToAction("Index");
@@ -136,16 +136,17 @@ namespace ProgramWeb.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Invite(string invUser)
+        public ActionResult Invite(string userId)
         {
 
             ProjectService projServ = new ProjectService(null);
-            if (projServ.AddUserToProject(invUser))
+            if (projServ.AddUserToProject(userId))
             {
                 return RedirectToAction("Editor");
             }
             UserService userServ = new UserService();
-            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            ViewBag.Message = "An error occured, please try again";
             return View(users);
         }
         // Temporary for testing purposes only

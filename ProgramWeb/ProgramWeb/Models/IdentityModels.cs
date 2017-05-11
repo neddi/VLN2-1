@@ -31,7 +31,7 @@ namespace ProgramWeb.Models
 		IDbSet<ProjectTypes> ProjectTypes { get; set; }
 		IDbSet<Projects> Projects { get; set; }
 		IDbSet<UserProjects> UserProjects { get; set; }
-		IDbSet<ProjectUsers> ProjectUsers { get; set; }
+		//IDbSet<ProjectUsers> ProjectUsers { get; set; }
 		IDbSet<Users> Users { get; set; }
 		int SaveChanges();
 		DbEntityEntry Entry(object entity);
@@ -44,7 +44,7 @@ namespace ProgramWeb.Models
 		public IDbSet<ProjectTypes> ProjectTypes { get; set; }
 		public IDbSet<Projects> Projects { get; set; }
 		public IDbSet<UserProjects> UserProjects { get; set; }
-		public IDbSet<ProjectUsers> ProjectUsers { get; set; }
+		//public IDbSet<ProjectUsers> ProjectUsers { get; set; }
 		public IDbSet<Users> Users { get; set; }
 
         public ApplicationDbContext()

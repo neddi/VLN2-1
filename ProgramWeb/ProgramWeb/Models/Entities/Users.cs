@@ -28,6 +28,6 @@ namespace ProgramWeb.Models.Entities
 
 		[Required]
 		[DataType(DataType.Text)]
-		public string UseName { get; set; }
+		public string UserName { get; set; }
 	}
 }

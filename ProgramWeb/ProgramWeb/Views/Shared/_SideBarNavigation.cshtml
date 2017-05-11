@@ -17,7 +17,7 @@
                     @foreach (var project in Model.ProjectList)
                     {
                         <li class="list-group-item"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
-                        <div id="@project.Id" class="panel-collapse collapse">
+                        <li id="@project.Id" class="panel-collapse collapse">
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
@@ -25,7 +25,7 @@
                                     <li class="list-group-item" onclick="setEditorContent2('@file.ID')"><a href="#@file.ID">@file.Name</a></li>
                                 }
                             </ul>
-                        </div>
+                        </li>
                     }
                 </ul>
 
