@@ -21,7 +21,7 @@
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
-                                    <li class="list-group-item selected" onclick="setEditorContent2('@file.ID')"><a href="#@file.ID">@file.Name</a></li>
+                                    <li class="list-group-item selected" onclick="setEditorContent('@file.ID')"><a href="#@file.ID">@file.Name</a></li>
                                 }
                             </ul>
                         </div>
