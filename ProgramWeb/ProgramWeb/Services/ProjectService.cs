@@ -264,6 +264,19 @@ namespace ProgramWeb.Services
 		{
 			if (entity != null)
 			{
+				var fileList = (from f in _db.Files
+								join p in _db.ProjectFiles on f.ID equals p.FileId
+								where p.ProjectId == entity.ProjectId
+								select new { f.ID, f.Name, f.FileType, f.Content }).ToList();
+
+				foreach (var fileItem in fileList)
+				{
+					if(fileItem.Name == entity.File.Name)
+					{
+						return false;
+					}					
+				}
+				
 				var file = entity.File;
 				_db.Files.Add(file);
 				_db.SaveChanges();
