@@ -66,7 +66,7 @@ namespace ProgramWeb.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool AddUserToProject(string userId)
+        public bool AddUserToProject(string userId, int projectId)
         {
             if (userId != null)
             {
@@ -77,7 +77,7 @@ namespace ProgramWeb.Services
                 var userInProject = new UserProjects();
                 userInProject.UserId = userId;
                 userInProject.IsAdmin = false;
-                userInProject.ProjectId = 17; // TODO add "currentProject / activeProject"
+                userInProject.ProjectId = projectId; // TODO add "currentProject / activeProject"
                 _db.UserProjects.Add(userInProject);
                 _db.SaveChanges();
 
@@ -262,15 +262,16 @@ namespace ProgramWeb.Services
 
 			viewModel.Id = user.Id;
 			viewModel.FullName = user.FullName;
-			var allProjects = (from u in _db.UserProjects
-								   where (u.UserId == userId 
-                                   && u.IsAdmin == true) 
+			var allOwnedProjects = (from u in _db.UserProjects
+								   where (u.UserId == userId && u.IsAdmin == true) 
 								   select new { u.ProjectId, u.UserId, u.IsAdmin }).ToList();
+            var allInvitedProjects = ( from u in _db.UserProjects
+                                       join p in _db.Projects on u.ProjectId equals p.Id
+                                       where (u.ProjectId == p.Id && !u.IsAdmin)
+                                       select new { p.Id, u.UserId, u.IsAdmin }).ToList();
 
-
-			List<ProjectViewModel> projects = new List<ProjectViewModel>();
-
-			foreach(var item in allProjects)
+            List<ProjectViewModel> projects = new List<ProjectViewModel>();
+			foreach(var item in allOwnedProjects)
 			{
                 Console.WriteLine(item.IsAdmin);
                 Console.WriteLine(item.ProjectId);
@@ -279,8 +280,17 @@ namespace ProgramWeb.Services
 				tmpProject = GetProject(item.ProjectId);
 				projects.Add(tmpProject);
 			}
+            foreach (var item in allInvitedProjects)
+            {
+                Console.WriteLine(item.IsAdmin);
+                Console.WriteLine(item.Id);
+                Console.WriteLine(item.UserId);
+                ProjectViewModel tmpProject = new ProjectViewModel();
+                tmpProject = GetProject(item.Id);
+                projects.Add(tmpProject);
+            }
 
-			viewModel.ProjectList = projects;
+            viewModel.ProjectList = projects;
 
 			return viewModel;
 		}
