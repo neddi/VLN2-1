@@ -230,7 +230,7 @@ namespace ProgramWeb.Controllers
 			projectService = new ProjectService(null);
 			if (projectService.NewProject(entity, currentUser))
 			{
-				return RedirectToAction("Index");
+				return RedirectToAction("Editor", "Project");
 			}
 			return View(model);
 		}
