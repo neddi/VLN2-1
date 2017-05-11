@@ -72,39 +72,41 @@
                 </div>
             </div>
         </div>
+        @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.Hidden("Id", new { @id = "Id" })
+           
+            <input type="submit" value="Project Info" onclick="getUserInfo()" class="btn-aside btn-editor" />
+        }@*
+    <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
+        Project Info
+    </button>
 
-        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
-            Project Info
-        </button>
-
-        <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" onclick="getProjectInfo()">Test</button>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<<<<<<< HEAD
-                       @* @Html.Partial("_ProjectInfo", new
-    {
-        id = 2
-    }.ToViewDataDictionary())*@
-=======
-                        @Html.Partial("_ProjectInfo", new { id = 2}.ToViewDataDictionary())
->>>>>>> 10492f13a0ed47dce31b0041c5c9877e96500511
-                    </div>
-
+    <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" onclick="getProjectInfo()">Test</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @Html.Partial("_ProjectInfo", new { id = 2}.ToViewDataDictionary())
                 </div>
+
             </div>
         </div>
+    </div>*@
     </aside>
 </section>
-<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
-<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
 
 <input type="hidden" value="id" id="hiddenProjectID" />
 
+<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
+
+<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+<script src="~/signalr/hubs"></script>
 <script>
+
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/html");
@@ -128,10 +130,42 @@
         document.getElementById("fileID").value = decodeURIComponent(getId);
     });
 
-    function getProjectInfo() {
-        var sendId = $("#hiddenProjectID").attr('value');
-        alert(sendId);
-        $.post('@Url.Action("ProjectInfo", "Project")', sendId);
+<<<<<<< HEAD
+    function getUserInfo() {
+        var sendId = $("#selectedProject").attr('value');
+        console.log(projectId);
+        $('#Id').val(sendId);
+        var url = '@Url.Action("ProjectInfo", "Project")';
+        window.location.href = url
     }
+=======
+
+    //signalR stuff
+    var documentID = @ViewBag.DocumentID;
+    var codeHub = $.connection.codeHub;
+    var silent = false;
+
+    codeHub.client.onChange = function (changeData) {
+        console.log(changeData);
+
+        silent = true;
+        editor.getSession().getDocument().applyDelta(changeData);
+        silent = false;
+    };
+
+    $.connection.hub.start().done(function () {
+
+        codeHub.server.joinDocument(documentID);
+
+        editor.on("change", function (obj) {
+            if(silent)
+            {
+                return;
+            }
+            console.log(obj);
+            codeHub.server.onChange(obj, documentID);
+        });
+    });
+>>>>>>> 5008c4b6c84e65c61887a0a60b9104017cd0cd79
 
 </script>
