@@ -311,7 +311,7 @@
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
     <Content Include="Views\Project\CreateProject.cshtml" />
-    <Content Include="Views\Home\Invite.cshtml" />
+    <Content Include="Views\Project\Invite.cshtml" />
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
     <Content Include="Views\Project\UpdateFile.cshtml" />
@@ -355,7 +355,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60843</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

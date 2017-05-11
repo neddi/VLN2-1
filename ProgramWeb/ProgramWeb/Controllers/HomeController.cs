@@ -102,32 +102,6 @@ namespace ProgramWeb.Controllers
             return View(model);
         }
 
-
-        [HttpGet]
-        public ActionResult Invite()
-        {
-            UserService userServ = new UserService();
-            ViewBag.Message = "Your testing page.";
-            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
-            if (users == null)
-            {
-                RedirectToAction("Index");
-            }
-            return View(users);
-        }
-        [HttpPost]
-        public ActionResult Invite(string invUser)
-        {
-            string invitedUserId = "aa514bbb - 6278 - 429f - a285 - 851caab053a5";
-            //TODO tengja við service
-            ProjectService projServ = new ProjectService(null);
-            if (projServ.AddUserToProject(invitedUserId))
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
         [HttpPost]
         public ActionResult CreateFile(NewFileViewModel model)
         {

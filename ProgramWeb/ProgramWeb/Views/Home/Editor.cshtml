@@ -20,6 +20,7 @@
             <input type="submit" value="Save" class="btn btn-success" />
         }
         <div> <input type="button" value="New Project" onclick="createProject()" class="btn btn-success" /></div>
+        <div> <input type="button" value="Invite to Project" onclick="invite()" class="btn btn-success" /></div>
     </aside>
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -38,6 +39,10 @@
     function createProject()
     {
         var url = '@Url.Action("CreateProject", "Home")';
+        window.location.href = url
+    }
+    function invite() {
+        var url = '@Url.Action("Invite", "Project")';
         window.location.href = url
     }
     $("form").submit(function () {

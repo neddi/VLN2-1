@@ -100,9 +100,32 @@ namespace ProgramWeb.Controllers
 
 			return View(model);
 		}
-
-		// Temporary for testing purposes only
-		[HttpGet]
+        [HttpGet]
+        public ActionResult Invite()
+        {
+            UserService userServ = new UserService();
+            ViewBag.Message = "Your testing page.";
+            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            if (users == null)
+            {
+                RedirectToAction("Index");
+            }
+            return View(users);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Invite(string invUser)
+        {
+            //TODO tengja við service
+            ProjectService projServ = new ProjectService(null);
+            if (projServ.AddUserToProject(invUser))
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        // Temporary for testing purposes only
+        [HttpGet]
 		public ActionResult UpdateFile(int id)
 		{
 			FileViewModel data = service.GetFile(id);
