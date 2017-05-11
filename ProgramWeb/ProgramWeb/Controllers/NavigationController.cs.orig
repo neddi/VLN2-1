@@ -20,7 +20,13 @@ namespace ProgramWeb.Controllers
             projects = thisUser.GetUserProject(User.Identity.GetUserId());
             
             return PartialView("_SideBarNavigation", projects);
+<<<<<<< HEAD
+			return View();
+        }
+=======
+        }
 
+>>>>>>> f80e1568c75f368c7115af666d695fb3ea02a50c
     }
 }
 

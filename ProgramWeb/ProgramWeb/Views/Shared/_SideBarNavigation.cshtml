@@ -22,6 +22,7 @@
                                 @foreach (var file in project.ProjectFiles)
                                 {
                                     <li class="list-group-item" onclick="setEditorContent('@file.Content', this)"><a href="#@file.ID">@file.Name </a></li>
+                                    <li class="list-group-item" onclick="setEditorContent2('@file.ID')"><a href="#@file.ID">@file.Name asdf</a></li>
                                 }
                             </ul>
                         </div>
@@ -34,35 +35,56 @@
         </div>
     </div>
 </div>
-
+<div> <input type="button" value="Funi Save"  class="btn btn-success" /></div>
 
 
 
 
 <script>
-    var setEditorContent = function (value, object) {
-        editor.getSession().setValue(value)
-    };
+    function setEditorContent2(value) {
+        GetFileAjax(value).done(function (value) {
+            editor.getSession().setValue(value)
+        });
+
+        function GetFileAjax(value) {
+            return $.ajax({
+                url: '@Url.Action("GetFileForEditor", "Project")',
+                data: { id: value },
+                type: "POST"
+            });
+            function SaveFileAjax(value, content) {
+                $.ajax({
+                    url: '@Url.Action("SaveFileForEditor", "Project")',
+                    data: { id: value, data: content },
+                    type: "POST"
+                });
 
 
-    var acc = document.getElementsByClassName("accordion");
-    var i;
 
-    for (i = 0; i < acc.length; i++) {
-        acc[i].onclick = function () {
-            /* Toggle between adding and removing the "active" class,
-            to highlight the button that controls the panel */
-            this.classList.toggle("active");
+                var setEditorContent = function (value, object) {
+                    editor.getSession().setValue(value)
+                };
 
-            /* Toggle between hiding and showing the active panel */
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
+                var acc = document.getElementsByClassName("accordion");
+                var i;
+
+                for (i = 0; i < acc.length; i++) {
+                    acc[i].onclick = function () {
+                        /* Toggle between adding and removing the "active" class,
+                        to highlight the button that controls the panel */
+                        this.classList.toggle("active");
+
+                        /* Toggle between hiding and showing the active panel */
+                        var panel = this.nextElementSibling;
+                        if (panel.style.display === "block") {
+                            panel.style.display = "none";
+                        } else {
+                            panel.style.display = "block";
+                        }
+                    }
+                };
             }
         }
-    };
-
+    }
 </script>
 <!-- Sidebar -->
