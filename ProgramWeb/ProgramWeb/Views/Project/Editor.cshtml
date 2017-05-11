@@ -13,7 +13,7 @@
     <section id="editor"></section>
         
     <aside>
-        <div class="btn-editor btn-aside"><input typeof="button" value="New File" onclick="newFile()" class="btn-editor btn-aside"/> </div>
+        <div class="btn-editor btn-aside"><input typeof="button" value="New File" onclick="newFile()" class="btn-editor btn-aside" /> </div>
         @using (Html.BeginForm("File", "Project", FormMethod.Post))
         {
             @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
@@ -23,7 +23,7 @@
         
         <div class="btn-editor btn-aside"> <input type="button" value="New Project" onclick="createProject()" class="btn-editor btn-aside" /></div>
         <div class="btn-editor btn-aside">Project Info</div>
-        <div class="btn-editor btn-aside">Invite</div>
+        <input type="button" value="Invite" onclick="invite()" class="btn-editor btn-aside" />
     </aside>
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>

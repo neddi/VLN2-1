@@ -154,10 +154,6 @@ namespace ProgramWeb.Services
             foreach (Projects proj in projectList)
             {
                 
-                //projModel.Name = proj.Name;
-                //projModel.Description = proj.Description;
-                //projModel.Id = proj.Id;
-                //projModel.ProjectTypeId = proj.ProjectTypeId;
                 projectViewList.Add( GetProject(proj.Id) );
                 
             }
