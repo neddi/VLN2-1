@@ -8,7 +8,9 @@
 <section id="entiresite">
     <nav>
         <section id="navigation">
-            @Html.Action("Menu", "Navigation")
+            <div class="navDiv">
+                @Html.Action("Menu", "Navigation")
+            </div>
         </section>
     </nav>
     <section id="editor"></section>
@@ -96,6 +98,7 @@
 
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
 
+<div> <input type="button" value="FuniRefresh" onclick="FuniRefresh()" class="btn btn-aside"/></div>
 
 <script>
     var editor = ace.edit("editor");
@@ -104,6 +107,10 @@
 
     function hideSidebar() {
         $("nav").toggle();
+    }
+    function navRefresh() {
+        var url = '@Url.Action("Menu", "Navigation")';
+        $("nav").load(url);
     }
     function createProject()
     {

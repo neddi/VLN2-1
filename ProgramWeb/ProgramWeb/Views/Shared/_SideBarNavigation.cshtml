@@ -40,10 +40,9 @@
     function saveButton() {
         var fileID = $(".selected").attr('data-id');
         var content = editor.getSession().getValue();
-        alert(fileID);
-        alert(content);
-        SaveFileAjax(fileID, content);  
+        SaveFileAjax(fileID, content);
     };
+
 
     function setEditorContent(value, currentObject) {
         setSelected(currentObject);

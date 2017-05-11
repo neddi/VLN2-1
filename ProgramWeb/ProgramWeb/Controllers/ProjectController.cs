@@ -44,6 +44,27 @@ namespace ProgramWeb.Controllers
             ProjectService fileService = new ProjectService(null);
             fileService.SaveFile(id, content); 
         }
+        [HttpPost]
+        public ActionResult SaveProjectForEditor(string projectName, string projectDescription)
+        {
+            Projects entity = new Projects();
+            entity.Name = projectName;
+            entity.Description = projectDescription;
+            var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            projectService = new ProjectService(null);
+            var projectID = projectService.GetUserNewestProject(currentUser);
+
+            if (projectService.NewProject(entity, currentUser))
+            {
+                
+                return RedirectToAction("Editor", "Project");
+            }
+            //return View(model);
+            return View(); // Þarf að bæta einhverju við hérna klárlega!
+        }
+
+
+        // Hér hættir Funi að fikta og tikka
         [HttpGet]
         public ActionResult File()
         {
