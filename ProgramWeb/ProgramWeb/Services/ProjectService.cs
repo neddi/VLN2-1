@@ -77,7 +77,7 @@ namespace ProgramWeb.Services
                 var userInProject = new UserProjects();
                 userInProject.UserId = userId;
                 userInProject.IsAdmin = false;
-                userInProject.ProjectId = 2; // TODO add "currentProject / activeProject"
+                userInProject.ProjectId = 3; // TODO add "currentProject / activeProject"
                 _db.UserProjects.Add(userInProject);
                 _db.SaveChanges();
                 return true;
@@ -174,33 +174,32 @@ namespace ProgramWeb.Services
 			{ 
 				ProjectViewModel viewModel = new ProjectViewModel();
 
-			var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
-			viewModel.Id = project.Id;
-			viewModel.Name = project.Name;
-            if (project.Description == null)
-            {
-                viewModel.Description = "No Description";
-            }
-            else
-            {
-                viewModel.Description = project.Description;
-            }
-            viewModel.CreateDate = project.CreateDate;
-            viewModel.ProjectTypeId = project.ProjectTypeId;
-			var allProjectUsers = (from u in _db.ProjectUsers
-								   where u.ProjectId == projectid
-								   select new { u }).ToList();
+				var project = _db.Projects.SingleOrDefault(x => x.Id == projectid);
+				viewModel.Id = project.Id;
+				viewModel.Name = project.Name;
+				if (project.Description == null)
+				{
+					viewModel.Description = "No Description";
+				}
+				else
+				{
+					viewModel.Description = project.Description;
+				}
+				viewModel.CreateDate = project.CreateDate;
+				viewModel.ProjectTypeId = project.ProjectTypeId;
+				var allProjectUsers = (from u in _db.ProjectUsers
+									   where u.ProjectId == projectid
+									   select new { u.FullName }).ToList();
 
-			List<UserInfoViewModel> users = new List<UserInfoViewModel>();
-			foreach(var item in allProjectUsers)
-			{
-                var tmpUser = new UserInfoViewModel();
-				tmpUser.FullName = item.u.FullName;
-                tmpUser.Id = item.u.userId;
-                users.Add(tmpUser);
-			}
-			
-			viewModel.ProjectUsers = users;
+				List<string> users = new List<string>();
+				foreach (var item in allProjectUsers)
+				{
+					string tmpName = item.FullName;
+
+					users.Add(tmpName);
+				}
+
+			//viewModel.ProjectUsers = users;
 
 				var fileList = (from f in _db.Files
 								join p in _db.ProjectFiles on f.ID equals p.FileId
@@ -265,9 +264,11 @@ namespace ProgramWeb.Services
 		{
 			if (entity != null)
 			{
+                
+
 				var file = entity.File;
 				_db.Files.Add(file);
-				_db.SaveChanges();
+                _db.SaveChanges();
 				ProjectFiles newProject = new ProjectFiles();
 				newProject.ProjectId = entity.ProjectId;
 				newProject.FileId = file.ID;

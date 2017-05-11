@@ -198,12 +198,6 @@ namespace ProgramWeb.Controllers
         [ValidateInput(false)]
         public ActionResult CreateFile(NewFileViewModel model)
 		{
-			//NewFileViewModel entity = new NewFileViewModel();
-			//entity.ProjectId = model.ProjectId;
-			//mode.ProjectId = 30;
-			//Files newFile = model.File;
-			//entity.File = newFile;
-
 			projectService = new ProjectService(null);
 			if (projectService.NewFile(model))
 			{
