@@ -13,6 +13,9 @@ namespace ProgramWeb.Controllers
 	public class ProjectController : Controller
 	{
 		private ProjectService service = new ProjectService(null);
+		private ProjectService projectService;
+		private UserService userService;
+
 		// Action for Viewing Multiple tables
 		public ActionResult ProjectInfo(int id)
 		{
@@ -158,6 +161,55 @@ namespace ProgramWeb.Controllers
 		{
 			ViewBag.Message = "Editor";
 
+			return View();
+		}
+
+		[HttpGet]
+		public ActionResult CreateFile()
+		{
+			NewFileViewModel model = new NewFileViewModel();
+			return View(model);
+		}
+
+		[HttpPost]
+		public ActionResult CreateFile(NewFileViewModel model)
+		{
+			NewFileViewModel entity = new NewFileViewModel();
+			//entity.ProjectId = model.ProjectId;
+			entity.ProjectId = 2;
+			Files newFile = model.File;
+			entity.File = newFile;
+
+			projectService = new ProjectService(null);
+			if (projectService.NewFile(entity))
+			{
+				return RedirectToAction("Index");
+			}
+			return View(model);
+		}
+
+		[HttpGet]
+		public ActionResult Invite()
+		{
+			UserService userServ = new UserService();
+			ViewBag.Message = "Your testing page.";
+			System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+			if (users == null)
+			{
+				RedirectToAction("Index");
+			}
+			return View(users);
+		}
+		[HttpPost]
+		public ActionResult Invite(string invUser)
+		{
+			string invitedUserId = "aa514bbb - 6278 - 429f - a285 - 851caab053a5";
+			//TODO tengja við service
+			ProjectService projServ = new ProjectService(null);
+			if (projServ.AddUserToProject(invitedUserId))
+			{
+				return RedirectToAction("Index");
+			}
 			return View();
 		}
 	}

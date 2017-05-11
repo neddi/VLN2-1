@@ -9,13 +9,14 @@ using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Controllers
 {
-	[Authorize]
+	
 	public class HomeController : Controller
     {
         private ProjectService projectService;
         private UserService userService;
 
-        public ActionResult Index()
+		[Authorize]
+		public ActionResult Index()
         {
             return RedirectToAction("Editor", "Project");
         }
@@ -39,7 +40,6 @@ namespace ProgramWeb.Controllers
 */
 
 
-        [Authorize]
 		public ActionResult About()
 		{
 			ViewBag.Message = "Your testing page.";
@@ -52,8 +52,8 @@ namespace ProgramWeb.Controllers
             return View(projects);
         }
 
-
-        public ActionResult Contact()
+		[Authorize]
+		public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
@@ -76,56 +76,6 @@ namespace ProgramWeb.Controllers
 
             projectService = new ProjectService(null);
             if ( projectService.NewProject(entity, currentUser) )
-            {
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
-
-        [HttpGet]
-        public ActionResult CreateFile()
-        {
-            NewFileViewModel model = new NewFileViewModel();
-            return View(model);
-        }
-
-
-        [HttpGet]
-        public ActionResult Invite()
-        {
-            UserService userServ = new UserService();
-            ViewBag.Message = "Your testing page.";
-            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
-            if (users == null)
-            {
-                RedirectToAction("Index");
-            }
-            return View(users);
-        }
-        [HttpPost]
-        public ActionResult Invite(string invUser)
-        {
-            string invitedUserId = "aa514bbb - 6278 - 429f - a285 - 851caab053a5";
-            //TODO tengja við service
-            ProjectService projServ = new ProjectService(null);
-            if (projServ.AddUserToProject(invitedUserId))
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateFile(NewFileViewModel model)
-        {
-            NewFileViewModel entity = new NewFileViewModel();
-            //entity.ProjectId = model.ProjectId;
-            entity.ProjectId = 2;
-            Files newFile = model.File;
-            entity.File = newFile;
-
-            projectService = new ProjectService(null);
-            if (projectService.NewFile(entity))
             {
                 return RedirectToAction("Index");
             }

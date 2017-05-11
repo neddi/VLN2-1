@@ -282,7 +282,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -309,7 +309,7 @@
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
     <Content Include="Views\Project\CreateProject.cshtml" />
-    <Content Include="Views\Home\Invite.cshtml" />
+    <Content Include="Views\Project\Invite.cshtml" />
     <Content Include="Views\Home\CreateProject.cshtml" />
     <Content Include="Views\Home\CreateFile.cshtml" />
     <Content Include="Views\Project\UpdateFile.cshtml" />
@@ -320,7 +320,7 @@
     <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
     <Content Include="Views\Project\RemoveFile.cshtml" />
     <Content Include="Views\Shared\_GetUserInformation.cshtml" />
-    <Content Include="Views\Home\NewProjectFromEditor.cshtml" />
+    <Content Include="Views\Project\NewProjectFromEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

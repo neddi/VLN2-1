@@ -1,24 +1,12 @@
 ﻿@model  System.Collections.Generic.IEnumerable<ProgramWeb.Models.ViewModel.ProjectViewModel>
 @{
-    ViewBag.Title = "About";
+    ViewBag.Title = "About the project";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-<table>
-    <thead>
-        <tr>
-            <th></th>
-            <th>Projects</th>
-        </tr>
-    </thead>
-    @foreach(var item in Model)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td>@item.ProjectTypeId</td>
-            <td>@item.CreateDate</td>
-        </tr>
-    }
+<div class="about-center">
+    <h2>@ViewBag.Title.</h2>
 
-</table>
+    <div>Some text about the project</div>
+
+    <h3>The Team</h3>
+    <div>Pictures of the team</div>
+</div>
