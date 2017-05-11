@@ -20,15 +20,9 @@
             @Html.HiddenFor(m => m.ID, new { @id = "fileID"})
             <input type="submit" value="Save File" class="btn-editor btn-aside" />
         }
-<<<<<<< HEAD:ProgramWeb/ProgramWeb/Views/Home/Editor.cshtml
-        <div> <input type="button" value="New Project" onclick="createProject()" class="btn btn-success" /></div>
-        <div> <input type="button" value="Invite to Project" onclick="invite()" class="btn btn-success" /></div>
-=======
-        
         <div> <input type="button" value="New Project" onclick="createProject()" class="btn-editor btn-aside" /></div>
         <div class="btn-editor btn-aside">Project Info</div>
         <div class="btn-editor btn-aside">Invite</div>
->>>>>>> 1e7ed977105123f7c8bffae8236f44d615bbdf27:ProgramWeb/ProgramWeb/Views/Project/Editor.cshtml
     </aside>
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
