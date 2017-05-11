@@ -39,7 +39,6 @@ namespace ProgramWeb.Controllers
         [HttpPost]
         public void SaveFileForEditor(string id, string content)
         {
-            //int x = Int32.Parse(id);
             ProjectService fileService = new ProjectService(null);
             fileService.SaveFile(id, content); 
         }
@@ -208,28 +207,6 @@ namespace ProgramWeb.Controllers
 
 			projectService = new ProjectService(null);
 			if (projectService.NewFile(model))
-			{
-				return RedirectToAction("Editor", "Project");
-			}
-			return View(model);
-		}
-
-		[HttpGet]
-		public ActionResult CreateProject()
-		{
-			ProjectViewModel model = new ProjectViewModel();
-			return View(model);
-		}
-		[HttpPost]
-		public ActionResult CreateProject(ProjectViewModel model)
-		{
-			Projects entity = new Projects();
-			entity.Name = model.Name;
-			entity.Description = model.Description;
-			var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
-
-			projectService = new ProjectService(null);
-			if (projectService.NewProject(entity, currentUser))
 			{
 				return RedirectToAction("Editor", "Project");
 			}

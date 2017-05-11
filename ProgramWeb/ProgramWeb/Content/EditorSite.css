@@ -15,8 +15,8 @@ aside {
 	background: #C9C9C9;
 	/* Shorthand property specifying flex-grow, flex-shrink, and flex-basis. */
 	flex: 1 1 15%;
-	min-width: 65px;
-    max-width: 65px;
+	min-width: 110px;
+    max-width: 50px;
 	padding: 3px;
 	margin: 3px;
 }
@@ -63,9 +63,10 @@ aside {
     color:white;
     font-size:small;
     font-style:italic;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family:'Segoe Script' 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     position:relative;
-    top:10px;
+    top:13px;
+    font-size: 16px;
 }
 
 .loginLabelSpacer{

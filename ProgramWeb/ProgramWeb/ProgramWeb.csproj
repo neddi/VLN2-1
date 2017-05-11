@@ -281,8 +281,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -304,14 +303,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Manage\TableTesting.cshtml" />
-    <Content Include="Views\Home\Editor.cshtml" />
+    <Content Include="Views\Project\Editor.cshtml" />
     <Content Include="Views\Manage\AddName.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
-    <Content Include="Views\Project\CreateProject.cshtml" />
-    <Content Include="Views\Home\Invite.cshtml" />
-    <Content Include="Views\Home\CreateProject.cshtml" />
-    <Content Include="Views\Home\CreateFile.cshtml" />
+    <Content Include="Views\Project\Invite.cshtml" />
+    <Content Include="Views\Shared\_CreateProject.cshtml" />
+    <Content Include="Views\Project\CreateFile.cshtml" />
     <Content Include="Views\Project\UpdateFile.cshtml" />
     <Content Include="Views\Project\File.cshtml" />
     <Content Include="Views\Shared\ErrorArgument.cshtml" />
@@ -320,7 +318,7 @@
     <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
     <Content Include="Views\Project\RemoveFile.cshtml" />
     <Content Include="Views\Shared\_GetUserInformation.cshtml" />
-    <Content Include="Views\Home\NewProjectFromEditor.cshtml" />
+    <Content Include="Views\Project\NewProjectFromEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -354,7 +352,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60843</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

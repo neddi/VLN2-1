@@ -21,7 +21,7 @@
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
-                                    <li class="list-group-item selected" data-id="@file.ID" onclick="setEditorContent('@file.ID', this)"><a href="#@file.ID">@file.Name asdf</a></li>
+                                    <li class="list-group-item selected" onclick="setEditorContent2('@file.ID')"><a href="#@file.ID">@file.Name</a></li>
                                 }
                             </ul>
                         </div>
@@ -34,6 +34,7 @@
         </div>
     </div>
 </div>
+
 <div> <input type="button" value="Funi Save" class="btn btn-success" onclick="saveButton()"/></div>
 
 <script>
