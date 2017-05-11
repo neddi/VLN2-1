@@ -1,0 +1,55 @@
+﻿@model ProgramWeb.Models.Entities.Files
+
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Editor";
+}
+<section id="entiresite">
+    <nav>
+        <section id="navigation">
+            @Html.Action("Menu", "Navigation")
+        </section>
+    </nav>
+    <section id="editor"></section>
+        
+    <aside>
+        @using (Html.BeginForm("File", "Project", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
+            @Html.HiddenFor(m => m.ID, new { @id = "fileID"})
+            <input type="submit" value="Save" class="btn btn-success" />
+        }
+        <div> <input type="button" value="New Project" onclick="createProject()" class="btn btn-success" /></div>
+    </aside>
+</section>
+<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-success"/></div>
+
+
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setMode("ace/mode/html");
+
+    function hideSidebar() {
+        $("nav").toggle();
+    }
+    function createProject()
+    {
+        var url = '@Url.Action("CreateProject", "Home")';
+        window.location.href = url
+    }
+    $("form").submit(function () {
+        $("#hidden_editor").val(editor.getSession().getValue());
+<<<<<<< HEAD
+        var valueInEditor = $("#hidden_editor").val(editor.getSession().getValue());
+        var hashParams = window.location.hash.substr(1).split('#'); // substr(1) to remove the `#`
+        document.getElementById("fileID").value = decodeURIComponent(hashParams);
+=======
+        var getId = window.location.hash.substr(1).split('#'); // substr(1) to remove the `#`
+        document.getElementById("fileID").value = decodeURIComponent(getId);
+>>>>>>> e3112a72fde112a67e7db48d2f4e2832beb6f2f0
+    });
+  
+</script>

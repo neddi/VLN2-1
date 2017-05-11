@@ -12,5 +12,6 @@ namespace ProgramWeb.Models.ViewModel
 		public string UserName { get; set; }
 		public string Email { get; set; }
 		public string Info { get; set; }
+        public bool isAdmin { get; set; }
 	}
 }

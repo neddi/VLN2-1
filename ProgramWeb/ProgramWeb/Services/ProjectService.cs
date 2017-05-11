@@ -242,9 +242,8 @@ namespace ProgramWeb.Services
 
 			viewModel.Id = user.Id;
 			viewModel.FullName = user.FullName;
-
 			var allProjects = (from u in _db.ProjectUsers
-								   where u.userId == userId
+								   where u.userId == userId 
 								   select new { u.ProjectId }).ToList();
 
 
@@ -326,6 +325,22 @@ namespace ProgramWeb.Services
             }
             return false;
         }
+        // Overload af save til að geta sent inn streng af efni frá Ajax kalli
+        public bool SaveFile(string id, string content)
+        {
+            if (id != null)
+            {
+                var newFile = _db.Files.Find(id);
+                //Files newFile = new Files();
+                //newFile.Name = model.Name;
+                newFile.Content = content;
+                //newFile.FileType = model.FileType;
+                //_db.Entry(dbProject).CurrentValues.SetValues(newFile);
+                //_db.Entry(dbProject).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return false;
+        }
 
         public Files OpenFile(int fileId)
         {
@@ -333,6 +348,24 @@ namespace ProgramWeb.Services
                               where f.ID == fileId
                               select f).FirstOrDefault();
             return fileToEdit;    
+        }
+        public bool RemoveFile(int fileId)
+        {
+            var fileToEdit = (from f in _db.Files
+                              where f.ID == fileId
+                              select f).FirstOrDefault();
+            if (fileToEdit != null)
+            {
+                var fileInProject = (from fp in _db.ProjectFiles
+                                     where fp.FileId == fileToEdit.ID
+                                     select fp).FirstOrDefault();
+                _db.ProjectFiles.Remove(fileInProject);
+                _db.SaveChanges();
+                _db.Files.Remove(fileToEdit);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
         }
 	}
 }

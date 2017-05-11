@@ -21,7 +21,7 @@ namespace ProgramWeb.Models.Entities
 		[Display(Name = "File Type")]
 		public string FileType { get; set; }
 
-		[DataType(DataType.Text)]
+		[DataType(DataType.Html)]
 		[Display(Name = "Content")]
 		public string Content { get; set; }
 	}

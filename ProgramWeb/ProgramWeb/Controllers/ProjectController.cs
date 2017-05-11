@@ -13,6 +13,9 @@ namespace ProgramWeb.Controllers
 	public class ProjectController : Controller
 	{
 		private ProjectService service = new ProjectService(null);
+		private ProjectService projectService;
+		private UserService userService;
+
 		// Action for Viewing Multiple tables
 		public ActionResult ProjectInfo(int id)
 		{
@@ -20,30 +23,77 @@ namespace ProgramWeb.Controllers
 
 			return View(viewModel);
 		}
+        // Hér byrjar Funi að breyta og bæta
+        // Ég er að reyna að henda inn ID af File sem ég vil endilega fá
+
+        [HttpPost]
+        public ActionResult GetFileForEditor(int id)
+        {
+            ProjectService fileService = new ProjectService(null);
+            string fileContent;
+            fileContent = (fileService.GetFile(id)).Content;
+    
+            return Json(fileContent);
+        }
+        [HttpPost]
+        public void SaveFileForEditor(string id, string content)
+        {
+            ProjectService fileService = new ProjectService(null);
+            fileService.SaveFile(id, content); 
+        }
         [HttpGet]
         public ActionResult File()
         {
             var projectService = new ProjectService(null);
             //hardcoded value for open file
-            var fileModel = projectService.OpenFile(2);
+            var fileModel = projectService.OpenFile(3);
             return View(fileModel);
         }
 
         [HttpPost]
-        public ActionResult File(Files filefromView)
+		[ValidateInput(false)]
+		public ActionResult File(Files filefromView)
         {
             var projectService = new ProjectService(null);
             var fileToSave = new Files();
-            fileToSave.ID = filefromView.ID;
-            fileToSave.FileType = filefromView.FileType;
-            fileToSave.Name = filefromView.Name;
+			var tmpFile = service.GetFile(filefromView.ID);
+			//fileToSave.ID = 7;
+			fileToSave.ID = filefromView.ID;
+			//fileToSave.FileType = "css";
+			fileToSave.FileType = tmpFile.FileType;
+			//fileToSave.Name = "prufa";
+			fileToSave.Name = tmpFile.Name;
             fileToSave.Content = filefromView.Content;
 
             if (projectService.SaveFile(fileToSave))
             {
-                return RedirectToRoute("Index", "Home");
+                return RedirectToRoute("Editor", "Project");
             }
             return View(fileToSave);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveFile()
+        {
+            var projectService = new ProjectService(null);
+            //hardcoded value for open file
+            var fileModel = projectService.OpenFile(0);
+            return View(fileModel);
+        }
+        [HttpPost]
+        public ActionResult RemoveFile(Files fileFromView)
+        {
+            var projectService = new ProjectService(null);
+            var fileToRm = new Files();
+            fileToRm.ID = fileFromView.ID;
+            //fileToRm.FileType = fileFromView.FileType;
+            //fileToRm.Name = fileFromView.Name;
+            //fileToRm.Content = fileFromView.Content;
+            if (projectService.RemoveFile(fileToRm.ID))
+            {
+                return RedirectToRoute("Index", "Home");
+            }
+            return View(fileToRm);
         }
 		[HttpGet]
 		public ActionResult UpdateProjectInfo(int id)
@@ -71,9 +121,32 @@ namespace ProgramWeb.Controllers
 
 			return View(model);
 		}
-
-		// Temporary for testing purposes only
-		[HttpGet]
+        [HttpGet]
+        public ActionResult Invite()
+        {
+            UserService userServ = new UserService();
+            ViewBag.Message = "Your testing page.";
+            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            if (users == null)
+            {
+                RedirectToAction("Index");
+            }
+            return View(users);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Invite(string invUser)
+        {
+            //TODO tengja við service
+            ProjectService projServ = new ProjectService(null);
+            if (projServ.AddUserToProject(invUser))
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        // Temporary for testing purposes only
+        [HttpGet]
 		public ActionResult UpdateFile(int id)
 		{
 			FileViewModel data = service.GetFile(id);
@@ -106,5 +179,38 @@ namespace ProgramWeb.Controllers
 
 			return View(model);
 		}
+
+		public ActionResult Editor()
+		{
+			ViewBag.Message = "Editor";
+
+			return View();
+		}
+
+		[HttpGet]
+		public ActionResult CreateFile()
+		{
+			NewFileViewModel model = new NewFileViewModel();
+			return View(model);
+		}
+
+		[HttpPost]
+        [ValidateInput(false)]
+        public ActionResult CreateFile(NewFileViewModel model)
+		{
+			//NewFileViewModel entity = new NewFileViewModel();
+			//entity.ProjectId = model.ProjectId;
+			//mode.ProjectId = 30;
+			//Files newFile = model.File;
+			//entity.File = newFile;
+
+			projectService = new ProjectService(null);
+			if (projectService.NewFile(model))
+			{
+				return RedirectToAction("Editor", "Project");
+			}
+			return View(model);
+		}
+
 	}
 }
