@@ -19,11 +19,11 @@ namespace ProgramWeb.Controllers
 		private UserService userService;
 
 		// Action for Viewing Multiple tables
-		public ActionResult ProjectInfo(int id)
+		public async Task<ActionResult> ProjectInfo(int id)
 		{
 			ProjectInfoViewModel viewModel = service.GetProjectInfo(id);
 
-			return View(viewModel);
+			return PartialView("_ProjectInfo", viewModel);
 		}
         // Hér byrjar Funi að breyta og bæta
         // Ég er að reyna að henda inn ID af File sem ég vil endilega fá
