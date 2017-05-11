@@ -16,8 +16,13 @@
                 <ul class="list-group">
                     @foreach (var project in Model.ProjectList)
                     {
-                        <li class="list-group-item selectedProject" data-id="@project.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
+<<<<<<< HEAD
+                        <li class="list-group-item"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
                         <li id="@project.Id" class="panel-collapse collapse">
+=======
+                        <li class="list-group-item selectedProject" data-id="@project.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
+                        <div id="@project.Id" class="panel-collapse collapse">
+>>>>>>> 7356f41dcab86bf90bf59cd62ab2e2b3bc5f120f
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
@@ -30,11 +35,7 @@
 
 
             </div>
-            @using (Html.BeginForm("Invite", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.TextBox("projectId", null, new { @id = "projectId" })
-                <input type="submit" value="Invite" onclick="invite()" />
-            }
+
         </div>
     </div>
 </div>
@@ -45,25 +46,21 @@
     function saveButton() {
         var fileID = $(".selected").attr('data-id');
         var content = editor.getSession().getValue();
+        alert(fileID);
         SaveFileAjax(fileID, content);  
     };
-    function invite() {
-        var projectId = $(".selectedProject").attr('data-id');
-        console.log(projectId);
-        $('#projectId').val(projectId);
-        var url = '@Url.Action("Invite", "Project")';
-        window.location.href = url
-    }
+
     function projectSelection(currentObject) {
         setSelectedProject(currentObject);
         var projectId = $(".selectedProject").attr('data-id');
         $('#hiddenProjectID').attr('value', projectId);
+        alert(projectId);
     }
 
     function setEditorContent(value, currentObject) {
         setSelected(currentObject);
-        GetFileAjax(value).done(function (response) {
-            editor.getSession().setValue(response.Content)
+        GetFileAjax(value).done(function (value) {
+            editor.getSession().setValue(value)
         });
     };
 

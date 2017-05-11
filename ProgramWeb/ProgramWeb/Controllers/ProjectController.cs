@@ -4,6 +4,7 @@ using ProgramWeb.Models.ViewModel;
 using ProgramWeb.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -31,14 +32,15 @@ namespace ProgramWeb.Controllers
         public ActionResult GetFileForEditor(int id)
         {
             ProjectService fileService = new ProjectService(null);
-            string fileContent;
-            fileContent = (fileService.GetFile(id)).Content;
+            FileViewModel fileContent;
+            fileContent = (fileService.GetFile(id));
     
             return Json(fileContent);
         }
         [HttpPost]
         public void SaveFileForEditor(string id, string content)
         {
+            //int x = Int32.Parse(id);
             ProjectService fileService = new ProjectService(null);
             fileService.SaveFile(id, content); 
         }
@@ -123,11 +125,13 @@ namespace ProgramWeb.Controllers
 			return View(model);
 		}
         [HttpGet]
-        public ActionResult Invite()
+        [ValidateInput(false)]
+        public ActionResult Invite(int projectId)
         {
             UserService userServ = new UserService();
             ViewBag.Message = "Your testing page.";
-            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            ViewBag.ProjectId = projectId;
+            IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
             if (users == null)
             {
                 RedirectToAction("Index");
@@ -136,15 +140,18 @@ namespace ProgramWeb.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Invite(string invUser)
+        public ActionResult Invite(string userId, int projectId)
         {
-            //TODO tengja við service
+
             ProjectService projServ = new ProjectService(null);
-            if (projServ.AddUserToProject(invUser))
+            if (projServ.AddUserToProject(userId))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Editor");
             }
-            return View();
+            UserService userServ = new UserService();
+            IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            ViewBag.Message = "An error occured, please try again";
+            return View(users);
         }
         // Temporary for testing purposes only
         [HttpGet]
@@ -201,12 +208,6 @@ namespace ProgramWeb.Controllers
         [ValidateInput(false)]
         public ActionResult CreateFile(NewFileViewModel model)
 		{
-			//NewFileViewModel entity = new NewFileViewModel();
-			//entity.ProjectId = model.ProjectId;
-			//mode.ProjectId = 30;
-			//Files newFile = model.File;
-			//entity.File = newFile;
-
 			projectService = new ProjectService(null);
 			if (projectService.NewFile(model))
 			{

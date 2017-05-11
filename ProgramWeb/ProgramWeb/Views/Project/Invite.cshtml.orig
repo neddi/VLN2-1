@@ -1,0 +1,75 @@
+﻿@model  System.Collections.Generic.IEnumerable<ProgramWeb.Models.ViewModel.UserInfoViewModel>
+@{
+    ViewBag.Title = "Invite to Project";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+<table id="userInviteTable">
+    <thead>
+        <tr>
+            <th>ID</th><th>User Name</th> <th>Info</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr class="userLink">
+            <td class="userId"> @item.Id</td> <td> @item.UserName</td> <td>@item.Email</td><td hidden>@item</td>
+        </tr>    
+    }
+</table>
+<<<<<<< HEAD:ProgramWeb/ProgramWeb/Views/Home/Invite.cshtml
+=======
+@using (Html.BeginForm("Invite", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="col-md-10" id = "invitedUserId">
+                
+        </div>
+    </div>
+<div class="form-group">
+>>>>>>> fc8a06558c07b0755d0d4f777012e90d79eae3a4:ProgramWeb/ProgramWeb/Views/Project/Invite.cshtml
+    <div class="col-md-offset-2 col-md-10">
+        <input type="button" id="inviteBtn" class="btn btn-default" value="Invite" />
+    </div>
+
+    <script type="text/javascript">
+        $("#userInviteTable tr").click(function () {
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var value = $(this).find('td:first').html();
+<<<<<<< HEAD:ProgramWeb/ProgramWeb/Views/Home/Invite.cshtml
+            console.log(value);
+        });
+
+        $('#inviteBtn').on('click', function () {
+            var invUser = $("#userInviteTable tr.selected td:first").html();
+            console.log(invUser);
+            
+            $.ajax({
+                type: 'POST',
+                url: 'Invite',
+                data: invUser,
+                success: function success() {
+                    var url = '@Url.Action("Index", "Home")';
+                    window.location.href = url
+                },
+                dataType: 'string'
+            });
+=======
+            $('#invitedUserId').append("<p>"+value+"</p>");
+            //document.getElementById("fileID").value = decodeURIComponent(getId);
+            //$('#invitedUserId').append('<form> <input type="text" value="' + value + '">  </form>');
+            console.log(value);
+        });
+       // //TODO POST
+        $('.invite').on('submit', function (e) {
+            e.preventDefault()
+            var invUser = $("#userInviteTable tr.selected td:first").serialize();
+            console.log(invUser);
+            $.post('@Url.Action("Invite", "Project")', invUser);
+            var url = '@Url.Action("Editor", "Home")';
+            window.location.href = url
+>>>>>>> fc8a06558c07b0755d0d4f777012e90d79eae3a4:ProgramWeb/ProgramWeb/Views/Project/Invite.cshtml
+        });
+    </script>

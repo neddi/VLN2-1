@@ -12,8 +12,6 @@ namespace ProgramWeb.Controllers
 	
 	public class HomeController : Controller
     {
-        private ProjectService projectService;
-        private UserService userService;
 
 		[Authorize]
 		public ActionResult Index()

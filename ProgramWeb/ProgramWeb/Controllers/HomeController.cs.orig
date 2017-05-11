@@ -82,33 +82,58 @@ namespace ProgramWeb.Controllers
             return View(model);
         }
 <<<<<<< HEAD
-
         [HttpGet]
-        public ActionResult CreateFile()
+        public ActionResult Invite()
         {
-            NewFileViewModel model = new NewFileViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult CreateFile(NewFileViewModel model)
-        {
-            NewFileViewModel entity = new NewFileViewModel();
-            //entity.ProjectId = model.ProjectId;
-            entity.ProjectId = 2;
-            Files newFile = model.File;
-            entity.File = newFile;
-
-            projectService = new ProjectService(null);
-            if (projectService.NewFile(entity))
+            UserService userServ = new UserService();
+            ViewBag.Message = "Your testing page.";
+            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            if (users == null)
             {
+                RedirectToAction("Index");
+            }
+            return View(users);
+        }
+        [HttpPost]
+        public ActionResult Invite(string invUser)
+        {
+           string invitedUserId = invUser;
+            ProjectService projServ = new ProjectService(null);
+            if (invUser !=null && projServ.AddUserToProject(invitedUserId))
+            { 
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View();
         }
+		[HttpGet]
+		public ActionResult CreateFile()
+		{
+			NewFileViewModel model = new NewFileViewModel();
+			return View(model);
+		}
+		[HttpPost]
+		public ActionResult CreateFile(NewFileViewModel model)
+		{
+			NewFileViewModel entity = new NewFileViewModel();
+			//entity.ProjectId = model.ProjectId;
+			entity.ProjectId = 2;
+			Files newFile = model.File;
+			entity.File = newFile;
+
+			projectService = new ProjectService(null);
+			if (projectService.NewFile(entity))
+			{
+				return RedirectToAction("Index");
+			}
+			return View(model);
+		}
+	}
+
+
+
 =======
->>>>>>> 1e7ed977105123f7c8bffae8236f44d615bbdf27
     }
+>>>>>>> fc8a06558c07b0755d0d4f777012e90d79eae3a4
 }
 
 

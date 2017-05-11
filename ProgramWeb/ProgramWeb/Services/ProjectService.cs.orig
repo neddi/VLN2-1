@@ -154,10 +154,6 @@ namespace ProgramWeb.Services
             foreach (Projects proj in projectList)
             {
                 
-                //projModel.Name = proj.Name;
-                //projModel.Description = proj.Description;
-                //projModel.Id = proj.Id;
-                //projModel.ProjectTypeId = proj.ProjectTypeId;
                 projectViewList.Add( GetProject(proj.Id) );
                 
             }
@@ -199,16 +195,12 @@ namespace ProgramWeb.Services
 					users.Add(tmpName);
 				}
 
-				viewModel.ProjectUsers = users;
+			//viewModel.ProjectUsers = users;
 
-<<<<<<< HEAD
 				var fileList = (from f in _db.Files
 								join p in _db.ProjectFiles on f.ID equals p.FileId
 								where p.ProjectId == projectid
 								select new { f.ID, f.Name, f.FileType, f.Content }).ToList();
-=======
-			//viewModel.ProjectUsers = users;
->>>>>>> 890e64cfd4b5d7e292f6c4d3982719ba9e8cb549
 
 				List<Files> files = new List<Files>();
 				foreach (var fileItem in fileList)
@@ -245,9 +237,8 @@ namespace ProgramWeb.Services
 
 			viewModel.Id = user.Id;
 			viewModel.FullName = user.FullName;
-
 			var allProjects = (from u in _db.ProjectUsers
-								   where u.userId == userId
+								   where u.userId == userId 
 								   select new { u.ProjectId }).ToList();
 
 
@@ -269,9 +260,27 @@ namespace ProgramWeb.Services
 		{
 			if (entity != null)
 			{
+<<<<<<< HEAD
+                
+
+=======
+				var fileList = (from f in _db.Files
+								join p in _db.ProjectFiles on f.ID equals p.FileId
+								where p.ProjectId == entity.ProjectId
+								select new { f.ID, f.Name, f.FileType, f.Content }).ToList();
+
+				foreach (var fileItem in fileList)
+				{
+					if(fileItem.Name == entity.File.Name)
+					{
+						return false;
+					}					
+				}
+				
+>>>>>>> 47f01ea52abe5540093e3562014f834373a2fb87
 				var file = entity.File;
 				_db.Files.Add(file);
-				_db.SaveChanges();
+                _db.SaveChanges();
 				ProjectFiles newProject = new ProjectFiles();
 				newProject.ProjectId = entity.ProjectId;
 				newProject.FileId = file.ID;
@@ -282,7 +291,6 @@ namespace ProgramWeb.Services
 			return false;
 		}
 
-<<<<<<< HEAD
 		public FileViewModel GetFile(int fileId)
 		{
 			Files fileData = _db.Files.SingleOrDefault(x => x.ID == fileId);
@@ -314,7 +322,7 @@ namespace ProgramWeb.Services
 			}
 			return false;
 		}
-=======
+
         public bool SaveFile(Files model)
         {
             if (model != null)
@@ -330,6 +338,22 @@ namespace ProgramWeb.Services
             }
             return false;
         }
+        // Overload af save til að geta sent inn streng af efni frá Ajax kalli
+        public bool SaveFile(string id, string content)
+        {
+            if (id != null)
+            {
+                var newFile = _db.Files.Find(id);
+                //Files newFile = new Files();
+                //newFile.Name = model.Name;
+                newFile.Content = content;
+                //newFile.FileType = model.FileType;
+                //_db.Entry(dbProject).CurrentValues.SetValues(newFile);
+                //_db.Entry(dbProject).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return false;
+        }
 
         public Files OpenFile(int fileId)
         {
@@ -338,6 +362,23 @@ namespace ProgramWeb.Services
                               select f).FirstOrDefault();
             return fileToEdit;    
         }
->>>>>>> 890e64cfd4b5d7e292f6c4d3982719ba9e8cb549
+        public bool RemoveFile(int fileId)
+        {
+            var fileToEdit = (from f in _db.Files
+                              where f.ID == fileId
+                              select f).FirstOrDefault();
+            if (fileToEdit != null)
+            {
+                var fileInProject = (from fp in _db.ProjectFiles
+                                     where fp.FileId == fileToEdit.ID
+                                     select fp).FirstOrDefault();
+                _db.ProjectFiles.Remove(fileInProject);
+                _db.SaveChanges();
+                _db.Files.Remove(fileToEdit);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
 	}
 }
