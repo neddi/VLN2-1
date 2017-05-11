@@ -272,6 +272,7 @@ namespace ProgramWeb.Services
 
 			foreach(var item in allProjects)
 			{
+                console.writlin(item.IsAdmin);
 				ProjectViewModel tmpProject = new ProjectViewModel();
 				tmpProject = GetProject(item.ProjectId);
 				projects.Add(tmpProject);

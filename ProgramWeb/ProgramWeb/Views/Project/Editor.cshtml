@@ -1,6 +1,7 @@
 ﻿@model ProgramWeb.Models.Entities.Files
 
 @using Microsoft.AspNet.Identity;
+@using ProgramWeb.Utilities
 @{
     ViewBag.Title = "Editor";
 }
@@ -13,7 +14,28 @@
     <section id="editor"></section>
         
     <aside>
-        <input typeof="button" value="New File" onclick="newFile()" class="btn-editor btn-aside" />
+        <div id="theModal" class="modal fade text-center">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#CreateFileModal">
+            New File
+        </button>
+
+        <div class="modal fade" id="CreateFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @Html.Partial("_CreateFile")
+                    </div>
+
+                </div>
+            </div>
+        </div>
         @using (Html.BeginForm("File", "Project", FormMethod.Post))
         {
             @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
@@ -28,11 +50,11 @@
             </div>
         </div>
 
-        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#CreateProjectModal">
             New Project
         </button>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="CreateProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -44,14 +66,38 @@
             </div>
         </div>
         <!--<input type="button" value="New Project" onclick="createProject()" class="btn-editor btn-aside" />-->
-        <div class="btn-editor btn-aside">Project Info</div>
-        <input type="button" value="Invite" onclick="invite()" class="btn-editor btn-aside" />
+        <div id="theModal" class="modal fade text-center">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
+            Project Info
+        </button>
+
+        <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @Html.Partial("_ProjectInfo", new
+                   {
+                       id = 2
+                   }.ToViewDataDictionary())
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </aside>
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
 
+<input type="hidden" value="id" id="hiddenProjectID" />
 
 <script>
     var editor = ace.edit("editor");

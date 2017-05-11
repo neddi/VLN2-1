@@ -16,8 +16,13 @@
                 <ul class="list-group">
                     @foreach (var project in Model.ProjectList)
                     {
-                        <li class="list-group-item selectedProject" data-id="@project.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
+<<<<<<< HEAD
+                        <li class="list-group-item"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
                         <li id="@project.Id" class="panel-collapse collapse">
+=======
+                        <li class="list-group-item selectedProject" data-id="@project.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
+                        <div id="@project.Id" class="panel-collapse collapse">
+>>>>>>> 7356f41dcab86bf90bf59cd62ab2e2b3bc5f120f
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
