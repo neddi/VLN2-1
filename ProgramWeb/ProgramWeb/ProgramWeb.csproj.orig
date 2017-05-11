@@ -234,8 +234,6 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utilities\CustomApplicationException.cs" />
-    <Compile Include="Utilities\ErrorExceptionHandling.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -283,8 +281,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -306,26 +303,26 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Manage\TableTesting.cshtml" />
-    <Content Include="Views\Home\Editor.cshtml" />
+    <Content Include="Views\Project\Editor.cshtml" />
     <Content Include="Views\Manage\AddName.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
-    <Content Include="Views\Project\CreateProject.cshtml" />
-    <Content Include="Views\Home\Invite.cshtml" />
+    <Content Include="Views\Project\Invite.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Home\CreateProject.cshtml" />
-    <Content Include="Views\Home\CreateFile.cshtml" />
+=======
+    <Content Include="Views\Project\CreateProject.cshtml" />
+>>>>>>> 9bc9d2799ceb30788c9e6d4d4318839742d767dd
+    <Content Include="Views\Project\CreateFile.cshtml" />
     <Content Include="Views\Project\UpdateFile.cshtml" />
     <Content Include="Views\Project\File.cshtml" />
     <Content Include="Views\Shared\ErrorArgument.cshtml" />
     <Content Include="Views\Shared\ErrorCustom.cshtml" />
     <Content Include="Views\Shared\_UserInformation.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Shared\_SideBarNavigation.cshtml" />
-    <Content Include="Views\Shared\_GetUserInformation.cshtml" />
-    <Content Include="Views\Home\NewProjectFromEditor.cshtml" />
-=======
     <Content Include="Views\Project\RemoveFile.cshtml" />
->>>>>>> 1e853ed164cec05cac283193f4a0f326408dd974
+    <Content Include="Views\Shared\_GetUserInformation.cshtml" />
+    <Content Include="Views\Project\NewProjectFromEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -335,6 +332,7 @@
     <Folder Include="CustomData\Ace\src-noconflict\" />
     <Folder Include="CustomData\Ace\src\" />
     <Folder Include="CustomData\Ace\textarea\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -358,7 +356,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60843</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

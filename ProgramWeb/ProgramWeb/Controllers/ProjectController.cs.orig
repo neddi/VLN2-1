@@ -199,12 +199,45 @@ namespace ProgramWeb.Controllers
         [ValidateInput(false)]
         public ActionResult CreateFile(NewFileViewModel model)
 		{
+			//NewFileViewModel entity = new NewFileViewModel();
+			//entity.ProjectId = model.ProjectId;
+			//mode.ProjectId = 30;
+			//Files newFile = model.File;
+			//entity.File = newFile;
+
 			projectService = new ProjectService(null);
 			if (projectService.NewFile(model))
 			{
 				return RedirectToAction("Editor", "Project");
 			}
 			return View(model);
+		}
+
+<<<<<<< HEAD
+=======
+		[HttpGet]
+		public ActionResult Invite()
+		{
+			UserService userServ = new UserService();
+			ViewBag.Message = "Your testing page.";
+			System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+			if (users == null)
+			{
+				RedirectToAction("Index");
+			}
+			return View(users);
+		}
+		[HttpPost]
+		public ActionResult Invite(string invUser)
+		{
+			string invitedUserId = "aa514bbb - 6278 - 429f - a285 - 851caab053a5";
+			//TODO tengja við service
+			ProjectService projServ = new ProjectService(null);
+			if (projServ.AddUserToProject(invitedUserId))
+			{
+				return RedirectToAction("Index");
+			}
+			return View();
 		}
 
 		[HttpGet]
@@ -224,9 +257,10 @@ namespace ProgramWeb.Controllers
 			projectService = new ProjectService(null);
 			if (projectService.NewProject(entity, currentUser))
 			{
-				return RedirectToAction("Editor", "Project");
+				return RedirectToAction("Index");
 			}
 			return View(model);
 		}
+>>>>>>> 9bc9d2799ceb30788c9e6d4d4318839742d767dd
 	}
 }
