@@ -17,7 +17,7 @@ namespace ProgramWeb.Models.ViewModel
         public string Name { get; set; }
 
         [Required]
-        public List<string> ProjectOwners { get; set; }
+        public string ProjectOwner { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
@@ -27,6 +27,6 @@ namespace ProgramWeb.Models.ViewModel
         [Display(Name = "Project Description")]
         public string Description { get; set; }
 
-        public List<string> Users { get; set; }
+        public List<UserInfoViewModel> Users { get; set; }
 	}
 }

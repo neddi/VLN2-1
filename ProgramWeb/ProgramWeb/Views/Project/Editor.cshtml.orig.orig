@@ -66,6 +66,10 @@
             </div>
         </div>
         <!--<input type="button" value="New Project" onclick="createProject()" class="btn-editor btn-aside" />-->
+<<<<<<< HEAD
+        <div class="btn-editor btn-aside">Project Info</div>
+        <input type="button" value="Invite" onclick="invite()" class="btn-editor btn-aside" />
+=======
         <div id="theModal" class="modal fade text-center">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -81,14 +85,18 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" onclick="getProjectInfo()">Test</button>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @Html.Partial("_ProjectInfo", new { id = 2}.ToViewDataDictionary())
+                        @Html.Partial("_ProjectInfo", new
+                   {
+                       id = 2
+                   }.ToViewDataDictionary())
                     </div>
 
                 </div>
             </div>
         </div>
+        <div class="btn-editor btn-aside">Invite</div>
+>>>>>>> 7356f41dcab86bf90bf59cd62ab2e2b3bc5f120f
     </aside>
 </section>
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -101,6 +109,7 @@
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/html");
+
     function hideSidebar() {
         $("nav").toggle();
     }
@@ -109,7 +118,10 @@
         var url = '@Url.Action("CreateProject", "Project")';
         window.location.href = url
     }
-
+    function invite() {
+        var url = '@Url.Action("Invite", "Project")';
+        window.location.href = url
+    }
     function newFile()
     {
         var url = '@Url.Action("CreateFile", "Project")';
@@ -120,11 +132,5 @@
         var getId = window.location.hash.substr(1).split('#'); // substr(1) to remove the `#`
         document.getElementById("fileID").value = decodeURIComponent(getId);
     });
-
-    function getProjectInfo() {
-        var sendId = $("#hiddenProjectID").attr('value');
-        alert(sendId);
-        $.post('@Url.Action("ProjectInfo", "Project")', sendId);
-    }
 
 </script>

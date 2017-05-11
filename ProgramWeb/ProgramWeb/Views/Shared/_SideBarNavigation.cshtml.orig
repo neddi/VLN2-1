@@ -59,7 +59,10 @@
         setSelectedProject(currentObject);
         var projectId = $(".selectedProject").attr('data-id');
         $('#hiddenProjectID').attr('value', projectId);
+<<<<<<< HEAD
+=======
         //alert(projectId);
+>>>>>>> 10492f13a0ed47dce31b0041c5c9877e96500511
     }
 
     function setEditorContent(value, currentObject) {
