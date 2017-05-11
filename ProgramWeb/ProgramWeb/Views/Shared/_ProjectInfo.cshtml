@@ -1,0 +1,27 @@
+﻿<h4 class="modal-title" id="myModalLabel">Project Information</h4>
+<div class="modal-body">
+    <input type="hidden" value="@ViewBag.Property1" />
+    <p>
+        <ul>
+            @*
+                @foreach (var user in Model.ProjectOwners)
+                {
+                    <li>@user</li>
+                }*@
+    </ul>
+    </p>
+
+    <p>Creation date:Date</p>
+
+    <h3>Information</h3>
+    <p class="container">@ViewBag.Property2</p>
+
+    <h3>Project members</h3>
+    <ul>
+        @*
+            @foreach(var member in Model.Users)
+            {
+                <li>@member</li>
+            }*@
+    </ul>
+</div>

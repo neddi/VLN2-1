@@ -1,6 +1,7 @@
 ﻿@model ProgramWeb.Models.Entities.Files
 
 @using Microsoft.AspNet.Identity;
+@using ProgramWeb.Utilities
 @{
     ViewBag.Title = "Editor";
 }
@@ -20,11 +21,11 @@
             </div>
         </div>
 
-        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#CreateFileModal">
             New File
         </button>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="CreateFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -49,11 +50,11 @@
             </div>
         </div>
 
-        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#CreateProjectModal">
             New Project
         </button>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="CreateProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -65,7 +66,34 @@
             </div>
         </div>
         <!--<input type="button" value="New Project" onclick="createProject()" class="btn-editor btn-aside" />-->
-        <div class="btn-editor btn-aside">Project Info</div>
+        <div id="theModal" class="modal fade text-center">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
+            Project Info
+        </button>
+
+        <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @Html.Partial("_ProjectInfo", new
+                           {
+                               Property1 = "2",
+                               Property2 = "Gera breytingu",
+                               property3 = 1,
+                               property4 = "Project1"
+                           }.ToViewDataDictionary())
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="btn-editor btn-aside">Invite</div>
     </aside>
 </section>

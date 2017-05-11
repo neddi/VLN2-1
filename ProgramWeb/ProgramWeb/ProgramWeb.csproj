@@ -234,6 +234,7 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\HelperFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -305,7 +306,7 @@
     <Content Include="Views\Manage\TableTesting.cshtml" />
     <Content Include="Views\Project\Editor.cshtml" />
     <Content Include="Views\Manage\AddName.cshtml" />
-    <Content Include="Views\Project\ProjectInfo.cshtml" />
+    <Content Include="Views\Shared\_ProjectInfo.cshtml" />
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
     <Content Include="Views\Project\Invite.cshtml" />
     <Content Include="Views\Shared\_CreateProject.cshtml" />
@@ -328,7 +329,6 @@
     <Folder Include="CustomData\Ace\src-noconflict\" />
     <Folder Include="CustomData\Ace\src\" />
     <Folder Include="CustomData\Ace\textarea\" />
-    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

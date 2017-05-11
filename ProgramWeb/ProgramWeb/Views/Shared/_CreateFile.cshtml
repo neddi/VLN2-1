@@ -1,13 +1,11 @@
 ﻿@model ProgramWeb.Models.ViewModel.NewFileViewModel
 
-<h4 class="modal-title" id="myModalLabel">New Project</h4>
+<h4 class="modal-title" id="myModalLabel">New File</h4>
 <div class="modal-body">
     @using (Html.BeginForm("CreateFile", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>NewFileViewModel</h4>
+            <h4>Create a new file</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -16,16 +14,22 @@
                     @Html.EditorFor(model => model.ProjectId, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
                 </div>
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(model => model.File.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div>
                     @Html.EditorFor(model => model.File.Name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.File.Name, "", new { @class = "text-danger" })
                 </div>
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(model => model.File.FileType, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div>
                     @Html.EditorFor(model => model.File.FileType, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.File.FileType, "", new { @class = "text-danger" })
                 </div>
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(model => model.File.Content, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div>
                     @Html.EditorFor(model => model.File.Content, new { htmlAttributes = new { @class = "form-control" } })
@@ -43,7 +47,6 @@
                 </div>
 
             </div>
-        </div>
     }
 </div>
 
