@@ -309,7 +309,7 @@
     <Content Include="Views\Project\UpdateProjectInfo.cshtml" />
     <Content Include="Views\Project\Invite.cshtml" />
     <Content Include="Views\Shared\_CreateProject.cshtml" />
-    <Content Include="Views\Project\CreateFile.cshtml" />
+    <Content Include="Views\Shared\_CreateFile.cshtml" />
     <Content Include="Views\Project\UpdateFile.cshtml" />
     <Content Include="Views\Project\File.cshtml" />
     <Content Include="Views\Shared\ErrorArgument.cshtml" />
