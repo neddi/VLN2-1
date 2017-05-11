@@ -384,6 +384,7 @@ namespace ProgramWeb.Services
                 //newFile.FileType = model.FileType;
                 //_db.Entry(dbProject).CurrentValues.SetValues(newFile);
                 //_db.Entry(dbProject).State = EntityState.Modified;
+                _db.Entry(newFile).CurrentValues.SetValues(newFile);
                 _db.SaveChanges();
             }
             return false;
