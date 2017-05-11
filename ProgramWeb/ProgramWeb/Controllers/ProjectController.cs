@@ -64,7 +64,7 @@ namespace ProgramWeb.Controllers
 
             if (projectService.SaveFile(fileToSave))
             {
-                return RedirectToRoute("Editor", "Home");
+                return RedirectToRoute("Editor", "Project");
             }
             return View(fileToSave);
         }
@@ -152,6 +152,13 @@ namespace ProgramWeb.Controllers
 			}
 
 			return View(model);
+		}
+
+		public ActionResult Editor()
+		{
+			ViewBag.Message = "Editor";
+
+			return View();
 		}
 	}
 }

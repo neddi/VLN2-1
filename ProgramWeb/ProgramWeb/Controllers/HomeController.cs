@@ -17,7 +17,7 @@ namespace ProgramWeb.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("Editor");
+            return RedirectToAction("Editor", "Project");
         }
  /*       [Authorize]
         public ActionResult About()
@@ -57,19 +57,6 @@ namespace ProgramWeb.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-
-
-        public ActionResult Editor()
-        {
-            ViewBag.Message = "Editor";
-
-            return View();
-        }
-
-        public ActionResult EditorOnPage()
-        {
             return View();
         }
 

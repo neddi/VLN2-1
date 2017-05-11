@@ -21,8 +21,8 @@
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
-                                    <li class="list-group-item" onclick="setEditorContent('@file.Content', this)"><a href="#@file.ID">@file.Name </a></li>
-                                    <li class="list-group-item" onclick="setEditorContent2('@file.ID')"><a href="#@file.ID">@file.Name asdf</a></li>
+                                    //<li class="list-group-item" onclick="setEditorContent('@file.Content', this), setEditorContent2('@file.ID')"><a href="#@file.ID">@file.Name </a></li>
+                                    <li class="list-group-item" onclick="setEditorContent2('@file.ID')"><a href="#@file.ID">@file.Name</a></li>
                                 }
                             </ul>
                         </div>
@@ -35,7 +35,7 @@
         </div>
     </div>
 </div>
-<div> <input type="button" value="Funi Save"  class="btn btn-success" /></div>
+<!--<div> <input type="button" value="Funi Save"  class="btn btn-success" /></div>-->
 
 
 
