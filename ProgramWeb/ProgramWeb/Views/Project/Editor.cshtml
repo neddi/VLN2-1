@@ -36,12 +36,7 @@
                 </div>
             </div>
         </div>
-        @using (Html.BeginForm("File", "Project", FormMethod.Post))
-        {
-            @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
-            @Html.HiddenFor(m => m.ID, new { @id = "fileID" })
-            <input type="submit" value="Save File" class="btn-editor btn-aside" />
-        }
+            <input type="submit" value="Save File" class="btn-editor btn-aside" onclick="saveButton()" />
 
         <div id="theModal" class="modal fade text-center">
             <div class="modal-dialog">

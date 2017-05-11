@@ -21,7 +21,7 @@
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
-                                    <li class="list-group-item selected" onclick="setEditorContent('@file.ID')"><a href="#@file.ID">@file.Name</a></li>
+                                    <li class="list-group-item selected" data-id="@file.ID" onclick="setEditorContent('@file.ID', this)"><a href="#@file.ID">@file.Name</a></li>
                                 }
                             </ul>
                         </div>
@@ -35,12 +35,13 @@
     </div>
 </div>
 
-<div> <input type="button" value="Funi Save" class="btn btn-success" onclick="saveButton()"/></div>
 
 <script>
     function saveButton() {
         var fileID = $(".selected").attr('data-id');
-        var content = editor.getSession().getValue()     
+        var content = editor.getSession().getValue();
+        alert(fileID);
+        alert(content);
         SaveFileAjax(fileID, content);  
     };
 
