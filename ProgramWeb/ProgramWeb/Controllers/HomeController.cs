@@ -9,15 +9,16 @@ using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Controllers
 {
-	[Authorize]
+	
 	public class HomeController : Controller
     {
         private ProjectService projectService;
         private UserService userService;
 
-        public ActionResult Index()
+		[Authorize]
+		public ActionResult Index()
         {
-            return RedirectToAction("Editor");
+            return RedirectToAction("Editor", "Project");
         }
  /*       [Authorize]
         public ActionResult About()
@@ -39,7 +40,6 @@ namespace ProgramWeb.Controllers
 */
 
 
-        [Authorize]
 		public ActionResult About()
 		{
 			ViewBag.Message = "Your testing page.";
@@ -52,24 +52,11 @@ namespace ProgramWeb.Controllers
             return View(projects);
         }
 
-
-        public ActionResult Contact()
+		[Authorize]
+		public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-
-
-        public ActionResult Editor()
-        {
-            ViewBag.Message = "Editor";
-
-            return View();
-        }
-
-        public ActionResult EditorOnPage()
-        {
             return View();
         }
 
@@ -89,30 +76,6 @@ namespace ProgramWeb.Controllers
 
             projectService = new ProjectService(null);
             if ( projectService.NewProject(entity, currentUser) )
-            {
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
-
-        [HttpGet]
-        public ActionResult CreateFile()
-        {
-            NewFileViewModel model = new NewFileViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult CreateFile(NewFileViewModel model)
-        {
-            NewFileViewModel entity = new NewFileViewModel();
-            //entity.ProjectId = model.ProjectId;
-            entity.ProjectId = 2;
-            Files newFile = model.File;
-            entity.File = newFile;
-
-            projectService = new ProjectService(null);
-            if (projectService.NewFile(entity))
             {
                 return RedirectToAction("Index");
             }

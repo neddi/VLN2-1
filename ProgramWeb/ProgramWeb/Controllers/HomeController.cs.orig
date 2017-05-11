@@ -1,54 +1,117 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using ProgramWeb.Models;
+using ProgramWeb.Models.ViewModel;
 using System.Web.Mvc;
+using ProgramWeb.Services;
+using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Controllers
 {
+	
 	public class HomeController : Controller
-	{
+    {
+        private ProjectService projectService;
+        private UserService userService;
+
+		[Authorize]
 		public ActionResult Index()
-		{
-			return View();
-		}
+        {
+            return RedirectToAction("Editor", "Project");
+        }
+ /*       [Authorize]
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+            // Get the current logged in User and look up the user in ASP.NET Identity
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+
+            // Recover the profile information about the logged in user
+            ViewBag.Name = currentUser.UserName;
+            ViewBag.FullName = currentUser.FullName;
+            ViewBag.Email = currentUser.Email;
+            ViewBag.Info = currentUser.Info;
+
+            return View();
+        }
+*/
+
 
 		public ActionResult About()
 		{
-			ViewBag.Message = "Your application description page.";
+			ViewBag.Message = "Your testing page.";
+            projectService = new ProgramWeb.Services.ProjectService(null);
+            System.Collections.Generic.IEnumerable<ProjectViewModel> projects = projectService.ListAllProjects();
+            if (projects == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(projects);
+        }
 
-			return View();
-		}
-
+		[Authorize]
 		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
+        {
+            ViewBag.Message = "Your contact page.";
 
-			return View();
-		}
+            return View();
+        }
 
-		public ActionResult TableTesting()
-		{
+        [HttpGet]
+        public ActionResult CreateProject()
+        {
+            ProjectViewModel model = new ProjectViewModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CreateProject(ProjectViewModel model)
+        {
+            Projects entity = new Projects();
+            entity.Name = model.Name;
+            entity.Description = model.Description;
+            var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            projectService = new ProjectService(null);
+            if ( projectService.NewProject(entity, currentUser) )
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
 <<<<<<< HEAD
-			UserService service = new UserService();
+
+        [HttpGet]
+        public ActionResult CreateFile()
+        {
+            NewFileViewModel model = new NewFileViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateFile(NewFileViewModel model)
+        {
+            NewFileViewModel entity = new NewFileViewModel();
+            //entity.ProjectId = model.ProjectId;
+            entity.ProjectId = 2;
+            Files newFile = model.File;
+            entity.File = newFile;
+
+            projectService = new ProjectService(null);
+            if (projectService.NewFile(entity))
+            {
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
 =======
-			ViewBag.Message = "Your table testing page.";
->>>>>>> ec97120f950b5b40c58a5a7d74da57ccb7792e7a
-
-			List<TableTestingViewModel> data = service.ListAllUsers();
-
-			return View(data);
-		}
-
-        public ActionResult Editor()
-        {
-            ViewBag.Message = "Editor";
-
-            return View();
-        }
-        public ActionResult EditorOnPage()
-        {
-            return View();
-        }
+>>>>>>> 1e7ed977105123f7c8bffae8236f44d615bbdf27
     }
 }
+
+
+//string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+//IEnumerable<Movie> model = MovieAppRepository.Instance.GetAllMovies(username);
+//return View(model);

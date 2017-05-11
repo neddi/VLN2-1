@@ -13,6 +13,9 @@ namespace ProgramWeb.Controllers
 	public class ProjectController : Controller
 	{
 		private ProjectService service = new ProjectService(null);
+		private ProjectService projectService;
+		private UserService userService;
+
 		// Action for Viewing Multiple tables
 		public ActionResult ProjectInfo(int id)
 		{
@@ -20,6 +23,24 @@ namespace ProgramWeb.Controllers
 
 			return View(viewModel);
 		}
+        // Hér byrjar Funi að breyta og bæta
+        // Ég er að reyna að henda inn ID af File sem ég vil endilega fá
+
+        [HttpPost]
+        public ActionResult GetFileForEditor(int id)
+        {
+            ProjectService fileService = new ProjectService(null);
+            string fileContent;
+            fileContent = (fileService.GetFile(id)).Content;
+    
+            return Json(fileContent);
+        }
+        [HttpPost]
+        public void SaveFileForEditor(string id, string content)
+        {
+            ProjectService fileService = new ProjectService(null);
+            fileService.SaveFile(id, content); 
+        }
         [HttpGet]
         public ActionResult File()
         {
@@ -46,7 +67,7 @@ namespace ProgramWeb.Controllers
 
             if (projectService.SaveFile(fileToSave))
             {
-                return RedirectToRoute("Editor", "Home");
+                return RedirectToRoute("Editor", "Project");
             }
             return View(fileToSave);
         }
@@ -158,5 +179,38 @@ namespace ProgramWeb.Controllers
 
 			return View(model);
 		}
+
+		public ActionResult Editor()
+		{
+			ViewBag.Message = "Editor";
+
+			return View();
+		}
+
+		[HttpGet]
+		public ActionResult CreateFile()
+		{
+			NewFileViewModel model = new NewFileViewModel();
+			return View(model);
+		}
+
+		[HttpPost]
+        [ValidateInput(false)]
+        public ActionResult CreateFile(NewFileViewModel model)
+		{
+			//NewFileViewModel entity = new NewFileViewModel();
+			//entity.ProjectId = model.ProjectId;
+			//mode.ProjectId = 30;
+			//Files newFile = model.File;
+			//entity.File = newFile;
+
+			projectService = new ProjectService(null);
+			if (projectService.NewFile(model))
+			{
+				return RedirectToAction("Editor", "Project");
+			}
+			return View(model);
+		}
+
 	}
 }
