@@ -121,6 +121,7 @@ namespace ProgramWeb.Controllers
         [HttpPost]
         public ActionResult RemoveFile(int? FileID)
         {
+			var projectService = new ProjectService(null);
             if (FileID.HasValue)
             {
                 if (projectService.RemoveFile(FileID.Value))
@@ -233,8 +234,18 @@ namespace ProgramWeb.Controllers
 		public ActionResult CreateFile()
 		{
 			NewFileViewModel model = new NewFileViewModel();
+
 			return View(model);
 		}
+
+		//[HttpGet]
+		//public ActionResult CreateFile(int id)
+		//{
+		//	NewFileViewModel model = new NewFileViewModel();
+		//	model.ProjectId = id;
+
+		//	return View("CreateFile", model);
+		//}
 
 		[HttpPost]
         [ValidateInput(false)]

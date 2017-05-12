@@ -323,6 +323,7 @@
     <Content Include="Views\Project\NewProjectFromEditor.cshtml" />
     <Content Include="Views\Project\ProjectInfo.cshtml" />
     <Content Include="Views\Project\UserInfo.cshtml" />
+    <Content Include="Views\Project\CreateFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
