@@ -14,7 +14,7 @@
     @foreach (var item in Model)
     {
         <tr class="userLink">
-            <td class="userId">@item.Id</td> <td>@item.UserName</td> <td>@item.Email</td><td hidden>@item</td>
+            <td class="userId"> @item.Id</td> <td> @item.UserName</td> <td>@item.Email</td><td hidden>@item</td>
         </tr>    
     }
 </table>
@@ -36,4 +36,8 @@
                 console.log(value);
             });
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> bb58721b7a224ccddb7750c61ce5da1b08b0a811
         </script>

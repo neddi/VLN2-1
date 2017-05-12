@@ -19,11 +19,12 @@ namespace ProgramWeb.Controllers
 		private UserService userService;
 
 		// Action for Viewing Multiple tables
-		public ActionResult ProjectInfo(int id)
+		public ActionResult ProjectInfo(int infoId)
 		{
-			ProjectInfoViewModel viewModel = service.GetProjectInfo(id);
+			//ViewBag.projectInfoId = projectInfoId;
+			ProjectInfoViewModel viewModel = service.GetProjectInfo(infoId);
 
-			return View(viewModel);
+			return View("ProjectInfo", viewModel);
 		}
         // Hér byrjar Funi að breyta og bæta
         // Ég er að reyna að henda inn ID af File sem ég vil endilega fá
@@ -32,8 +33,8 @@ namespace ProgramWeb.Controllers
         public ActionResult GetFileForEditor(int id)
         {
             ProjectService fileService = new ProjectService(null);
-            string fileContent;
-            fileContent = (fileService.GetFile(id)).Content;
+            FileViewModel fileContent;
+            fileContent = (fileService.GetFile(id));
     
             return Json(fileContent);
         }
@@ -159,11 +160,13 @@ namespace ProgramWeb.Controllers
 			return View(model);
 		}
         [HttpGet]
-        public ActionResult Invite()
+        [ValidateInput(false)]
+        public ActionResult Invite(int projectId)
         {
             UserService userServ = new UserService();
             ViewBag.Message = "Your testing page.";
-            System.Collections.Generic.IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            ViewBag.ProjectId = projectId;
+            IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
             if (users == null)
             {
                 RedirectToAction("Index");
@@ -172,15 +175,18 @@ namespace ProgramWeb.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Invite(string invUser)
+        public ActionResult Invite(string userId, int projectId)
         {
-            //TODO tengja við service
+
             ProjectService projServ = new ProjectService(null);
-            if (projServ.AddUserToProject(invUser))
+            if (projServ.AddUserToProject(userId, projectId))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Editor");
             }
-            return View();
+            UserService userServ = new UserService();
+            IEnumerable<UserInfoViewModel> users = userServ.ListAllUsers();
+            ViewBag.Message = "An error occured, please try again";
+            return View(users);
         }
         // Temporary for testing purposes only
         [HttpGet]
@@ -220,6 +226,8 @@ namespace ProgramWeb.Controllers
 		public ActionResult Editor()
 		{
 			ViewBag.Message = "Editor";
+			//fyrir signalR
+			ViewBag.DocumentID = 17;
 
 			return View();
 		}
@@ -235,12 +243,6 @@ namespace ProgramWeb.Controllers
         [ValidateInput(false)]
         public ActionResult CreateFile(NewFileViewModel model)
 		{
-			//NewFileViewModel entity = new NewFileViewModel();
-			//entity.ProjectId = model.ProjectId;
-			//mode.ProjectId = 30;
-			//Files newFile = model.File;
-			//entity.File = newFile;
-
 			projectService = new ProjectService(null);
 			if (projectService.NewFile(model))
 			{
@@ -261,7 +263,7 @@ namespace ProgramWeb.Controllers
 			Projects entity = new Projects();
 			entity.Name = model.Name;
 			entity.Description = model.Description;
-			var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
 			projectService = new ProjectService(null);
 			if (projectService.NewProject(entity, currentUser))

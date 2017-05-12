@@ -69,40 +69,49 @@
                 </div>
             </div>
         </div>
+        @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.Hidden("infoId", new { @id = "infoId" })
 
-        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
-            Project Info
-        </button>
+        <input type="submit" value="Project Info" onclick="viewProjectInfo()" class="btn-aside btn-editor" />
+    }
+    @*<div data-toggle="modal" data-target="#ProjectInfoModal">
+        @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.Hidden("Id", new { @id = "Id" })
 
-        <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        @Html.Partial("_ProjectInfo", new
-                           {
-                               Property1 = "2",
-                               Property2 = "Gera breytingu",
-                               property3 = 1,
-                               property4 = "Project1"
-                           }.ToViewDataDictionary())
-                    </div>
+            <input type="submit" value="Project Info" onclick="viewProjectInfo()" id="infoButton" class="btn-aside btn-editor" />
+        }
+    </div>
 
+    <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div id="infoDiv"></div>
+                    <div id="infoButton">Test</div>
+                    @Html.Partial("_ProjectInfo", new { id = 2 }.ToViewDataDictionary())
                 </div>
+
             </div>
         </div>
-        <div class="btn-editor btn-aside">Invite</div>
+    </div>*@
     </aside>
 </section>
-<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 
+
+<input type="hidden" value="id" id="hiddenProjectID" />
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
 
+<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+<script src="~/signalr/hubs"></script>
 <script>
+
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/html");
-
     function hideSidebar() {
         $("nav").toggle();
     }
@@ -115,10 +124,7 @@
         var url = '@Url.Action("CreateProject", "Project")';
         window.location.href = url
     }
-    function invite() {
-        var url = '@Url.Action("Invite", "Project")';
-        window.location.href = url
-    }
+
     function newFile()
     {
         var url = '@Url.Action("CreateFile", "Project")';
@@ -129,5 +135,41 @@
         var getId = window.location.hash.substr(1).split('#'); // substr(1) to remove the `#`
         document.getElementById("fileID").value = decodeURIComponent(getId);
     });
+
+
+    //signalR stuff
+    var documentID = @ViewBag.DocumentID;
+    var codeHub = $.connection.codeHub;
+    var silent = false;
+
+    codeHub.client.onChange = function (changeData) {
+        console.log(changeData);
+
+        silent = true;
+        editor.getSession().getDocument().applyDelta(changeData);
+        silent = false;
+    };
+
+    $.connection.hub.start().done(function () {
+
+        codeHub.server.joinDocument(documentID);
+
+        editor.on("change", function (obj) {
+            if(silent)
+            {
+                return;
+            }
+            console.log(obj);
+            codeHub.server.onChange(obj, documentID);
+        });
+    });
+
+    function viewProjectInfo() {
+        var infoId = $("#hiddenProjectID").attr('value');
+        console.log(infoId);
+        $('#infoId').val(infoId);
+        var url = '@Url.Action("ProjectInfo", "Project")';
+        window.location.href = url
+    }
 
 </script>

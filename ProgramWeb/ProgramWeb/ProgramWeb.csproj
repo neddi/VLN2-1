@@ -211,6 +211,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\CodeHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\Projects.cs" />
     <Compile Include="Models\Entities\ProjectTypes.cs" />
@@ -320,6 +321,7 @@
     <Content Include="Views\Project\RemoveFile.cshtml" />
     <Content Include="Views\Shared\_GetUserInformation.cshtml" />
     <Content Include="Views\Project\NewProjectFromEditor.cshtml" />
+    <Content Include="Views\Project\ProjectInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

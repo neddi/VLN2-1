@@ -19,7 +19,6 @@ namespace ProgramWeb.Services
 
         public List<UserInfoViewModel> ListAllUsers()
         {
-            //var userList = new List<UserInfoViewModel>();
 
             List<UserInfoViewModel> viewModels = new List<UserInfoViewModel>();
             using (var context = new IdentityDbContext())
@@ -34,7 +33,6 @@ namespace ProgramWeb.Services
                             Id = u.Id,
                             UserName = u.UserName,
                             Email = u.Email,
-                            
                         }
                     ).ToList();
 

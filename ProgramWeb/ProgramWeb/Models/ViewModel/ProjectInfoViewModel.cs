@@ -17,16 +17,17 @@ namespace ProgramWeb.Models.ViewModel
         public string Name { get; set; }
 
         [Required]
-        public List<string> ProjectOwners { get; set; }
+        public string ProjectOwner { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime CreateDate { get; set; }
+		[DisplayFormat(DataFormatString = "{0:d MMMM yyyy}", ApplyFormatInEditMode = true)]
+		public DateTime CreateDate { get; set; }
         
         [DataType(DataType.Text)]
         [Display(Name = "Project Description")]
         public string Description { get; set; }
 
-        public List<string> Users { get; set; }
+        public List<UserInfoViewModel> Users { get; set; }
 	}
 }
