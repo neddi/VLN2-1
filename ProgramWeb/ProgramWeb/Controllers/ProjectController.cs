@@ -145,7 +145,7 @@ namespace ProgramWeb.Controllers
         {
 
             ProjectService projServ = new ProjectService(null);
-            if (projServ.AddUserToProject(userId))
+            if (projServ.AddUserToProject(userId, projectId))
             {
                 return RedirectToAction("Editor");
             }

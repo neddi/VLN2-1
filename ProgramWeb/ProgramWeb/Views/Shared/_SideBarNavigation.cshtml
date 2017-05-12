@@ -1,10 +1,11 @@
 ﻿@model ProgramWeb.Models.ViewModel.UserProjectsViewModel
+@using Microsoft.AspNet.Identity
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <div class="container hideMe">
-    <h2>My projects</h2>
+    <h2>@User.Identity.GetUserName()</h2>
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
