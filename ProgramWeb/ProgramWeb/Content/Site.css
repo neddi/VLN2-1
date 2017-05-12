@@ -64,7 +64,7 @@ textarea {
 }
 
 .about-center {
-    vertical-align: center;
+    text-align: center;
 }
 
 .list-group-item:first-child {
@@ -117,4 +117,18 @@ textarea {
     font-weight: 500;
     line-height: 1.1;
     color: #333;
+}
+
+.aboutDefault {
+   	margin: 0 auto;
+}
+
+.teamList {
+    list-style: none;
+    padding: 0;
+}
+
+.teamList > li {
+    display:inline-block;
+    padding: 40px;
 }
