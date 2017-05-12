@@ -19,11 +19,12 @@ namespace ProgramWeb.Controllers
 		private UserService userService;
 
 		// Action for Viewing Multiple tables
-		public ActionResult ProjectInfo(int id)
+		public ActionResult ProjectInfo(int infoId)
 		{
-			ProjectInfoViewModel viewModel = service.GetProjectInfo(id);
+			//ViewBag.projectInfoId = projectInfoId;
+			ProjectInfoViewModel viewModel = service.GetProjectInfo(infoId);
 
-			return View(viewModel);
+			return View("ProjectInfo", viewModel);
 		}
         // Hér byrjar Funi að breyta og bæta
         // Ég er að reyna að henda inn ID af File sem ég vil endilega fá
@@ -44,6 +45,40 @@ namespace ProgramWeb.Controllers
             ProjectService fileService = new ProjectService(null);
             fileService.SaveFile(id, content); 
         }
+        [HttpPost]
+        public ActionResult SaveProjectForEditor(string projectName, string projectDescription)
+        {
+            Projects entity = new Projects();
+            entity.Name = projectName;
+            entity.Description = projectDescription;
+            var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            projectService = new ProjectService(null);
+            if (!projectService.NewProject(entity, currentUser))
+            {
+                return null; // Þarf að setja inn exception
+            }
+
+            var projectID = projectService.GetUserNewestProject(currentUser);
+            var project = projectService.GetProject(projectID);
+            var projectNameReturn = project.Name;
+            var projectFileID = project.ProjectFiles[0].ID;
+            var projectFileName = project.ProjectFiles[0].Name;
+
+            
+            return Json(new { pID = projectID, pName = projectNameReturn, fID = projectFileID, fName = projectFileName });
+            //return View(model);
+            //return View(); // Þarf að bæta einhverju við hérna klárlega!
+        }
+
+   /*     [HttpPost]
+        public ActionResult GetProjectForEditor(int projectID)
+        {
+
+            //return Json();
+        }
+    */
+
+        // Hér hættir Funi að fikta og tikka
         [HttpGet]
         public ActionResult File()
         {
@@ -75,28 +110,25 @@ namespace ProgramWeb.Controllers
             return View(fileToSave);
         }
 
-        [HttpGet]
-        public ActionResult RemoveFile()
-        {
-            var projectService = new ProjectService(null);
-            //hardcoded value for open file
-            var fileModel = projectService.OpenFile(0);
-            return View(fileModel);
-        }
+        //[HttpGet]
+        //public ActionResult RemoveFile()
+        //{
+        //    var projectService = new ProjectService(null);
+        //    //hardcoded value for open file
+        //    var fileModel = projectService.OpenFile(0);
+        //    return View(fileModel);
+        //}
         [HttpPost]
-        public ActionResult RemoveFile(Files fileFromView)
+        public ActionResult RemoveFile(int? FileID)
         {
-            var projectService = new ProjectService(null);
-            var fileToRm = new Files();
-            fileToRm.ID = fileFromView.ID;
-            //fileToRm.FileType = fileFromView.FileType;
-            //fileToRm.Name = fileFromView.Name;
-            //fileToRm.Content = fileFromView.Content;
-            if (projectService.RemoveFile(fileToRm.ID))
+            if (FileID.HasValue)
             {
-                return RedirectToRoute("Index", "Home");
+                if (projectService.RemoveFile(FileID.Value))
+                {
+                    return RedirectToAction("Editor", "Project");
+                }
             }
-            return View(fileToRm);
+            return RedirectToAction("Editor", "Project"); // TODO Errorstate
         }
 		[HttpGet]
 		public ActionResult UpdateProjectInfo(int id)
@@ -119,7 +151,7 @@ namespace ProgramWeb.Controllers
 				data.Name = model.Name;
 				data.Description = model.Description;
 				service.UpdateProjectInfo(data);
-				return RedirectToAction("ProjectInfo", new { Message = "Project Updated succesfully" });
+				return RedirectToAction("Editor");
 			}
 
 			return View(model);
@@ -228,7 +260,7 @@ namespace ProgramWeb.Controllers
 			Projects entity = new Projects();
 			entity.Name = model.Name;
 			entity.Description = model.Description;
-			var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
 			projectService = new ProjectService(null);
 			if (projectService.NewProject(entity, currentUser))

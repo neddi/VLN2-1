@@ -73,11 +73,10 @@ namespace ProgramWeb.Services
                 var userDb = new IdentityDbContext();
                 var invitedUser = userDb.Users
                     .Select(u => u.Id == userId);
-                //hardcoded project ID
                 var userInProject = new UserProjects();
                 userInProject.UserId = userId;
                 userInProject.IsAdmin = false;
-                userInProject.ProjectId = projectId; // TODO add "currentProject / activeProject"
+                userInProject.ProjectId = projectId; 
                 _db.UserProjects.Add(userInProject);
                 _db.SaveChanges();
 
@@ -105,19 +104,26 @@ namespace ProgramWeb.Services
 								   where u.ProjectId == projectid
 									select new { u.UserId, u.IsAdmin, u.ProjectId }).ToList();
 			List<UserInfoViewModel> ProjectUsers = new List<UserInfoViewModel>();
-			UserInfoViewModel ProjectOwner = new UserInfoViewModel();
+            foreach(var item in allProjectUsers)
+            {
+                var userInProject = getUser(item.UserId);
+                UserInfoViewModel newUser = new UserInfoViewModel();
+                newUser.FullName = userInProject.FullName;
+                newUser.Id = userInProject.Id;
+                newUser.UserName = userInProject.UserName;
+                newUser.Email = userInProject.Email;
+                ProjectUsers.Add(newUser);
+            }
+			
 			foreach (var item in allProjectUsers)
 			{
-                var tmpUser = new UserInfoViewModel();
-                tmpUser.isAdmin = item.IsAdmin;
-				ProjectUsers.Add(tmpUser);
 				if(item.IsAdmin)
 				{
-					ProjectOwner = tmpUser;
+					var userInProject = getUser(item.UserId);
+					viewModel.ProjectOwner = userInProject.FullName;
 				}
 			}
 			viewModel.Users = ProjectUsers;
-			viewModel.ProjectOwner = ProjectOwner.FullName;
 
 			return viewModel;
 		}
@@ -247,12 +253,12 @@ namespace ProgramWeb.Services
             }
         }
 
-		/// <summary>
-		/// Lists all projects belongin to the logged in user
-		/// </summary>
-		/// <param name="userId"></param>
-		/// <returns></returns>
-		public UserProjectsViewModel GetUserProject(string userId)
+        /// <summary>
+        /// Lists all projects belongin to the logged in user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public UserProjectsViewModel GetUserProject(string userId)
 		{
 			UserProjectsViewModel viewModel = new UserProjectsViewModel();
 
@@ -265,37 +271,59 @@ namespace ProgramWeb.Services
 			var allOwnedProjects = (from u in _db.UserProjects
 								   where (u.UserId == userId && u.IsAdmin == true) 
 								   select new { u.ProjectId, u.UserId, u.IsAdmin }).ToList();
-            var allInvitedProjects = ( from u in _db.UserProjects
-                                       join p in _db.Projects on u.ProjectId equals p.Id
-                                       where (u.ProjectId == p.Id && !u.IsAdmin)
+
+            var allInvitedProjects = ( from p in _db.Projects 
+                                       join u in _db.UserProjects on p.Id equals u.ProjectId
+                                       where (user.Id == u.UserId && u.ProjectId == p.Id && !u.IsAdmin)
                                        select new { p.Id, u.UserId, u.IsAdmin }).ToList();
 
-            List<ProjectViewModel> projects = new List<ProjectViewModel>();
+            List<ProjectViewModel> OwnProjects = new List<ProjectViewModel>();
 			foreach(var item in allOwnedProjects)
 			{
-                Console.WriteLine(item.IsAdmin);
-                Console.WriteLine(item.ProjectId);
-                Console.WriteLine(item.UserId);
 				ProjectViewModel tmpProject = new ProjectViewModel();
 				tmpProject = GetProject(item.ProjectId);
-				projects.Add(tmpProject);
+				OwnProjects.Add(tmpProject);
 			}
+            viewModel.OwnedProjectList = OwnProjects;
+
+            HashSet<ProjectViewModel> InvProjects = new HashSet<ProjectViewModel>();
             foreach (var item in allInvitedProjects)
             {
-                Console.WriteLine(item.IsAdmin);
-                Console.WriteLine(item.Id);
-                Console.WriteLine(item.UserId);
                 ProjectViewModel tmpProject = new ProjectViewModel();
-                tmpProject = GetProject(item.Id);
-                projects.Add(tmpProject);
+                    tmpProject = GetProject(item.Id);
+                    InvProjects.Add(tmpProject);
+    
             }
 
-            viewModel.ProjectList = projects;
+            viewModel.InvitedProjectList = InvProjects;
 
 			return viewModel;
 		}
+        // Funi býr til fall til að finna nýjasta verkefni notanda
+        public int GetUserNewestProject(string userId)
+        {
+            /*    UserProjectsViewModel viewModel = new UserProjectsViewModel();
 
-		public bool NewFile(NewFileViewModel entity)
+                   var user = (from u in _db.Users
+                           where u.Id == userId
+                           select new { u.FullName, u.Id }).SingleOrDefault();
+
+               viewModel.Id = user.Id;
+                   viewModel.FullName = user.FullName;
+                         var allProjects = (from u in _db.ProjectUsers
+                                            where u.userId == userId
+                                            select new { u.ProjectId }).Last();
+                                            */
+            var intToReturn = (from p in _db.UserProjects
+                               where p.UserId == userId
+                               orderby p.ProjectId descending
+                               select p.ProjectId
+                               ).Take(1).SingleOrDefault();
+
+            return intToReturn;
+        }
+
+        public bool NewFile(NewFileViewModel entity)
 		{
 			if (entity != null)
 			{
@@ -377,7 +405,8 @@ namespace ProgramWeb.Services
         {
             if (id != null)
             {
-                var newFile = _db.Files.Find(id);
+                var newID = Convert.ToInt32(id);
+                var newFile = _db.Files.Find(newID);
                 //Files newFile = new Files();
                 //newFile.Name = model.Name;
                 newFile.Content = content;

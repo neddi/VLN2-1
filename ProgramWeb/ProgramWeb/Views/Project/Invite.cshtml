@@ -8,23 +8,37 @@
 <table id="userInviteTable">
     <thead>
         <tr>
-            <th>ID</th><th>User Name</th> <th>Info</th>
+            <th style="display:none">ID</th><th>User Name</th> <th>Email</th>
         </tr>
     </thead>
     @foreach (var item in Model)
     {
         <tr class="userLink">
-            <td class="userId"> @item.Id</td> <td> @item.UserName</td> <td>@item.Email</td><td hidden>@item</td>
+            <td class="userId" style="display: none">@item.Id</td> <td>@item.UserName</td> <td>@item.Email</td><td hidden>@item</td>
         </tr>    
     }
 </table>
+
 @using (Html.BeginForm("Invite", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
+    <div hidden>
         @Html.TextBox("userId", null, new { @class = "invitedUser" })
         @Html.TextBox("projectId", null, new { @class = "projectId" })
+    </div>
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" onclick="invite" class="btn btn-default" value="Invite" />
         </div>
+        <style>
+             .selected 
+            {
+                background-color:grey;
+            }
+            #userInviteTable tr:hover
+            {
+                background-color:grey;
+                font-size: 1.1em;
+            }
+        </style>
 }
 
         <script type="text/javascript">

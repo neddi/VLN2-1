@@ -32,5 +32,15 @@ namespace ProgramWeb.Models.ViewModel
         public List<Files> ProjectFiles { get; set; }
 
 		public List<UserInfoViewModel> ProjectUsers { get; set; }
-	}
+
+        public override bool Equals(object obj)
+        {
+            ProjectViewModel p = obj as ProjectViewModel;
+            return p != null && p.Id == this.Id;
+        }
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
+    }
 }

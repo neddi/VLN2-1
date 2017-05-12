@@ -1,31 +1,21 @@
 ﻿@model ProgramWeb.Models.Entities.Files
 
 @using Microsoft.AspNet.Identity;
+@using ProgramWeb.Utilities
 @{
     ViewBag.Title = "Editor";
 }
 <section id="entiresite">
     <nav>
         <section id="navigation">
-            @Html.Action("Menu", "Navigation")
+            <div class="navDiv">
+                @Html.Action("Menu", "Navigation")
+            </div>
         </section>
     </nav>
     <section id="editor"></section>
         
     <aside>
-<<<<<<< HEAD
-        <div class="btn-editor btn-aside"><input typeof="button" value="New File" onclick="newFile()" class="btn-editor btn-aside" /> </div>
-=======
-        <input typeof="button" value="New File" onclick="newFile()" class="btn-editor btn-aside" />
->>>>>>> cc09ff3e8bc1c8be5049027c37e28f783a7a7802
-        @using (Html.BeginForm("File", "Project", FormMethod.Post))
-        {
-            @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
-            @Html.HiddenFor(m => m.ID, new { @id = "fileID" })
-            <input type="submit" value="Save File" class="btn-editor btn-aside" />
-        }
-
-        <div> <input type="button" value="New Project" onclick="createProject()" class="btn-editor btn-aside" /></div>
         <div id="theModal" class="modal fade text-center">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -33,11 +23,35 @@
             </div>
         </div>
 
-        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#CreateFileModal">
+            New File
+        </button>
+
+        <div class="modal fade" id="CreateFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @Html.Partial("_CreateFile")
+                    </div>
+
+                </div>
+            </div>
+        </div>
+            <input type="submit" value="Save File" class="btn-editor btn-aside" onclick="saveButton()" />
+
+        <div id="theModal" class="modal fade text-center">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#CreateProjectModal">
             New Project
         </button>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="CreateProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -49,32 +63,72 @@
             </div>
         </div>
         <!--<input type="button" value="New Project" onclick="createProject()" class="btn-editor btn-aside" />-->
-        <div class="btn-editor btn-aside">Project Info</div>
-        <input type="button" value="Invite" onclick="invite()" class="btn-editor btn-aside" />
+        <div id="theModal" class="modal fade text-center">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.Hidden("infoId", new { @id = "infoId" })
+
+        <input type="submit" value="Project Info" onclick="viewProjectInfo()" class="btn-aside btn-editor" />
+    }
+    @*<div data-toggle="modal" data-target="#ProjectInfoModal">
+        @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.Hidden("Id", new { @id = "Id" })
+
+            <input type="submit" value="Project Info" onclick="viewProjectInfo()" id="infoButton" class="btn-aside btn-editor" />
+        }
+    </div>
+
+    <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div id="infoDiv"></div>
+                    <div id="infoButton">Test</div>
+                    @Html.Partial("_ProjectInfo", new { id = 2 }.ToViewDataDictionary())
+                </div>
+
+            </div>
+        </div>
+    </div>*@
     </aside>
 </section>
-<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+
+<<<<<<< HEAD
+=======
+<input type="hidden" value="id" id="hiddenProjectID" />
 
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
 
-
+<script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+<script src="~/signalr/hubs"></script>
+>>>>>>> 493cca7cd640f34749514fe6dcf309a0765f07db
 <script>
+
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/chrome");
     editor.getSession().setMode("ace/mode/html");
-
     function hideSidebar() {
         $("nav").toggle();
+    }
+    function navRefresh() {
+        var url = '@Url.Action("Menu", "Navigation")';
+        $("nav").load(url);
     }
     function createProject()
     {
         var url = '@Url.Action("CreateProject", "Project")';
         window.location.href = url
     }
-    function invite() {
-        var url = '@Url.Action("Invite", "Project")';
-        window.location.href = url
-    }
+
     function newFile()
     {
         var url = '@Url.Action("CreateFile", "Project")';
@@ -85,5 +139,41 @@
         var getId = window.location.hash.substr(1).split('#'); // substr(1) to remove the `#`
         document.getElementById("fileID").value = decodeURIComponent(getId);
     });
+
+
+    //signalR stuff
+    var documentID = @ViewBag.DocumentID;
+    var codeHub = $.connection.codeHub;
+    var silent = false;
+
+    codeHub.client.onChange = function (changeData) {
+        console.log(changeData);
+
+        silent = true;
+        editor.getSession().getDocument().applyDelta(changeData);
+        silent = false;
+    };
+
+    $.connection.hub.start().done(function () {
+
+        codeHub.server.joinDocument(documentID);
+
+        editor.on("change", function (obj) {
+            if(silent)
+            {
+                return;
+            }
+            console.log(obj);
+            codeHub.server.onChange(obj, documentID);
+        });
+    });
+
+    function viewProjectInfo() {
+        var infoId = $("#hiddenProjectID").attr('value');
+        console.log(infoId);
+        $('#infoId').val(infoId);
+        var url = '@Url.Action("ProjectInfo", "Project")';
+        window.location.href = url
+    }
 
 </script>

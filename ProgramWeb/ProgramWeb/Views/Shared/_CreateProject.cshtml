@@ -5,44 +5,63 @@
     }
 
     <h2>@ViewBag.Title.</h2>*@
-
-<h4 class="modal-title" id="myModalLabel">New Project</h4>
+    <h4 class="modal-title" id="myModalLabel">New Project</h4>
     <div class="modal-body">
-        @using (Html.BeginForm("CreateProject", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            <h4>Create a new Project.</h4>
-            <hr />
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label">Project Name:</label>
+                    <input type="text" class="form-control" id="projectname">
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @id = "UserInfo" })
+                <div class="form-group">
+                    <label for="message-text" class="control-label">Project Description:</label>
+                    <textarea class="form-control" id="projectdescription"></textarea>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                        <input type="submit" class="btn btn-primary" value="Create" />
-                    </div>
-                </div>
-                        
-            </div>
-        }
+            </form>
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" onclick="SaveButtonProject()">Save changes</button>
+            <!--<input type="submit" class="btn btn-primary" value="Create" />-->
+        </div>
+    </div>
+
 
 
 
 <!--<a href="~/Home/CreateProject" data-toggle="modal" data-target="#theModal">Lab 6</a>-->
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    function SaveButtonProject() {
+        var ProjectName = document.getElementById("projectname").value;
+        var ProjectDescription = document.getElementById("projectdescription").value;
+        SaveProjectAjax(ProjectName, ProjectDescription);
+
+    };
+
+    function SaveProjectAjax(projectName, projectDescription) {
+        $.ajax({
+            url: '@Url.Action("SaveProjectForEditor", "Project")',
+            data: {
+                projectName: projectName,
+                projectDescription: projectDescription
+            },
+            success: function (data) {
+
+                CreateNewListItems(data.pID, data.pName, data.fID, data.fName);
+            },
+            type: "POST"
+        });
+    };
+    function CreateNewListItems(ProjectID, ProjectName, FileID, FileName) {
+        $(".project:last").append('<li class="list-group-item project"><a data-toggle="collapse" href="#' + ProjectID + '">' + ProjectName + '</a></li> <div id="' + ProjectID + '" class="panel-collapse collapse"><ul><li class="list-group-item selected" data-id="' + FileID + '" onclick="setEditorContent(\'' + FileID + '\', this)"><a href="#' + FileID + '">' + FileName + '</a></li></ul></div>');
+        /* 
+        $("ul:last").css({ backgroundColor: "yellow", fontWeight: "bolder" });
+        $("li:last").css({ backgroundColor: "yellow", fontWeight: "bolder" });
+        */
+        
+    };
+</script>
