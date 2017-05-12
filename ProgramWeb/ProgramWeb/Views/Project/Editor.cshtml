@@ -96,7 +96,7 @@
 
 <input type="hidden" value="id" id="hiddenProjectID" />
 
-<div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
+<div><input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
 
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
@@ -129,6 +129,7 @@
 
     //signalR stuff
     var documentID = @ViewBag.DocumentID;
+    
     var codeHub = $.connection.codeHub;
     var silent = false;
 
@@ -140,7 +141,7 @@
         silent = false;
     };
 
-    var hide = document.getElementById("userChanging").style.display = "none";
+   // var hide = document.getElementById("userChanging").style.display = "none";
 
     $.connection.hub.start().done(function () {
 

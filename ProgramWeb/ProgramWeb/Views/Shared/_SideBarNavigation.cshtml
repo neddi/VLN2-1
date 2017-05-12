@@ -65,6 +65,7 @@
         setSelected(currentObject);
         GetFileAjax(value).done(function (response) {
             editor.getSession().setValue(response.Content)
+            var fileID = $(".selected").attr('data-id');
         });
     };
 
