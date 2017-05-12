@@ -1,0 +1,26 @@
+﻿@model ProgramWeb.Models.Entities.Users
+
+@{
+    ViewBag.Title = "UserInfo";
+}
+<div class="infoPages">
+    <h2>User Information</h2>
+    <h3>@Model.FullName</h3>
+
+    <div class="projectInfoItems">
+        <span class="projectInfoLegend"><b>User Name: </b></span>@Model.UserName
+    </div>
+    <div class="projectInfoItems">
+        <span class="projectInfoLegend"><b>Email: </b></span>@Model.Email
+    </div>
+    <div class="projectInfoItems">
+        <span class="projectInfoLegend"><b>Join date: </b></span>@Html.DisplayFor(x => x.CreateDate)
+    </div>
+    <div class="projectInfoItems">
+        <span class="projectInfoLegend"><b>Description: </b></span>@Model.Info
+    </div>
+    <div>
+        @Html.ActionLink("Return to Editor", "Editor", "Project", routeValues: null, htmlAttributes: new { @class = "btn btn-aside" })
+    </div>
+</div>
+

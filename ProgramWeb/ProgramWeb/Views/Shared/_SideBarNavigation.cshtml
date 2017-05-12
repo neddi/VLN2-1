@@ -5,7 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <div class="container hideMe">
-    <h2>@User.Identity.GetUserName()</h2>
+    <h2>@Html.ActionLink(User.Identity.GetUserName(), "UserInfo", "Project", routeValues: null, htmlAttributes: new { @class = "userName", title = "Manage" })</h2>
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -61,7 +61,7 @@
                     @using (Html.BeginForm("Invite", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
             {
                         <div hidden> @Html.TextBox("projectId", null, new { @id = "projectId" }) </div>
-                        <input type="submit" value="Invite" onclick="invite()" />
+                        <input type="submit" value="Invite" onclick="invite()" class="btn-aside btn-editor btn-invite"/>
                     }
                 </div>
             </div>

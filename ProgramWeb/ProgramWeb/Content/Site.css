@@ -50,6 +50,9 @@ textarea {
   background-color: #56cbf9;
   border-color: #81f4e1;
 }
+.btn-invite {
+    margin-top: 5px;
+}
 
 .login-links {
     margin-top: 20px;
@@ -106,4 +109,12 @@ textarea {
 
 .memberList {
     list-style:none;
+}
+
+.userName {
+    text-decoration: none;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #333;
 }

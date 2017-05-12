@@ -4,7 +4,7 @@ using ProgramWeb.Models;
 using ProgramWeb.Models.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
-
+using ProgramWeb.Models.Entities;
 
 namespace ProgramWeb.Services
 {
@@ -40,6 +40,15 @@ namespace ProgramWeb.Services
                 return viewModels;
             }
         }
+
+		public Users GetUserInformation(string userId)
+		{
+			Users userData = new Users();
+
+			userData = _db.Users.SingleOrDefault(x => x.Id == userId);
+
+			return userData;
+		}
 
 
     }

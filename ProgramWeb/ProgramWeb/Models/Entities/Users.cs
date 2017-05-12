@@ -17,6 +17,7 @@ namespace ProgramWeb.Models.Entities
 
 		[Required]
 		[DataType(DataType.DateTime)]
+		[DisplayFormat(DataFormatString = "{0:d MMMM yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime CreateDate { get; set; }
 
 		[Required]

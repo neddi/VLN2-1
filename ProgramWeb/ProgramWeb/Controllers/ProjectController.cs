@@ -272,5 +272,15 @@ namespace ProgramWeb.Controllers
 			}
 			return View(model);
 		}
+
+		public ActionResult UserInfo()
+		{
+			var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+			userService = new UserService();
+
+			var userInfo = userService.GetUserInformation(currentUser);
+
+			return View(userInfo);
+		}
 	}
 }
