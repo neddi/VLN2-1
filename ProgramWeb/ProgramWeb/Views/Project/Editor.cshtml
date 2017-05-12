@@ -71,7 +71,7 @@
         </div>
         @using (Html.BeginForm("RemoveFile", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
-            @Html.Hidden("FileID" ,new { @id = "fileId" })
+            @Html.Hidden("fileId", new { @id = "fileId" })
 
             <input type="submit" value="Delete File" onclick="deleteFile()" class="btn-aside btn-editor" />
         }
