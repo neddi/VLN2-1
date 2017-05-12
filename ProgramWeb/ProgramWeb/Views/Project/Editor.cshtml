@@ -72,28 +72,33 @@
                 </div>
             </div>
         </div>
+      @*  @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.Hidden("Id", new { @id = "Id" })
+
+        <input type="submit" value="Project Info" onclick="viewProjectInfo()" class="btn-aside btn-editor" />
+    }*@
+    <div data-toggle="modal" data-target="#ProjectInfoModal">
         @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.Hidden("Id", new { @id = "Id" })
-           
-            <input type="submit" value="Project Info" onclick="getUserInfo()" class="btn-aside btn-editor" />
-        }@*
-    <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
-        Project Info
-    </button>
+
+            <input type="submit" value="Project Info" onclick="viewProjectInfo()" id="infoButton" class="btn-aside btn-editor" />
+        }
+    </div>
 
     <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" onclick="getProjectInfo()">Test</button>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    @Html.Partial("_ProjectInfo", new { id = 2}.ToViewDataDictionary())
+                    <div id="infoDiv"></div>
+                    @*@Html.Partial("_ProjectInfo", new { id = 2 }.ToViewDataDictionary())*@
                 </div>
 
             </div>
         </div>
-    </div>*@
+    </div>
     </aside>
 </section>
 
@@ -158,12 +163,25 @@
         });
     });
 
-    function getUserInfo() {
-        var sendId = $("#selectedProject").attr('value');
-        console.log(projectId);
-        $('#Id').val(sendId);
-        var url = '@Url.Action("ProjectInfo", "Project")';
-        window.location.href = url
+    function viewProjectInfo() 
+    {
+        $("#infoButton").on("click", function() 
+        {
+            var sendId = $(".selectedProject").attr('data-id');
+            //var sendId = $("#selectedProject").attr('value');
+            console.log(sendId);
+            $.ajax(
+			{
+			    url: '@Url.Action("ProjectInfo", "Project")',
+			    type: 'get',
+			    data: { Id: sendId },
+			    success: function (data) 
+			    {
+			        $('div#infoDiv').html(data);
+			    }
+			});
+        }
     }
+
 
 </script>
