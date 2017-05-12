@@ -98,26 +98,22 @@ textarea {
     color: lightslategray;
     text-decoration: underline;
 }
-
 .list-group-item {
     font-variant: small-caps;
     color: whitesmoke;
     text-decoration: none;
 }
-
 .list-group-item:hover {
     font-variant: small-caps;
     color: lightslategray;
     text-decoration: none;
 }
-    
 .list-group {
     font-variant: small-caps !important;
      color: #eeeee;
     text-decoration: none;
 
 }
-
 .list-item-selected:hover {
     font-variant: small-caps !important;
     color: lightslategray !important;
