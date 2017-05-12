@@ -1,0 +1,14 @@
+﻿@model ProgramWeb.Models.ViewModel.ProjectInfoViewModel
+
+@{
+    ViewBag.Title = "Project Info";
+}
+<div class="infoPages">
+    <h2>@Model.Name</h2>
+    <div><b>Project Owners</b>
+        @foreach(var owner in Model.ProjectOwner)
+        {
+            <li>@owner</li>
+        }
+    </div>
+</div>
