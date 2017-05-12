@@ -69,6 +69,12 @@
                 </div>
             </div>
         </div>
+        @using (Html.BeginForm("RemoveFile", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.Hidden("FileID" ,new { @id = "fileId" })
+
+            <input type="submit" value="Delete File" onclick="deleteFile()" class="btn-aside btn-editor" />
+        }
         @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.Hidden("infoId", new { @id = "infoId" })
@@ -102,7 +108,13 @@
         var url = '@Url.Action("CreateProject", "Project")';
         window.location.href = url
     }
-
+    function deleteFile()
+    {
+        var fileID = $(".selected").attr('data-id');
+        $('#fileId').val(fileID);
+        var url = '@Url.Action("RemoveFile", "Project")';
+        window.location.href = url
+    }
     function newFile()
     {
         var url = '@Url.Action("CreateFile", "Project")';
