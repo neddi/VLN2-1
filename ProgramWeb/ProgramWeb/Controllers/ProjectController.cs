@@ -229,7 +229,7 @@ namespace ProgramWeb.Controllers
 			Projects entity = new Projects();
 			entity.Name = model.Name;
 			entity.Description = model.Description;
-			var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
 			projectService = new ProjectService(null);
 			if (projectService.NewProject(entity, currentUser))

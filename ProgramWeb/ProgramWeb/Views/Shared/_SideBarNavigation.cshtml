@@ -13,9 +13,10 @@
                     <a data-toggle="collapse" href="#collapse1">My projects</a>
                 </h3>
             </div>
+
             <div id="collapse1" class="panel-collapse collapse">
                 <ul class="list-group">
-                    @foreach (var project in Model.ProjectList)
+                    @foreach (var project in Model.OwnedProjectList)
                     {
                         <li class="list-group-item selectedProject" data-id="@project.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
                         <li id="@project.Id" class="panel-collapse collapse">
@@ -31,14 +32,40 @@
 
 
             </div>
-            @using (Html.BeginForm("Invite", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+            <h2>Contributed Projects</h2>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse2">Contributed Projects</a>
+                        </h3>
+                    </div>
+
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            @foreach (var invProject in Model.InvitedProjectList)
+                            {
+                                <li class="list-group-item selectedProject" data-id="@invProject.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@invProject.Id">@invProject.Name</a></li>
+                                <li id="@invProject.Id" class="panel-collapse collapse">
+                                    <ul>
+                                        @foreach (var file in invProject.ProjectFiles)
+                                        {
+                                            <li class="list-group-item selected" data-id="@file.ID" onclick="setEditorContent('@file.ID', this)"><a href="#@file.ID">@file.Name</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    @using (Html.BeginForm("Invite", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.TextBox("projectId", null, new { @id = "projectId" })
-                <input type="submit" value="Invite" onclick="invite()" />
-            }
+                        <div hidden> @Html.TextBox("projectId", null, new { @id = "projectId" }) </div>
+                        <input type="submit" value="Invite" onclick="invite()" />
+                    }
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 <div> <input type="button" value="Funi Save" class="btn btn-success" onclick="saveButton()"/></div>
 
