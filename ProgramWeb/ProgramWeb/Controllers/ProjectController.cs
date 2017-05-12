@@ -19,11 +19,12 @@ namespace ProgramWeb.Controllers
 		private UserService userService;
 
 		// Action for Viewing Multiple tables
-		public ActionResult ProjectInfo(int id)
+		public ActionResult ProjectInfo(int infoId)
 		{
-			ProjectInfoViewModel viewModel = service.GetProjectInfo(id);
+			//ViewBag.projectInfoId = projectInfoId;
+			ProjectInfoViewModel viewModel = service.GetProjectInfo(infoId);
 
-			return View(viewModel);
+			return View("ProjectInfo", viewModel);
 		}
         // Hér byrjar Funi að breyta og bæta
         // Ég er að reyna að henda inn ID af File sem ég vil endilega fá
@@ -44,6 +45,40 @@ namespace ProgramWeb.Controllers
             ProjectService fileService = new ProjectService(null);
             fileService.SaveFile(id, content); 
         }
+        [HttpPost]
+        public ActionResult SaveProjectForEditor(string projectName, string projectDescription)
+        {
+            Projects entity = new Projects();
+            entity.Name = projectName;
+            entity.Description = projectDescription;
+            var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            projectService = new ProjectService(null);
+            if (!projectService.NewProject(entity, currentUser))
+            {
+                return null; // Þarf að setja inn exception
+            }
+
+            var projectID = projectService.GetUserNewestProject(currentUser);
+            var project = projectService.GetProject(projectID);
+            var projectNameReturn = project.Name;
+            var projectFileID = project.ProjectFiles[0].ID;
+            var projectFileName = project.ProjectFiles[0].Name;
+
+            
+            return Json(new { pID = projectID, pName = projectNameReturn, fID = projectFileID, fName = projectFileName });
+            //return View(model);
+            //return View(); // Þarf að bæta einhverju við hérna klárlega!
+        }
+
+   /*     [HttpPost]
+        public ActionResult GetProjectForEditor(int projectID)
+        {
+
+            //return Json();
+        }
+    */
+
+        // Hér hættir Funi að fikta og tikka
         [HttpGet]
         public ActionResult File()
         {

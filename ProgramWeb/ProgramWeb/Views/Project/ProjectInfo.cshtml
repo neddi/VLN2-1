@@ -1,0 +1,28 @@
+﻿@model ProgramWeb.Models.ViewModel.ProjectInfoViewModel
+
+@{
+    ViewBag.Title = "Project Information";
+}
+
+<div class="infoPages">
+    <h1>@ViewBag.Title</h1>
+    <h3>@Model.Name</h3>
+    <div>
+        <b>Project Owner:</b> <span>@Model.ProjectOwner</span>
+    </div>
+    <div>
+        <b>Created:</b><span> @Html.DisplayFor(x => x.CreateDate)</span>
+    </div>
+    <div>
+        <b>Description: </b><span>@Html.DisplayFor(x => x.Description)</span>
+    </div>
+    <div>
+        <b>Project Members</b>
+        <ul>
+            @foreach(var member in Model.Users)
+            {
+                <li>@member.FullName</li>
+            }
+        </ul>
+    </div>
+</div>
