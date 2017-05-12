@@ -8,7 +8,9 @@
 <section id="entiresite">
     <nav>
         <section id="navigation">
-            @Html.Action("Menu", "Navigation")
+            <div class="navDiv">
+                @Html.Action("Menu", "Navigation")
+            </div>
         </section>
     </nav>
     <section id="editor"></section>
@@ -36,12 +38,7 @@
                 </div>
             </div>
         </div>
-        @using (Html.BeginForm("File", "Project", FormMethod.Post))
-        {
-            @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
-            @Html.HiddenFor(m => m.ID, new { @id = "fileID" })
-            <input type="submit" value="Save File" class="btn-editor btn-aside" />
-        }
+            <input type="submit" value="Save File" class="btn-editor btn-aside" onclick="saveButton()" />
 
         <div id="theModal" class="modal fade text-center">
             <div class="modal-dialog">
@@ -73,22 +70,28 @@
             </div>
         </div>
         @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.Hidden("infoId", new { @id = "infoId" })
+
+        <input type="submit" value="Project Info" onclick="viewProjectInfo()" class="btn-aside btn-editor" />
+    }
+    @*<div data-toggle="modal" data-target="#ProjectInfoModal">
+        @using (Html.BeginForm("ProjectInfo", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.Hidden("Id", new { @id = "Id" })
-           
-            <input type="submit" value="Project Info" onclick="getUserInfo()" class="btn-aside btn-editor" />
-        }@*
-    <button type="button" class="btn-editor btn-aside" data-toggle="modal" data-target="#ProjectInfoModal">
-        Project Info
-    </button>
+
+            <input type="submit" value="Project Info" onclick="viewProjectInfo()" id="infoButton" class="btn-aside btn-editor" />
+        }
+    </div>
 
     <div class="modal fade" id="ProjectInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" onclick="getProjectInfo()">Test</button>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    @Html.Partial("_ProjectInfo", new { id = 2}.ToViewDataDictionary())
+                    <div id="infoDiv"></div>
+                    <div id="infoButton">Test</div>
+                    @Html.Partial("_ProjectInfo", new { id = 2 }.ToViewDataDictionary())
                 </div>
 
             </div>
@@ -98,6 +101,8 @@
 </section>
 
 
+<<<<<<< HEAD
+=======
 <input type="hidden" value="id" id="hiddenProjectID" />
 
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
@@ -105,6 +110,7 @@
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
 <script src="~/signalr/hubs"></script>
+>>>>>>> 493cca7cd640f34749514fe6dcf309a0765f07db
 <script>
 
     var editor = ace.edit("editor");
@@ -112,6 +118,10 @@
     editor.getSession().setMode("ace/mode/html");
     function hideSidebar() {
         $("nav").toggle();
+    }
+    function navRefresh() {
+        var url = '@Url.Action("Menu", "Navigation")';
+        $("nav").load(url);
     }
     function createProject()
     {
@@ -130,15 +140,6 @@
         document.getElementById("fileID").value = decodeURIComponent(getId);
     });
 
-<<<<<<< HEAD
-    function getUserInfo() {
-        var sendId = $("#selectedProject").attr('value');
-        console.log(projectId);
-        $('#Id').val(sendId);
-        var url = '@Url.Action("ProjectInfo", "Project")';
-        window.location.href = url
-    }
-=======
 
     //signalR stuff
     var documentID = @ViewBag.DocumentID;
@@ -166,6 +167,13 @@
             codeHub.server.onChange(obj, documentID);
         });
     });
->>>>>>> 5008c4b6c84e65c61887a0a60b9104017cd0cd79
+
+    function viewProjectInfo() {
+        var infoId = $("#hiddenProjectID").attr('value');
+        console.log(infoId);
+        $('#infoId').val(infoId);
+        var url = '@Url.Action("ProjectInfo", "Project")';
+        window.location.href = url
+    }
 
 </script>

@@ -8,7 +8,9 @@
 <section id="entiresite">
     <nav>
         <section id="navigation">
-            @Html.Action("Menu", "Navigation")
+            <div class="navDiv">
+                @Html.Action("Menu", "Navigation")
+            </div>
         </section>
     </nav>
     <section id="editor"></section>
@@ -36,12 +38,7 @@
                 </div>
             </div>
         </div>
-        @using (Html.BeginForm("File", "Project", FormMethod.Post))
-        {
-            @Html.HiddenFor(m => m.Content, new { @id = "hidden_editor" })
-            @Html.HiddenFor(m => m.ID, new { @id = "fileID" })
-            <input type="submit" value="Save File" class="btn-editor btn-aside" />
-        }
+            <input type="submit" value="Save File" class="btn-editor btn-aside" onclick="saveButton()" />
 
         <div id="theModal" class="modal fade text-center">
             <div class="modal-dialog">
@@ -83,7 +80,6 @@
 
 
 <input type="hidden" value="id" id="hiddenProjectID" />
-
 <div> <input type="button" value="Toggle sidebar" onclick="hideSidebar()" class="btn btn-aside"/></div>
 
 <script src="~/CustomData/Ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -96,6 +92,10 @@
     editor.getSession().setMode("ace/mode/html");
     function hideSidebar() {
         $("nav").toggle();
+    }
+    function navRefresh() {
+        var url = '@Url.Action("Menu", "Navigation")';
+        $("nav").load(url);
     }
     function createProject()
     {

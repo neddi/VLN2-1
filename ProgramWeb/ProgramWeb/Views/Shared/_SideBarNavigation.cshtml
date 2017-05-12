@@ -67,13 +67,13 @@
             </div>
         </div>
 
-<div> <input type="button" value="Funi Save" class="btn btn-success" onclick="saveButton()"/></div>
 
 <script>
+
     function saveButton() {
         var fileID = $(".selected").attr('data-id');
         var content = editor.getSession().getValue();
-        SaveFileAjax(fileID, content);  
+        SaveFileAjax(fileID, content);
     };
     function invite() {
         var projectId = $(".selectedProject").attr('data-id');
