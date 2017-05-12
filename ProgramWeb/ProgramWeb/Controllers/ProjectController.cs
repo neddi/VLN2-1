@@ -120,7 +120,7 @@ namespace ProgramWeb.Controllers
 				data.Name = model.Name;
 				data.Description = model.Description;
 				service.UpdateProjectInfo(data);
-				return RedirectToAction("ProjectInfo", new { Message = "Project Updated succesfully" });
+				return RedirectToAction("Editor");
 			}
 
 			return View(model);

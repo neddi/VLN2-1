@@ -6,23 +6,33 @@
 
 <div class="infoPages">
     <h1>@ViewBag.Title</h1>
-    <h3>@Model.Name</h3>
-    <div>
-        <b>Project Owner:</b> <span>@Model.ProjectOwner</span>
-    </div>
-    <div>
-        <b>Created:</b><span> @Html.DisplayFor(x => x.CreateDate)</span>
-    </div>
-    <div>
-        <b>Description: </b><span>@Html.DisplayFor(x => x.Description)</span>
-    </div>
-    <div>
-        <b>Project Members</b>
-        <ul>
-            @foreach(var member in Model.Users)
-            {
-                <li>@member.FullName</li>
-            }
-        </ul>
-    </div>
+    @using (Html.BeginForm("UpdateProjectInfo", "Project", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.HiddenFor(x => x.Id)
+        <h3>@Html.TextBoxFor(x => x.Name)</h3>
+        <div class="projectInfoItems">
+            <span class="projectInfoLegend"><b>Project Owner:</b></span>@Model.ProjectOwner
+        </div>
+        <div class="projectInfoItems">
+            <span class="projectInfoLegend"><b>Created: </b></span>@Html.DisplayFor(x => x.CreateDate)
+        </div>
+        <div class="projectInfoItems">
+            <span class="projectInfoLegend"><b>Description: </b></span>@Html.TextBoxFor(x => x.Description)
+        </div>
+        <div class="projectInfoItemsLast">
+            <span class="projectInfoLegend">
+                <b>Project Members:</b>
+            </span>
+            @Html.HiddenFor(x => x.Users)
+                <ul class="memberList">
+                    @foreach (var member in Model.Users)
+                    {
+                        <li class="member">@member.FullName</li>}
+                </ul>
+        </div>
+        <div>
+            <input type="submit" class="btn btn-aside" value="Save" />
+            @Html.ActionLink("Return to Editor", "Editor", "Project", routeValues: null, htmlAttributes: new { @class = "btn btn-aside" })
+        </div>
+    }
 </div>
