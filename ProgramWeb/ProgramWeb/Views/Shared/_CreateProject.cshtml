@@ -39,6 +39,7 @@
         var ProjectName = document.getElementById("projectname").value;
         var ProjectDescription = document.getElementById("projectdescription").value;
         SaveProjectAjax(ProjectName, ProjectDescription);
+
     };
 
     function SaveProjectAjax(projectName, projectDescription) {
@@ -48,7 +49,15 @@
                 projectName: projectName,
                 projectDescription: projectDescription
             },
+            success: function (data) {
+
+                CreateNewListItems(data.pID, data.pName, data.fID, data.fName);
+            },
             type: "POST"
         });
+    };
+    function CreateNewListItems(ProjectID, ProjectName, FileID, FileName) {
+        $("ul:last").css({ backgroundColor: "yellow", fontWeight: "bolder" });
+        
     };
 </script>

@@ -52,17 +52,30 @@ namespace ProgramWeb.Controllers
             entity.Description = projectDescription;
             var currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
             projectService = new ProjectService(null);
-            var projectID = projectService.GetUserNewestProject(currentUser);
-
-            if (projectService.NewProject(entity, currentUser))
+            if (!projectService.NewProject(entity, currentUser))
             {
-                
-                return RedirectToAction("Editor", "Project");
+                return null; // Þarf að setja inn exception
             }
+
+            var projectID = projectService.GetUserNewestProject(currentUser);
+            var project = projectService.GetProject(projectID);
+            var projectNameReturn = project.Name;
+            var projectFileID = project.ProjectFiles[0].ID;
+            var projectFileName = project.ProjectFiles[0].Name;
+
+            
+            return Json(new { pID = projectID, pName = projectNameReturn, fID = projectFileID, fName = projectFileName });
             //return View(model);
-            return View(); // Þarf að bæta einhverju við hérna klárlega!
+            //return View(); // Þarf að bæta einhverju við hérna klárlega!
         }
 
+   /*     [HttpPost]
+        public ActionResult GetProjectForEditor(int projectID)
+        {
+
+            //return Json();
+        }
+    */
 
         // Hér hættir Funi að fikta og tikka
         [HttpGet]

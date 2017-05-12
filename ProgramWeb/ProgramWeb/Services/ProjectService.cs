@@ -226,12 +226,13 @@ namespace ProgramWeb.Services
 
 		}
 
-		/// <summary>
-		/// Lists all projects belongin to the logged in user
-		/// </summary>
-		/// <param name="userId"></param>
-		/// <returns></returns>
-		public UserProjectsViewModel GetUserProject(string userId)
+
+        /// <summary>
+        /// Lists all projects belongin to the logged in user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public UserProjectsViewModel GetUserProject(string userId)
 		{
 			UserProjectsViewModel viewModel = new UserProjectsViewModel();
 
@@ -262,19 +263,25 @@ namespace ProgramWeb.Services
         // Funi býr til fall til að finna nýjasta verkefni notanda
         public int GetUserNewestProject(string userId)
         {
-            UserProjectsViewModel viewModel = new UserProjectsViewModel();
+            /*    UserProjectsViewModel viewModel = new UserProjectsViewModel();
 
-            var user = (from u in _db.Users
-                        where u.Id == userId
-                        select new { u.FullName, u.Id }).SingleOrDefault();
+                   var user = (from u in _db.Users
+                           where u.Id == userId
+                           select new { u.FullName, u.Id }).SingleOrDefault();
 
-            viewModel.Id = user.Id;
-            viewModel.FullName = user.FullName;
-            var allProjects = (from u in _db.ProjectUsers
-                               where u.userId == userId
-                               select new { u.ProjectId }).Last();
+               viewModel.Id = user.Id;
+                   viewModel.FullName = user.FullName;
+                         var allProjects = (from u in _db.ProjectUsers
+                                            where u.userId == userId
+                                            select new { u.ProjectId }).Last();
+                                            */
+            var intToReturn = (from p in _db.UserProjects
+                               where p.UserId == userId
+                               orderby p.ProjectId descending
+                               select p.ProjectId
+                               ).Take(1).SingleOrDefault();
 
-            return allProjects.ProjectId;
+            return intToReturn;
         }
 
         public bool NewFile(NewFileViewModel entity)
