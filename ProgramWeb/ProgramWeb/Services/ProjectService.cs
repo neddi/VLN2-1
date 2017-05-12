@@ -115,19 +115,16 @@ namespace ProgramWeb.Services
                 newUser.Email = userInProject.Email;
                 ProjectUsers.Add(newUser);
             }
-			UserInfoViewModel ProjectOwner = new UserInfoViewModel();
+			
 			foreach (var item in allProjectUsers)
 			{
-                var tmpUser = new UserInfoViewModel();
-                tmpUser.isAdmin = item.IsAdmin;
-				ProjectUsers.Add(tmpUser);
 				if(item.IsAdmin)
 				{
-					ProjectOwner = tmpUser;
+					var userInProject = getUser(item.UserId);
+					viewModel.ProjectOwner = userInProject.FullName;
 				}
 			}
 			viewModel.Users = ProjectUsers;
-			viewModel.ProjectOwner = ProjectOwner.FullName;
 
 			return viewModel;
 		}
