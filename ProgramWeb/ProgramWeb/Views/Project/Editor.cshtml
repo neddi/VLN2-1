@@ -88,7 +88,7 @@
                 </div>
             </div>
         </div>
-        <div id="userChanging" style="display:none">notandi er að breyta kóða</div>
+        <div id="userChanging" style="display:none">@User.Identity.GetUserName() er að gera breytingar</div>
         
     </aside>
 </section>
@@ -140,6 +140,8 @@
         silent = false;
     };
 
+    var hide = document.getElementById("userChanging").style.display = "none";
+
     $.connection.hub.start().done(function () {
 
         codeHub.server.joinDocument(documentID);
@@ -151,8 +153,14 @@
             }
             console.log(obj);
             codeHub.server.onChange(obj, documentID);
-            document.getElementById("userChanging").style.dispay = "block";
+            document.getElementById("userChanging").style.display = "block";
+            
+          //  setTimeout(hide, 2000);
+           
+            
         });
+
+        
     });
 
     
