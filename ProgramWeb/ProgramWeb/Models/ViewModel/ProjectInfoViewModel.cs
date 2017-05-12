@@ -21,7 +21,8 @@ namespace ProgramWeb.Models.ViewModel
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime CreateDate { get; set; }
+		[DisplayFormat(DataFormatString = "{0:d MMMM yyyy}", ApplyFormatInEditMode = true)]
+		public DateTime CreateDate { get; set; }
         
         [DataType(DataType.Text)]
         [Display(Name = "Project Description")]

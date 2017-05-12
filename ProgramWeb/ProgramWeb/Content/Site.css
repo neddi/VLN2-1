@@ -87,7 +87,23 @@ textarea {
  
 }
 
+.infoPages {
+    padding-top: 20px;
+}
 
+.projectInfoItems {
+    margin-bottom: 10px;
+}
 
+.projectInfoItemsLast {
+    margin-bottom: 50px;
+}
 
+.projectInfoLegend {
+    display: inline-block;
+    width: 150px;
+}
 
+.memberList {
+    list-style:none;
+}

@@ -1,10 +1,11 @@
 ﻿@model ProgramWeb.Models.ViewModel.UserProjectsViewModel
+@using Microsoft.AspNet.Identity
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <div class="container hideMe">
-    <h2>My projects</h2>
+    <h2>@User.Identity.GetUserName()</h2>
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -12,17 +13,18 @@
                     <a data-toggle="collapse" href="#collapse1">My projects</a>
                 </h3>
             </div>
+
             <div id="collapse1" class="panel-collapse collapse">
                 <ul class="list-group">
-                    @foreach (var project in Model.ProjectList)
+                    @foreach (var project in Model.OwnedProjectList)
                     {
 <<<<<<< HEAD
-                        <li class="list-group-item"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
-                        <li id="@project.Id" class="panel-collapse collapse">
+                        <li class="list-group-item project"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
+                        <div id="@project.Id" class="panel-collapse collapse">
 =======
                         <li class="list-group-item selectedProject" data-id="@project.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
-                        <div id="@project.Id" class="panel-collapse collapse">
->>>>>>> 7356f41dcab86bf90bf59cd62ab2e2b3bc5f120f
+                        <li id="@project.Id" class="panel-collapse collapse">
+>>>>>>> 493cca7cd640f34749514fe6dcf309a0765f07db
                             <ul>
                                 @foreach (var file in project.ProjectFiles)
                                 {
@@ -35,32 +37,76 @@
 
 
             </div>
+            <h2>Contributed Projects</h2>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse2">Contributed Projects</a>
+                        </h3>
+                    </div>
 
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            @foreach (var invProject in Model.InvitedProjectList)
+                            {
+                                <li class="list-group-item selectedProject" data-id="@invProject.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@invProject.Id">@invProject.Name</a></li>
+                                <li id="@invProject.Id" class="panel-collapse collapse">
+                                    <ul>
+                                        @foreach (var file in invProject.ProjectFiles)
+                                        {
+                                            <li class="list-group-item selected" data-id="@file.ID" onclick="setEditorContent('@file.ID', this)"><a href="#@file.ID">@file.Name</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    @using (Html.BeginForm("Invite", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+            {
+                        <div hidden> @Html.TextBox("projectId", null, new { @id = "projectId" }) </div>
+                        <input type="submit" value="Invite" onclick="invite()" />
+                    }
+                </div>
+            </div>
         </div>
+<<<<<<< HEAD
     </div>
-</div>
+</div>  
+=======
+>>>>>>> 493cca7cd640f34749514fe6dcf309a0765f07db
 
-<div> <input type="button" value="Funi Save" class="btn btn-success" onclick="saveButton()"/></div>
 
 <script>
+
     function saveButton() {
         var fileID = $(".selected").attr('data-id');
         var content = editor.getSession().getValue();
-        alert(fileID);
+<<<<<<< HEAD
+        SaveFileAjax(fileID, content);
+=======
         SaveFileAjax(fileID, content);  
+>>>>>>> 493cca7cd640f34749514fe6dcf309a0765f07db
     };
-
+    function invite() {
+        var projectId = $(".selectedProject").attr('data-id');
+        console.log(projectId);
+        $('#projectId').val(projectId);
+        var url = '@Url.Action("Invite", "Project")';
+        window.location.href = url
+    }
     function projectSelection(currentObject) {
         setSelectedProject(currentObject);
         var projectId = $(".selectedProject").attr('data-id');
         $('#hiddenProjectID').attr('value', projectId);
-        alert(projectId);
     }
+
 
     function setEditorContent(value, currentObject) {
         setSelected(currentObject);
-        GetFileAjax(value).done(function (value) {
-            editor.getSession().setValue(value)
+        GetFileAjax(value).done(function (response) {
+            editor.getSession().setValue(response.Content)
         });
     };
 
