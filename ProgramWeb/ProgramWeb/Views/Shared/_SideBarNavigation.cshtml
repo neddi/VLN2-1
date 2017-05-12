@@ -5,6 +5,8 @@
 
 <div class="container hideMe">
     <h2>My projects</h2>
+    <input id="currentFileID" type="hidden" />
+
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -39,7 +41,7 @@
     </div>
 </div>
 
-<div> <input type="button" value="Funi Save" class="btn btn-success" onclick="saveButton()"/></div>
+<div> <input type="button" value="Funi Save" id="funiSaveButton" class="btn btn-success" onclick="saveButton()"/></div>
 
 <script>
     function saveButton() {
@@ -49,7 +51,6 @@
     };
     function invite() {
         var projectId = $(".selectedProject").attr('data-id');
-        console.log(projectId);
         $('#projectId').val(projectId);
         var url = '@Url.Action("Invite", "Project")';
         window.location.href = url
@@ -60,9 +61,10 @@
         $('#hiddenProjectID').attr('value', projectId);
     }
 
-    function setEditorContent(value, currentObject) {
+    function setEditorContent(fileID, currentObject) {
         setSelected(currentObject);
-        GetFileAjax(value).done(function (response) {
+        $("#currentFileID").val(fileID);
+        GetFileAjax(fileID).done(function (response) {
             editor.getSession().setValue(response.Content)
         });
     };
@@ -92,7 +94,7 @@
                 id: value,
                 content: content
             },
-            type: "POST"
+            type: "POST",
         });
     };
 
