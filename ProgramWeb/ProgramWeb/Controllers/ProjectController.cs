@@ -191,8 +191,6 @@ namespace ProgramWeb.Controllers
 		public ActionResult Editor()
 		{
 			ViewBag.Message = "Editor";
-			//fyrir signalR
-			ViewBag.DocumentID = 67;
 
 			return View();
 		}

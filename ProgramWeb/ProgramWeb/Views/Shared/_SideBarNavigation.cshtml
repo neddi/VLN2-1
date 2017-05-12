@@ -59,10 +59,13 @@
                     </div>
 
                     @using (Html.BeginForm("Invite", "Project", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
-            {
+                    {
                         <div hidden> @Html.TextBox("projectId", null, new { @id = "projectId" }) </div>
+                        
                         <input type="submit" value="Invite" onclick="invite()" />
                     }
+
+            
                 </div>
             </div>
         </div>
