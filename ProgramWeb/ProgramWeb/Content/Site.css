@@ -8,6 +8,7 @@
     padding-left: 15px;
     padding-right: 15px;
     //margin-top: 10px;
+    max-width: 100%;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -64,30 +65,64 @@ textarea {
     vertical-align: center;
 }
 
-.list-group-item:first-child {
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-}
 
 .list-group-item {
     position: relative;
     display: block;
     padding: 10px 15px;
-    margin-bottom: -1px;
-    background-color: #f5f5f5;
-    border: 1px solid #dddddd;
-}
-
-.panel {
-    margin-bottom: 0px;
-    background-color: transparent;
-    border: none;
-    border-radius: 4px;
-    box-shadow: none;
- 
+    
 }
 
 
+.sidebar-user {
+    text-align: center;
+    font-variant: small-caps;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.list-header {
+    font-variant: small-caps;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.list-header:hover {
+    font-variant: small-caps;
+    color: lightslategray;
+    text-decoration: none;
+}
+
+.list-header:active {
+    font-variant: small-caps;
+    color: lightslategray;
+    text-decoration: underline;
+}
+
+.list-group-item {
+    font-variant: small-caps;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.list-group-item:hover {
+    font-variant: small-caps;
+    color: lightslategray;
+    text-decoration: none;
+}
+    
+.list-group {
+    font-variant: small-caps !important;
+     color: #eeeee;
+    text-decoration: none;
+
+}
+
+.list-item-selected:hover {
+    font-variant: small-caps !important;
+    color: lightslategray !important;
+    text-decoration: none !important;
+}
 
 
 
