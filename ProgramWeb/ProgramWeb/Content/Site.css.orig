@@ -81,18 +81,19 @@ textarea {
     text-decoration: none;
 }
 
-.infoPages {
-    padding-top: 20px;
-}
+.list-header {
+    font-variant: small-caps;
+    color: whitesmoke;
     text-decoration: none;
 }
 
-.projectInfoItems {
-    margin-bottom: 10px;
-}
+.list-header:hover {
+    font-variant: small-caps;
+    color: lightslategray;
     text-decoration: none;
 }
 
+<<<<<<< HEAD
 .list-header:active {
     font-variant: small-caps;
     color: lightslategray;
@@ -118,6 +119,14 @@ textarea {
     font-variant: small-caps !important;
     color: lightslategray !important;
     text-decoration: none !important;
+=======
+.infoPages {
+    padding-top: 20px;
+}
+
+.projectInfoItems {
+    margin-bottom: 10px;
+>>>>>>> 561fd23113b3485c8140848dfb11281de6d71360
 }
 
 .projectInfoItemsLast {

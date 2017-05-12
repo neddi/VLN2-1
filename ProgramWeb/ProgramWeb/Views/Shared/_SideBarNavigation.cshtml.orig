@@ -5,30 +5,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <div class="container hideMe">
-    <h2>@User.Identity.GetUserName()</h2>
-    <div class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1">My projects</a>
+    <h2 class="sidebar-user">@User.Identity.GetUserName()</h2>
+    <div class="list-group">
+        <div >
+            <div class="heading">
+                <h3 class="title">
+                    <a class="list-header" data-toggle="collapse" href="#collapse1">My projects</a>
                 </h3>
             </div>
+<<<<<<< HEAD
+            <div id="collapse1" class="collapse collapse">
+                <ul style="list-style: none;" class="list-group">
+                    @foreach (var project in Model.ProjectList)
+=======
 
             <div id="collapse1" class="panel-collapse collapse">
-                <ul class="list-group">
+                <ul class="list-group project">
                     @foreach (var project in Model.OwnedProjectList)
+>>>>>>> 561fd23113b3485c8140848dfb11281de6d71360
                     {
-<<<<<<< HEAD
-                        <li class="list-group-item project"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
-                        <div id="@project.Id" class="panel-collapse collapse">
-=======
-                        <li class="list-group-item selectedProject" data-id="@project.Id" onclick="projectSelection(this)"><a data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
-                        <li id="@project.Id" class="panel-collapse collapse">
->>>>>>> 493cca7cd640f34749514fe6dcf309a0765f07db
-                            <ul>
+                        <li class="list-group-item selectedProject" data-id="@project.Id" onclick="projectSelection(this)"><a style="color: whitesmoke" data-toggle="collapse" href="#@project.Id">@project.Name</a></li>
+                        <li class="collapse collapse" id="@project.Id" >
+                            <ul class="list-group">
                                 @foreach (var file in project.ProjectFiles)
                                 {
-                                    <li class="list-group-item selected" data-id="@file.ID" onclick="setEditorContent('@file.ID', this)"><a href="#@file.ID">@file.Name</a></li>
+                                    <li class="list-group-item selected" data-id="@file.ID" onclick="setEditorContent('@file.ID', this)"><a style="color: whitesmoke" href="#@file.ID">@file.Name</a></li>
                                 }
                             </ul>
                         </li>
@@ -55,6 +56,7 @@
                                     <ul>
                                         @foreach (var file in invProject.ProjectFiles)
                                         {
+                                            
                                             <li class="list-group-item selected" data-id="@file.ID" onclick="setEditorContent('@file.ID', this)"><a href="#@file.ID">@file.Name</a></li>
                                         }
                                     </ul>
@@ -71,11 +73,6 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-    </div>
-</div>  
-=======
->>>>>>> 493cca7cd640f34749514fe6dcf309a0765f07db
 
 
 <script>
@@ -83,11 +80,7 @@
     function saveButton() {
         var fileID = $(".selected").attr('data-id');
         var content = editor.getSession().getValue();
-<<<<<<< HEAD
         SaveFileAjax(fileID, content);
-=======
-        SaveFileAjax(fileID, content);  
->>>>>>> 493cca7cd640f34749514fe6dcf309a0765f07db
     };
     function invite() {
         var projectId = $(".selectedProject").attr('data-id');
@@ -101,7 +94,6 @@
         var projectId = $(".selectedProject").attr('data-id');
         $('#hiddenProjectID').attr('value', projectId);
     }
-
 
     function setEditorContent(value, currentObject) {
         setSelected(currentObject);
@@ -138,6 +130,7 @@
             type: "POST"
         });
     };
+
 
     var acc = document.getElementsByClassName("accordion");
     var i;

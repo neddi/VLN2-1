@@ -81,15 +81,15 @@ textarea {
     text-decoration: none;
 }
 
-.infoPages {
-    padding-top: 20px;
-}
+.list-header {
+    font-variant: small-caps;
+    color: whitesmoke;
     text-decoration: none;
 }
 
-.projectInfoItems {
-    margin-bottom: 10px;
-}
+.list-header:hover {
+    font-variant: small-caps;
+    color: lightslategray;
     text-decoration: none;
 }
 
@@ -120,15 +120,5 @@ textarea {
     text-decoration: none !important;
 }
 
-.projectInfoItemsLast {
-    margin-bottom: 50px;
-}
 
-.projectInfoLegend {
-    display: inline-block;
-    width: 150px;
-}
 
-.memberList {
-    list-style:none;
-}

@@ -3,14 +3,16 @@
 	display: flex;
     margin-top:20px;
 } 
+
 nav {
-	background: #C9BFBF;
+	background: #777777;
 	/* Shorthand property specifying flex-grow, flex-shrink, and flex-basis. */
 	flex: 1 1 15%;
 	min-width: 250px;
 	margin: 3px;
 	padding: 3px;
 }
+
 aside {
 	background: #C9C9C9;
 	/* Shorthand property specifying flex-grow, flex-shrink, and flex-basis. */
