@@ -405,7 +405,8 @@ namespace ProgramWeb.Services
         {
             if (id != null)
             {
-                var newFile = _db.Files.Find(id);
+                var newID = Convert.ToInt32(id);
+                var newFile = _db.Files.Find(newID);
                 //Files newFile = new Files();
                 //newFile.Name = model.Name;
                 newFile.Content = content;

@@ -57,7 +57,7 @@
         });
     };
     function CreateNewListItems(ProjectID, ProjectName, FileID, FileName) {
-        $(".list-group:last").append('<li class="list-group-item project"><a data-toggle="collapse" href="#' + ProjectID + '">' + ProjectName + '</a></li> <div id="' + ProjectID + '" class="panel-collapse collapse"><ul><li class="list-group-item selected" data-id="' + FileID + '" onclick="setEditorContent(\'' + FileID + '\', this)"><a href="#' + FileID + '">' + FileName + '</a></li></ul></div>');
+        $(".project:last").append('<li class="list-group-item project"><a data-toggle="collapse" href="#' + ProjectID + '">' + ProjectName + '</a></li> <div id="' + ProjectID + '" class="panel-collapse collapse"><ul><li class="list-group-item selected" data-id="' + FileID + '" onclick="setEditorContent(\'' + FileID + '\', this)"><a href="#' + FileID + '">' + FileName + '</a></li></ul></div>');
         /* 
         $("ul:last").css({ backgroundColor: "yellow", fontWeight: "bolder" });
         $("li:last").css({ backgroundColor: "yellow", fontWeight: "bolder" });
