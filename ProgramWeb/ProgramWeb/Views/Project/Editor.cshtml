@@ -88,6 +88,8 @@
                 </div>
             </div>
         </div>
+        <div id="userChanging" style="display:none">notandi er að breyta kóða</div>
+        
     </aside>
 </section>
 
@@ -149,7 +151,11 @@
             }
             console.log(obj);
             codeHub.server.onChange(obj, documentID);
+            document.getElementById("userChanging").style.dispay = "block";
         });
     });
+
+    
+    
 
 </script>
