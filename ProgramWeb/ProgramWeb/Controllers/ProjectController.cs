@@ -110,28 +110,25 @@ namespace ProgramWeb.Controllers
             return View(fileToSave);
         }
 
-        [HttpGet]
-        public ActionResult RemoveFile()
-        {
-            var projectService = new ProjectService(null);
-            //hardcoded value for open file
-            var fileModel = projectService.OpenFile(0);
-            return View(fileModel);
-        }
+        //[HttpGet]
+        //public ActionResult RemoveFile()
+        //{
+        //    var projectService = new ProjectService(null);
+        //    //hardcoded value for open file
+        //    var fileModel = projectService.OpenFile(0);
+        //    return View(fileModel);
+        //}
         [HttpPost]
-        public ActionResult RemoveFile(Files fileFromView)
+        public ActionResult RemoveFile(int? FileID)
         {
-            var projectService = new ProjectService(null);
-            var fileToRm = new Files();
-            fileToRm.ID = fileFromView.ID;
-            //fileToRm.FileType = fileFromView.FileType;
-            //fileToRm.Name = fileFromView.Name;
-            //fileToRm.Content = fileFromView.Content;
-            if (projectService.RemoveFile(fileToRm.ID))
+            if (FileID.HasValue)
             {
-                return RedirectToRoute("Index", "Home");
+                if (projectService.RemoveFile(FileID.Value))
+                {
+                    return RedirectToAction("Editor", "Project");
+                }
             }
-            return View(fileToRm);
+            return RedirectToAction("Editor", "Project"); // TODO Errorstate
         }
 		[HttpGet]
 		public ActionResult UpdateProjectInfo(int id)

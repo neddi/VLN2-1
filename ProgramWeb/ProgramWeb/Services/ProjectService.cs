@@ -73,11 +73,10 @@ namespace ProgramWeb.Services
                 var userDb = new IdentityDbContext();
                 var invitedUser = userDb.Users
                     .Select(u => u.Id == userId);
-                //hardcoded project ID
                 var userInProject = new UserProjects();
                 userInProject.UserId = userId;
                 userInProject.IsAdmin = false;
-                userInProject.ProjectId = projectId; // TODO add "currentProject / activeProject"
+                userInProject.ProjectId = projectId; 
                 _db.UserProjects.Add(userInProject);
                 _db.SaveChanges();
 
@@ -287,14 +286,13 @@ namespace ProgramWeb.Services
 			}
             viewModel.OwnedProjectList = OwnProjects;
 
-            List<ProjectViewModel> InvProjects = new List<ProjectViewModel>();
+            HashSet<ProjectViewModel> InvProjects = new HashSet<ProjectViewModel>();
             foreach (var item in allInvitedProjects)
             {
                 ProjectViewModel tmpProject = new ProjectViewModel();
-
                     tmpProject = GetProject(item.Id);
                     InvProjects.Add(tmpProject);
-                    
+    
             }
 
             viewModel.InvitedProjectList = InvProjects;
@@ -407,7 +405,8 @@ namespace ProgramWeb.Services
         {
             if (id != null)
             {
-                var newFile = _db.Files.Find(id);
+                var newID = Convert.ToInt32(id);
+                var newFile = _db.Files.Find(newID);
                 //Files newFile = new Files();
                 //newFile.Name = model.Name;
                 newFile.Content = content;

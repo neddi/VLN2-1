@@ -15,6 +15,6 @@ namespace ProgramWeb.Models.ViewModel
 		[DataType(DataType.Text)]
 		public string FullName { get; set; }
 		public List<ProjectViewModel> OwnedProjectList { get; set; }
-        public List<ProjectViewModel> InvitedProjectList { get; set; }
+        public HashSet<ProjectViewModel> InvitedProjectList { get; set; }
     }
 }
