@@ -17,6 +17,7 @@ namespace ProgramWeb.Controllers
 		private ProjectService service = new ProjectService(null);
 		private ProjectService projectService;
 		private UserService userService;
+		private int currentFileID;
 
 		// Action for Viewing Multiple tables
 		public ActionResult ProjectInfo(int infoId)
@@ -222,20 +223,19 @@ namespace ProgramWeb.Controllers
 
 			return View(model);
 		}
-
+		
 		public ActionResult Editor()
 		{
 			ViewBag.Message = "Editor";
 
+			ViewBag.DocumentID = currentFileID;
+
 			return View();
 		}
 
-		public ActionResult Editor(int fileID)
+		public ActionResult bleh(int? id )
 		{
-			ViewBag.Message = "Editor";
-			//fyrir signalR
-			ViewBag.DocumentID = fileID;
-
+			currentFileID = id.Value;
 			return View();
 		}
 

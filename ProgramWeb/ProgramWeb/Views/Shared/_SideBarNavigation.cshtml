@@ -93,6 +93,8 @@
 
     function setEditorContent(value, currentObject) {
         setSelected(currentObject);
+        var fileID = $(".selected").attr('data-id');
+        GetFileIDAjax(fileID);
         GetFileAjax(value).done(function (response) {
             editor.getSession().setValue(response.Content)
             var fileID = $(".selected").attr('data-id');
@@ -102,6 +104,14 @@
     function GetFileAjax(value) {
         return $.ajax({
             url: '@Url.Action("GetFileForEditor", "Project")',
+            data: { id: value },
+            type: "POST"
+        });
+    };
+
+    function GetFileIDAjax(value) {
+        return $.ajax({
+            url: '@Url.Action("bleh", "Project")',
             data: { id: value },
             type: "POST"
         });
